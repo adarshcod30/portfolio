@@ -65,6 +65,16 @@ export const COMPETITIONS = [
     highlight: true,
   },
   {
+    name: "AWS AI for Bharat Hackathon",
+    kind: "Amazon Web Services",
+    when: "2026",
+    result: "Reached the final rounds",
+    detail:
+      "Took VaidyaMitra through to the closing stages: a privacy-first clinical assistant where every identifier is masked before it reaches the model, running on Amazon Bedrock in ten Indian languages.",
+    links: [{ label: "VaidyaMitra", url: "https://github.com/VaidyaMitra/VaidyaMitra" }],
+    highlight: false,
+  },
+  {
     name: "Hacksplosion 2026",
     kind: "Deloitte India",
     when: "2026",
@@ -115,12 +125,12 @@ export const MUN = [
 export const LEADERSHIP = [
   {
     org: "Debate Society, LNMIIT Jaipur",
-    dates: "Sep 2023 – Apr 2026",
+    dates: "Sep 2023 – May 2026",
     role: "Member, then Senior Member, then Coordinator",
     detail:
       "Led a 150+ member society through debates, discussions and inter-college competitions, and progressed from Member to Coordinator over three years. The society runs the Model United Nations, so the MUN secretariat work sits under this.",
     roles: [
-      { title: "Coordinator", dates: "May 2025 – Apr 2026" },
+      { title: "Coordinator", dates: "Apr 2025 – May 2026" },
       { title: "Senior Member", dates: "Aug 2024 – Apr 2025" },
       { title: "Member", dates: "Sep 2023 – Aug 2024" },
     ],
@@ -142,10 +152,11 @@ export const LEADERSHIP = [
 ];
 
 export const INTERESTS = [
+  { title: "Tech", detail: "Reading, building and breaking things. 32 public repositories, most deployed and free to use, with the failures published beside the results." },
   { title: "Photography", detail: "Two years with Imagination, the campus photography club. Mostly events and people." },
-  { title: "Debating and MUN", detail: "Three years in the Debate Society, from delegate to running the conference." },
-  { title: "Geopolitics and public policy", detail: "The reading behind the debating, and the reason most of what I build points at a public problem." },
-  { title: "Open source", detail: "32 public repositories, most deployed and free to use, with the failures published beside the results." },
+  { title: "Debating", detail: "Three years in the Debate Society, from delegate to Coordinator, and five Model United Nations conferences on both sides of the table." },
+  { title: "Geopolitics", detail: "The reading behind the debating, and the reason most of what I build points at a public problem." },
+  { title: "Kaggle", detail: "Competing on real datasets. Currently in Kaggriculture." },
 ];
 
 // TODO(adarsh): handles marked "" are the ones I could not verify. Fill these in and rebuild.

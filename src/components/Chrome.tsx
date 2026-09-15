@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { NAV, IDENTITY } from "@/content/site";
+import { NAV, IDENTITY, CONTACT } from "@/content/site";
+import { EASE, Magnetic } from "./motion";
 
 function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   useEffect(() => {
-    const el = document.documentElement;
-    setTheme((el.getAttribute("data-theme") as "light" | "dark") ?? "light");
+    setTheme((document.documentElement.getAttribute("data-theme") as "light" | "dark") ?? "light");
   }, []);
   const toggle = () => {
     const next = theme === "light" ? "dark" : "light";
@@ -17,16 +18,15 @@ function useTheme() {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      /* private window, or site data blocked: the toggle still works for this visit */
+      /* private window: the toggle still works for this visit */
     }
     setTheme(next);
   };
   return { theme, toggle };
 }
 
-/** Local time in Jaipur, so a recruiter abroad knows whether they are about to call at 3am. */
 function LocalTime() {
-  const [now, setNow] = useState<string>("");
+  const [now, setNow] = useState("");
   useEffect(() => {
     const tick = () =>
       setNow(
@@ -37,133 +37,173 @@ function LocalTime() {
         }).format(new Date()),
       );
     tick();
-    const id = setInterval(tick, 30_000);
+    const id = setInterval(tick, 20_000);
     return () => clearInterval(id);
   }, []);
-  if (!now) return null;
+  return <span className="tabular-nums">{now || "--:--"}</span>;
+}
+
+function ThemeButton() {
+  const { theme, toggle } = useTheme();
   return (
-    <span className="tabular-nums">
-      {now} <span className="text-muted">IST</span>
-    </span>
+    <button
+      onClick={toggle}
+      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+      className="grid h-8 w-8 place-items-center rounded-full border border-line bg-surface/70 text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent"
+    >
+      <span className="text-[11px] leading-none">{theme === "light" ? "◐" : "◑"}</span>
+    </button>
   );
 }
 
 export function StatusStrip() {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] tracking-wide text-ink2">
-      <span className="flex items-center gap-1.5">
+    <div className="eyebrow flex flex-wrap items-center gap-x-4 gap-y-1">
+      <span className="flex items-center gap-1.5 text-accent">
         <span className="relative flex h-1.5 w-1.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
         </span>
         {IDENTITY.available}
       </span>
-      <span className="text-line">/</span>
+      <span className="opacity-40">/</span>
       <span>{IDENTITY.location}</span>
-      <span className="text-line">/</span>
+      <span className="opacity-40">/</span>
       <LocalTime />
+      <span className="opacity-60">IST</span>
     </div>
   );
 }
 
-export function SideRail() {
+/** Corner HUD: identity top left, routes top right, socials down the left edge. */
+export function Hud() {
   const path = usePathname();
-  const { theme, toggle } = useTheme();
-  return (
-    <nav
-      aria-label="Primary"
-      className="fixed left-0 top-0 z-40 hidden h-full w-14 flex-col items-center justify-between border-r border-line bg-surface/70 py-6 backdrop-blur lg:flex"
-    >
-      <Link
-        href="/"
-        className="text-lg font-semibold tracking-tight text-accent"
-        aria-label="Home"
-      >
-        A<span className="text-ink">D</span>
-      </Link>
-
-      <ul className="flex flex-col items-center gap-7">
-        {NAV.filter((n) => n.href !== "/").map((n) => {
-          const active = path === n.href || path.startsWith(n.href + "/");
-          return (
-            <li key={n.href}>
-              <Link
-                href={n.href}
-                aria-current={active ? "page" : undefined}
-                className={`[writing-mode:vertical-rl] rotate-180 text-[11px] uppercase tracking-[0.18em] transition-colors ${
-                  active ? "text-accent" : "text-muted hover:text-ink"
-                }`}
-              >
-                {n.label}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-
-      <button
-        onClick={toggle}
-        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-        className="rounded-md border border-line p-2 text-muted transition-colors hover:border-accent hover:text-accent"
-      >
-        {theme === "light" ? (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-          </svg>
-        ) : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19" />
-          </svg>
-        )}
-      </button>
-    </nav>
-  );
-}
-
-export function TopBar() {
-  const path = usePathname();
-  const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
   useEffect(() => setOpen(false), [path]);
+
+  const socials = CONTACT.filter((c) => c.href && !c.primary).slice(0, 5);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-surface/85 backdrop-blur lg:hidden">
-      <div className="flex items-center justify-between px-5 py-3">
-        <Link href="/" className="font-semibold tracking-tight text-accent">
-          A<span className="text-ink">D</span>
+    <>
+      {/* scrim so the fixed HUD stays readable over whatever scrolls under it */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-28 bg-gradient-to-b from-bg via-bg/85 to-transparent"
+      />
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 py-5 sm:px-8 sm:py-7">
+        <Link
+          href="/"
+          className="pointer-events-auto group"
+          aria-label={`${IDENTITY.name}, home`}
+        >
+          <span className="font-display block text-[15px] leading-none tracking-tight">
+            Adarsh<span className="text-accent">.</span>
+          </span>
+          <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggle}
-            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-            className="rounded-md border border-line p-2 text-muted"
-          >
-            {theme === "light" ? "☾" : "☀"}
-          </button>
+
+        <div className="pointer-events-auto flex items-start gap-3 sm:gap-5">
+          <nav aria-label="Primary" className="hidden flex-col items-end gap-1 md:flex">
+            {NAV.filter((n) => n.href !== "/").map((n) => {
+              const active = path === n.href || path.startsWith(n.href + "/");
+              return (
+                <Link
+                  key={n.href}
+                  href={n.href}
+                  aria-current={active ? "page" : undefined}
+                  className={`eyebrow transition-colors ${
+                    active ? "!text-accent" : "hover:!text-ink"
+                  }`}
+                >
+                  {n.label}
+                </Link>
+              );
+            })}
+          </nav>
+          <ThemeButton />
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label="Menu"
-            className="rounded-md border border-line px-3 py-1.5 text-xs uppercase tracking-widest text-ink"
+            className="eyebrow rounded-full border border-line bg-surface/70 px-3 py-2 backdrop-blur md:hidden"
           >
             {open ? "Close" : "Menu"}
           </button>
         </div>
       </div>
-      {open && (
-        <ul className="border-t border-line px-5 pb-4 pt-2">
-          {NAV.map((n) => (
-            <li key={n.href}>
-              <Link
-                href={n.href}
-                className="block py-2 text-sm text-ink2 hover:text-accent"
+
+      {/* social rail, pinned bottom-left like the reference sites */}
+      <ul className="pointer-events-none fixed bottom-6 left-5 z-50 hidden flex-col gap-3 lg:flex">
+        {socials.map((s) => (
+          <li key={s.id} className="pointer-events-auto">
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="eyebrow block origin-left rotate-180 [writing-mode:vertical-rl] transition-colors hover:!text-accent"
+            >
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.65, ease: EASE }}
+            className="fixed inset-0 z-40 flex flex-col justify-center gap-1 bg-bg px-6 md:hidden"
+          >
+            {NAV.map((n, i) => (
+              <motion.div
+                key={n.href}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.14 + i * 0.05, duration: 0.6, ease: EASE }}
               >
-                {n.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </header>
+                <Link
+                  href={n.href}
+                  className="font-display block py-1.5 text-[11vw] leading-[1] tracking-tight hover:text-accent"
+                >
+                  {n.label}
+                </Link>
+              </motion.div>
+            ))}
+            <div className="mt-10">
+              <StatusStrip />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/** Big pill link used for the primary calls to action. */
+export function Cta({
+  href,
+  children,
+  solid = false,
+}: {
+  href: string;
+  children: React.ReactNode;
+  solid?: boolean;
+}) {
+  const cls = solid
+    ? "bg-ink text-bg hover:bg-accent"
+    : "border border-line text-ink hover:border-accent hover:text-accent";
+  return (
+    <Magnetic>
+      <Link
+        href={href}
+        className={`group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors ${cls}`}
+      >
+        {children}
+        <span className="arrow">↗</span>
+      </Link>
+    </Magnetic>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal, SplitLine } from "./motion";
 import type { Project } from "@/content/projects.generated";
 
 export function Section({
@@ -15,14 +16,12 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className="px-6 py-16 sm:px-10 sm:py-20">
-      <div className="mx-auto max-w-5xl">
+    <section id={id} className="px-5 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-6xl">
         {eyebrow && (
-          <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-            {eyebrow}
-          </p>
+          <p className="eyebrow mb-3">{eyebrow}</p>
         )}
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h2>
+        <h2 className="font-display text-3xl leading-tight tracking-tight sm:text-5xl">{title}</h2>
         {blurb && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{blurb}</p>}
         <div className="mt-8">{children}</div>
       </div>
@@ -40,11 +39,17 @@ export function PageHeader({
   blurb: string;
 }) {
   return (
-    <header className="border-b border-line px-6 pb-12 pt-16 sm:px-10 sm:pt-24">
-      <div className="mx-auto max-w-5xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">{eyebrow}</p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink2 sm:text-base">{blurb}</p>
+    <header className="border-b border-line px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
+      <div className="mx-auto max-w-6xl">
+        <Reveal>
+          <p className="eyebrow">{eyebrow}</p>
+        </Reveal>
+        <h1 className="font-display mt-4 text-[13vw] leading-[0.86] tracking-[-0.05em] sm:text-[7vw]">
+          <SplitLine text={title} delay={0.1} charDelay={0.02} />
+        </h1>
+        <Reveal delay={0.35}>
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink2 sm:text-base">{blurb}</p>
+        </Reveal>
       </div>
     </header>
   );
