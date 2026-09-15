@@ -127,6 +127,9 @@ export function SectionMarker() {
         if (r.bottom < 0 || r.top > window.innerHeight) continue;
         const d = Math.abs(r.top + r.height / 2 - mid);
         const name = n.dataset.section || "";
+        // the hero needs no label: the wordmark and the headline already say it,
+        // and the chip collided with the stats row
+        if (name === "Home") continue;
         if (!best || d < best.d) best = { d, name };
       }
       setLabel(best?.name ?? "");

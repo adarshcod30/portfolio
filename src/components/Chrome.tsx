@@ -96,8 +96,8 @@ export function Hud() {
           className="pointer-events-auto group"
           aria-label={`${IDENTITY.name}, home`}
         >
-          <span className="font-display block text-[15px] leading-none tracking-tight">
-            Adarsh<span className="text-accent">.</span>
+          <span className="font-display block whitespace-nowrap text-[15px] leading-none tracking-tight sm:text-[17px]">
+            Adarsh Dwivedi<span className="text-accent">.</span>
           </span>
           <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>

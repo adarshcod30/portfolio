@@ -54,7 +54,7 @@ export default function Home() {
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
             background:
-              "radial-gradient(58% 42% at 50% 52%, color-mix(in oklab, var(--bg) 78%, transparent), transparent 72%)",
+              "radial-gradient(62% 48% at 50% 56%, color-mix(in oklab, var(--bg) 92%, transparent), color-mix(in oklab, var(--bg) 55%, transparent) 55%, transparent 78%)",
           }}
         />
 
@@ -67,10 +67,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-6xl text-center">
-          <Reveal delay={0.08}>
-            <p className="eyebrow">{IDENTITY.name}</p>
-          </Reveal>
-          <h1 className="font-display mt-4 text-[15vw] leading-[0.86] tracking-[-0.05em] sm:text-[9vw]">
+          <h1 className="font-display text-[15vw] leading-[0.86] tracking-[-0.05em] sm:text-[9vw]">
             <SplitLine text="AI & Product" delay={0.2} />
             <SplitLine text="Engineer" delay={0.4} className="text-accent" />
           </h1>
