@@ -8,9 +8,9 @@ import { NAV, IDENTITY, CONTACT } from "@/content/site";
 import { EASE, Magnetic } from "./motion";
 
 function useTheme() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   useEffect(() => {
-    setTheme((document.documentElement.getAttribute("data-theme") as "light" | "dark") ?? "light");
+    setTheme((document.documentElement.getAttribute("data-theme") as "light" | "dark") ?? "dark");
   }, []);
   const toggle = () => {
     const next = theme === "light" ? "dark" : "light";

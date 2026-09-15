@@ -13,6 +13,7 @@ export default function Leadership() {
   return (
     <>
       <PageHeader
+        index="04"
         eyebrow="Leadership"
         title="The part that was not code"
         blurb="Three years in the Debate Society, from member to Coordinator, and the secretariat that runs the LNMIIT Model United Nations."

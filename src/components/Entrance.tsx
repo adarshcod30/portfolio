@@ -58,11 +58,11 @@ export function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[90] flex flex-col justify-between bg-ink px-6 py-6 text-bg sm:px-10 sm:py-8"
+          className="curtain fixed inset-0 z-[90] flex flex-col justify-between px-6 py-6 sm:px-10 sm:py-8"
           exit={{ y: "-100%" }}
           transition={{ duration: 1.05, ease: EASE }}
         >
-          <div className="flex items-start justify-between font-mono text-[11px] uppercase tracking-[0.2em] opacity-70">
+          <div className="flex items-start justify-between font-mono text-[11px] uppercase tracking-[0.2em] opacity-75">
             <span>Adarsh Dwivedi</span>
             <span>Jaipur, India</span>
           </div>
@@ -76,9 +76,9 @@ export function Preloader() {
             </p>
           </div>
 
-          <div className="h-px w-full bg-bg/25">
+          <div className="curtain--rule h-px w-full">
             <motion.div
-              className="h-full bg-bg"
+              className="curtain--bar h-full"
               style={{ width: `${n}%` }}
               transition={{ ease: "linear" }}
             />

@@ -8,6 +8,7 @@ export default function About() {
   return (
     <>
       <PageHeader
+        index="01"
         eyebrow="About"
         title="Adarsh Dwivedi"
         blurb={IDENTITY.tagline}

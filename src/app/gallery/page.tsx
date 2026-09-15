@@ -30,6 +30,7 @@ export default function Gallery() {
   return (
     <>
       <PageHeader
+        index="05"
         eyebrow="Gallery"
         title="Through a viewfinder"
         blurb="Two years shooting for Imagination, the campus photography club, and a conference I helped run. The engineering pages are the argument; this is the other half of how I spent three years."

@@ -12,6 +12,7 @@ export default function Competitions() {
   return (
     <>
       <PageHeader
+        index="03"
         eyebrow="Competitions"
         title="Measured against other people"
         blurb="Ten and counting. Results are stated as they actually happened, which means Level 2 rather than finalist, and participant where that is the truth."

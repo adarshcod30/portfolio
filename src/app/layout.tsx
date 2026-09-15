@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Light is the design, so light is the default. The system preference does not
-// override it; only a visitor who has actually used the toggle gets dark.
-const THEME_BOOT = `(function(){var t='light';try{t=localStorage.getItem('theme')||'light';}catch(e){}document.documentElement.setAttribute('data-theme',t);})();`;
+// Dark is the design now, so dark is the default. Light stays as a toggle for
+// anyone who wants it; the system preference does not decide.
+const THEME_BOOT = `(function(){var t='dark';try{t=localStorage.getItem('theme')||'dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

@@ -11,10 +11,19 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <header className="px-5 pb-14 pt-32 sm:px-8 sm:pt-40">
-        <div className="mx-auto max-w-6xl">
+      <header data-section="Work" className="relative overflow-hidden px-5 pb-14 pt-32 sm:px-8 sm:pt-40">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full opacity-[0.16] blur-3xl"
+          style={{ background: "radial-gradient(circle, var(--cyan), transparent 68%)" }}
+        />
+        <div className="relative mx-auto max-w-6xl">
           <Reveal>
-            <p className="eyebrow">Work</p>
+            <p className="flex items-center gap-3">
+              <span className="idx">02</span>
+              <span className="h-px w-8 bg-accent" aria-hidden />
+              <span className="eyebrow !text-accent">Work</span>
+            </p>
           </Reveal>
           <h1 className="font-display mt-4 text-[15vw] leading-[0.86] tracking-[-0.05em] sm:text-[8vw]">
             <Reveal delay={0.06}>

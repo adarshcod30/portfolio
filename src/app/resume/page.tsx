@@ -12,6 +12,7 @@ export default function ResumePage() {
   return (
     <>
       <PageHeader
+        index="06"
         eyebrow="Resume"
         title="Fourteen resumes, one set of facts"
         blurb="Every one is a single page, parses cleanly in an applicant tracking system, and is generated from the same source file this site is built from. Pick the role you are hiring for."

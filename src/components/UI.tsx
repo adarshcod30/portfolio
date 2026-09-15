@@ -16,7 +16,7 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} className="px-5 py-20 sm:px-8 sm:py-28">
+    <section id={id} data-section={eyebrow ?? title} className="px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-6xl">
         {eyebrow && (
           <Reveal>
@@ -43,18 +43,35 @@ export function PageHeader({
   eyebrow,
   title,
   blurb,
+  index,
 }: {
   eyebrow: string;
   title: string;
   blurb: string;
+  index?: string;
 }) {
   return (
-    <header className="border-b border-line px-5 pb-16 pt-32 sm:px-8 sm:pt-40">
-      <div className="mx-auto max-w-6xl">
+    // data-section drives the fixed marker, so a reader always knows which
+    // part of the site they are in
+    <header
+      data-section={eyebrow}
+      className="relative overflow-hidden border-b border-line px-5 pb-14 pt-32 sm:px-8 sm:pt-40"
+    >
+      {/* a wash unique to each page, so the tabs do not all feel identical */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full opacity-[0.16] blur-3xl"
+        style={{ background: "radial-gradient(circle, var(--cyan), transparent 68%)" }}
+      />
+      <div className="relative mx-auto max-w-6xl">
         <Reveal>
-          <p className="eyebrow">{eyebrow}</p>
+          <p className="flex items-center gap-3">
+            {index && <span className="idx">{index}</span>}
+            <span className="h-px w-8 bg-accent" aria-hidden />
+            <span className="eyebrow !text-accent">{eyebrow}</span>
+          </p>
         </Reveal>
-        <h1 className="font-display mt-4 text-[13vw] leading-[0.86] tracking-[-0.05em] sm:text-[7vw]">
+        <h1 className="font-display mt-5 text-[12vw] leading-[0.88] tracking-[-0.05em] sm:text-[6vw]">
           <SplitLine text={title} delay={0.1} charDelay={0.02} />
         </h1>
         <Reveal delay={0.35}>

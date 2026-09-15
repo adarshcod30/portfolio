@@ -7,13 +7,13 @@ export default function Footer() {
   const direct = CONTACT.filter((c) => c.primary && c.href && !MARK[c.id]);
 
   return (
-    <footer className="slab-invert">
+    <footer data-section="Contact" className="slab-invert">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <p className="eyebrow">Contact</p>
         </Reveal>
 
-        <h2 className="font-display mt-4 text-[11vw] leading-[0.88] tracking-[-0.045em] sm:text-[5vw]">
+        <h2 className="font-display mt-4 text-[9vw] leading-[0.9] tracking-[-0.04em] sm:text-[3.6vw]">
           <SplitLine text="Let's talk" delay={0.05} />
         </h2>
 
@@ -33,10 +33,10 @@ export default function Footer() {
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-4"
+                  className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-3.5"
                 >
                   <span className="eyebrow">{c.label}</span>
-                  <span className="font-display text-lg tracking-tight transition-colors group-hover:text-accent sm:text-2xl">
+                  <span className="font-display text-sm font-medium tracking-tight transition-colors group-hover:text-accent sm:text-base">
                     {c.value} <span className="arrow text-[0.6em]">↗</span>
                   </span>
                 </a>

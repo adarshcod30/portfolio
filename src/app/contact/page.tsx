@@ -15,6 +15,7 @@ export default function Contact() {
   return (
     <>
       <PageHeader
+        index="07"
         eyebrow="Contact"
         title="Reach me"
         blurb={`${IDENTITY.available}. Based in ${IDENTITY.location}, and happy to talk across any timezone.`}
