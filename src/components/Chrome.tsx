@@ -101,7 +101,7 @@ export function Hud() {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 py-5 sm:px-8 sm:py-7">
         <Link
           href="/"
-          className="hud-panel pointer-events-auto group !py-2.5 !px-3.5"
+          className="pointer-events-auto group"
           aria-label={`${IDENTITY.name}, home`}
         >
           <span className="font-display block whitespace-nowrap text-[15px] leading-none tracking-tight sm:text-[17px]">
@@ -110,7 +110,7 @@ export function Hud() {
           <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>
 
-        <div className="hud-panel pointer-events-auto flex flex-col items-end gap-2.5">
+        <div className="pointer-events-auto flex flex-col items-end gap-3">
           {/* the theme control sits above the links and names the current theme */}
           <ThemeButton />
 

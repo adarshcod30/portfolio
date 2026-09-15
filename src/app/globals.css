@@ -545,17 +545,6 @@ body {
 .chev:hover .chev__arrow { transform: translate(3px, -3px); }
 
 
-/* The HUD floats over sections of both tones, and the closing slab is light in
-   dark mode, which made light nav labels vanish. A translucent panel in the page
-   colour keeps the column readable over anything it passes. */
-.hud-panel {
-  background: color-mix(in oklab, var(--bg) 78%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
-  border-radius: 20px;
-  padding: 10px;
-}
 
 
 /* The fixed HUD column occupies the top right of every page. Content that would
