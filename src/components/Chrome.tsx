@@ -78,14 +78,31 @@ export function StatusStrip() {
   );
 }
 
-/** Corner HUD: identity top left, routes top right, socials down the left edge. */
+/**
+ * Corner HUD.
+ *
+ * Only two things are pinned: the wordmark, and a chip naming the route you are
+ * on. The full list of routes sits at the top of the page and scrolls away like
+ * any other content, so it is not permanently occupying a corner. The chip fades
+ * in once the list has gone, so the current route is never shown twice.
+ */
 export function Hud() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const [past, setPast] = useState(false);
   useEffect(() => setOpen(false), [path]);
 
-  // GitHub is flagged primary for the contact page, but it belongs on the rail
-  // more than anything else does, so pick these explicitly
+  useEffect(() => {
+    const onScroll = () => setPast(window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isActive = (href: string) =>
+    href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+  const current = NAV.find((n) => isActive(n.href));
+
   const RAIL = ["github", "hackerrank", "hackerearth", "kaggle", "pypi", "huggingface"];
   const socials = RAIL.map((id) => CONTACT.find((c) => c.id === id)).filter(
     (c): c is (typeof CONTACT)[number] => !!c?.href,
@@ -93,54 +110,59 @@ export function Hud() {
 
   return (
     <>
-      {/* scrim so the fixed HUD stays readable over whatever scrolls under it */}
       <div
         aria-hidden
         className="pointer-events-none fixed inset-x-0 top-0 z-30 h-40 bg-gradient-to-b from-bg via-bg/80 to-transparent"
       />
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 py-5 sm:px-8 sm:py-7">
-        <Link
-          href="/"
-          className="pointer-events-auto group"
-          aria-label={`${IDENTITY.name}, home`}
-        >
+
+      {/* pinned: the name */}
+      <div className="fixed left-5 top-5 z-50 sm:left-8 sm:top-7">
+        <Link href="/" className="group block" aria-label={`${IDENTITY.name}, home`}>
           <span className="font-display block whitespace-nowrap text-[15px] leading-none tracking-tight sm:text-[17px]">
             Adarsh Dwivedi<span className="text-accent">.</span>
           </span>
           <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>
+      </div>
 
-        <div className="pointer-events-auto flex flex-col items-end gap-3">
-          {/* the theme control sits above the links and names the current theme */}
-          <ThemeButton />
+      {/* pinned: where you are, once the list has scrolled off */}
+      <div
+        className={`fixed right-5 top-5 z-50 transition-opacity duration-500 sm:right-8 sm:top-7 ${
+          past && current ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        {current && (
+          <Link href={current.href} aria-current="page" className="navlink">
+            {current.label}
+          </Link>
+        )}
+      </div>
 
-          {/* labels share a right edge; only the open route is boxed */}
-          <nav aria-label="Primary" className="hidden flex-col items-end gap-0.5 text-right md:flex">
-            {NAV.map((n) => {
-              const active =
-                n.href === "/" ? path === "/" : path === n.href || path.startsWith(n.href + "/");
-              return (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  aria-current={active ? "page" : undefined}
-                  className="navlink"
-                >
-                  {n.label}
-                </Link>
-              );
-            })}
-          </nav>
+      {/* in the page, so it scrolls away: theme control and the full list */}
+      <div className="absolute right-5 top-5 z-40 flex flex-col items-end gap-3 sm:right-8 sm:top-7">
+        <ThemeButton />
 
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-label="Menu"
-            className="eyebrow rounded-full border border-line bg-surface/70 px-3.5 py-2 backdrop-blur md:hidden"
-          >
-            {open ? "Close" : "Menu"}
-          </button>
-        </div>
+        <nav aria-label="Primary" className="hidden flex-col items-end gap-0.5 text-right md:flex">
+          {NAV.map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              aria-current={isActive(n.href) ? "page" : undefined}
+              className="navlink"
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+
+        <button
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-label="Menu"
+          className="eyebrow rounded-full border border-line bg-surface/70 px-3.5 py-2 backdrop-blur md:hidden"
+        >
+          {open ? "Close" : "Menu"}
+        </button>
       </div>
 
       {/* social rail, pinned bottom-left like the reference sites */}

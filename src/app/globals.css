@@ -75,6 +75,7 @@ html {
 html[data-theme="dark"] { color-scheme: dark; }
 
 body {
+  position: relative;
   background: var(--bg);
   background-image:
     radial-gradient(900px 620px at 78% -8%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%),
