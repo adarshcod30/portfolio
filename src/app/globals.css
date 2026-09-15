@@ -478,3 +478,14 @@ body {
 }
 .curtain--rule { background: rgb(234 242 255 / 0.22); }
 .curtain--bar { background: #eaf2ff; }
+
+
+/* Type that sits directly on the hero object. A shadow in the page colour keeps
+   it readable over lit facets without dimming the object behind it, which a
+   scrim or a pill would. */
+.on-dome {
+  text-shadow:
+    0 0 10px var(--bg),
+    0 0 22px var(--bg),
+    0 1px 2px var(--bg);
+}

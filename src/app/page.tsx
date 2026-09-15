@@ -53,14 +53,22 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
-            background:
+            background: [
+              // centre: keeps the headline and tagline off the lit facets
               "radial-gradient(62% 48% at 50% 56%, color-mix(in oklab, var(--bg) 92%, transparent), color-mix(in oklab, var(--bg) 55%, transparent) 55%, transparent 78%)",
+              // top-left corner: the status block sits here and the dome is bright
+              // behind it, which swallowed the text entirely
+              "radial-gradient(44% 34% at 0% 12%, var(--bg), color-mix(in oklab, var(--bg) 80%, transparent) 58%, transparent 84%)",
+            ].join(", "),
           }}
         />
 
-        <div className="relative z-10 mx-auto w-full max-w-6xl">
+        {/* flush to the left edge of the section, not centred in the content column.
+            z-[35] puts it above the fixed HUD scrim (z-30), which was painting over
+            it and reading as if the text were being clipped. */}
+        <div className="relative z-[35] w-full">
           <Reveal>
-            <span className="inline-block rounded-full border border-line bg-bg/70 px-4 py-2 backdrop-blur">
+            <span className="on-dome inline-block">
               <StatusStrip />
             </span>
           </Reveal>

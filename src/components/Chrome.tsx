@@ -49,28 +49,31 @@ function ThemeButton() {
     <button
       onClick={toggle}
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-      className="grid h-8 w-8 place-items-center rounded-full border border-line bg-surface/70 text-muted backdrop-blur transition-colors hover:border-accent hover:text-accent"
+      className="group flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1.5 pl-2 pr-3.5 backdrop-blur transition-colors hover:border-accent"
     >
-      <span className="text-[11px] leading-none">{theme === "light" ? "◐" : "◑"}</span>
+      <span className="grid h-5 w-5 place-items-center rounded-full bg-accentsoft text-[10px] leading-none text-accent">
+        {theme === "light" ? "◐" : "◑"}
+      </span>
+      <span className="eyebrow !text-ink2 transition-colors group-hover:!text-accent">
+        {theme === "light" ? "Light" : "Dark"}
+      </span>
     </button>
   );
 }
 
 export function StatusStrip() {
   return (
-    <div className="eyebrow flex flex-wrap items-center gap-x-4 gap-y-1">
-      <span className="flex items-center gap-1.5 text-accent">
+    <div className="eyebrow">
+      <span className="flex items-center gap-2 !text-accent">
         <span className="relative flex h-1.5 w-1.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
         </span>
         {IDENTITY.available}
       </span>
-      <span className="opacity-40">/</span>
-      <span>{IDENTITY.location}</span>
-      <span className="opacity-40">/</span>
-      <LocalTime />
-      <span className="opacity-60">IST</span>
+      <span className="mt-2 block">
+        {IDENTITY.location} <span className="opacity-40">/</span> <LocalTime /> IST
+      </span>
     </div>
   );
 }
@@ -88,7 +91,7 @@ export function Hud() {
       {/* scrim so the fixed HUD stays readable over whatever scrolls under it */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-40 h-28 bg-gradient-to-b from-bg via-bg/85 to-transparent"
+        className="pointer-events-none fixed inset-x-0 top-0 z-30 h-40 bg-gradient-to-b from-bg via-bg/80 to-transparent"
       />
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 py-5 sm:px-8 sm:py-7">
         <Link
@@ -102,8 +105,11 @@ export function Hud() {
           <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>
 
-        <div className="pointer-events-auto flex items-start gap-3 sm:gap-5">
-          <nav aria-label="Primary" className="hidden flex-col items-end gap-1 md:flex">
+        <div className="pointer-events-auto flex flex-col items-end gap-3">
+          {/* the theme control sits above the links and names the current theme */}
+          <ThemeButton />
+
+          <nav aria-label="Primary" className="hidden flex-col items-end gap-1.5 md:flex">
             {NAV.filter((n) => n.href !== "/").map((n) => {
               const active = path === n.href || path.startsWith(n.href + "/");
               return (
@@ -111,8 +117,11 @@ export function Hud() {
                   key={n.href}
                   href={n.href}
                   aria-current={active ? "page" : undefined}
-                  className={`eyebrow transition-colors ${
-                    active ? "!text-accent" : "hover:!text-ink"
+                  // a bordered pill, so it reads as something you can press
+                  className={`eyebrow rounded-full border px-3.5 py-1.5 backdrop-blur transition-colors ${
+                    active
+                      ? "border-accent bg-accentsoft !text-accent"
+                      : "border-line bg-surface/55 !text-ink2 hover:border-accent hover:bg-accentsoft hover:!text-accent"
                   }`}
                 >
                   {n.label}
@@ -120,12 +129,12 @@ export function Hud() {
               );
             })}
           </nav>
-          <ThemeButton />
+
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label="Menu"
-            className="eyebrow rounded-full border border-line bg-surface/70 px-3 py-2 backdrop-blur md:hidden"
+            className="eyebrow rounded-full border border-line bg-surface/70 px-3.5 py-2 backdrop-blur md:hidden"
           >
             {open ? "Close" : "Menu"}
           </button>
