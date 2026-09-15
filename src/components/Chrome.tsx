@@ -165,17 +165,12 @@ export function Hud() {
         </button>
       </div>
 
-      {/* social rail, pinned bottom-left like the reference sites */}
-      <ul className="pointer-events-none fixed bottom-6 left-5 z-50 hidden flex-col gap-3 lg:flex">
+      {/* social rail, pinned bottom-left, nested chevrons running up the edge */}
+      <ul className="pointer-events-none fixed bottom-6 left-4 z-50 hidden flex-col gap-[3px] lg:flex">
         {socials.map((s) => (
           <li key={s.id} className="pointer-events-auto">
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              className="eyebrow block origin-left rotate-180 [writing-mode:vertical-rl] transition-colors hover:!text-accent"
-            >
-              {s.label}
+            <a href={s.href} target="_blank" rel="noreferrer" className="railchev">
+              <span className="railchev__label">{s.label}</span>
             </a>
           </li>
         ))}

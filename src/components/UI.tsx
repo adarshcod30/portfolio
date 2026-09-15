@@ -16,7 +16,7 @@ export function Section({
   id?: string;
 }) {
   return (
-    <section id={id} data-section={eyebrow ?? title} className="px-5 py-20 sm:px-8 sm:py-28">
+    <section id={id} data-section={eyebrow ?? title} className="clear-rail px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-6xl">
         {eyebrow && (
           <Reveal>
@@ -55,7 +55,7 @@ export function PageHeader({
     // part of the site they are in
     <header
       data-section={eyebrow}
-      className="relative overflow-hidden border-b border-line px-5 pb-14 pt-32 sm:px-8 sm:pt-40 md:pr-48"
+      className="clear-rail relative overflow-hidden border-b border-line px-5 pb-14 pt-32 sm:px-8 sm:pt-40 md:pr-48"
     >
       {/* a wash unique to each page, so the tabs do not all feel identical */}
       <div
