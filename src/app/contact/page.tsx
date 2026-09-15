@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader, Section, Callout } from "@/components/UI";
 import { Reveal } from "@/components/motion";
+import ProfileCards from "@/components/ProfileCards";
 import { CONTACT, IDENTITY } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -11,7 +12,6 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   const primary = CONTACT.filter((c) => c.primary && c.href);
-  const elsewhere = CONTACT.filter((c) => !c.primary && c.href);
   return (
     <>
       <PageHeader
@@ -42,22 +42,12 @@ export default function Contact() {
         </ul>
       </Section>
 
-      <Section title="Elsewhere">
-        <ul className="flex flex-wrap gap-3">
-          {elsewhere.map((c) => (
-            <li key={c.id}>
-              <a
-                href={c.href}
-                target="_blank"
-                rel="noreferrer"
-                className="card inline-flex items-baseline gap-2 px-4 py-2.5"
-              >
-                <span className="text-sm font-medium">{c.label}</span>
-                <span className="font-mono text-[11px] text-muted">{c.value}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+      <Section
+        eyebrow="Profiles"
+        title="Elsewhere"
+        blurb="Each one has something on it worth looking at, not just a claimed handle."
+      >
+        <ProfileCards />
       </Section>
 
       <Section title="Or take the paperwork">
