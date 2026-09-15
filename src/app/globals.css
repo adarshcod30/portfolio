@@ -7,11 +7,13 @@
   --surface: #ffffff;
   --surface-2: #eef4fb;
   --ink: #0a1524;
+  --deep: #0a1524;   /* never remapped, see .slab-invert */
   --ink-2: #27384d;
   --muted: #5d7186;
   --line: #dbe5f0;
-  --accent: #1d76db;
+  --accent: #1568c6;      /* measured 5.1:1 on --bg; #1d76db was 4.26 */
   --accent-hi: #40a9ff;
+  --accent-fill: #1d76db; /* shapes and fills, where contrast does not apply */
   --accent-soft: #e7f1fd;
   --cyan: #22d3ee;
   --indigo: #818cf8;
@@ -23,11 +25,13 @@
   --surface: #0d1420;
   --surface-2: #121c2b;
   --ink: #edf4ff;
+  --deep: #050a12;
   --ink-2: #c6d6ea;
   --muted: #8298b1;
   --line: #1e2c40;
-  --accent: #40a9ff;
-  --accent-hi: #7cc4ff;
+  --accent: #6cb8ff;
+  --accent-hi: #9ed2ff;
+  --accent-fill: #40a9ff;
   --accent-soft: #10243a;
   --cyan: #22d3ee;
   --indigo: #a5b4fc;
@@ -45,6 +49,8 @@
   --color-accent: var(--accent);
   --color-accenthi: var(--accent-hi);
   --color-accentsoft: var(--accent-soft);
+  --color-accentfill: var(--accent-fill);
+  --color-deep: var(--deep);
   --color-cyan: var(--cyan);
   --font-sans: var(--font-sans-stack);
   --font-mono: var(--font-mono-stack);
@@ -260,14 +266,19 @@ body {
 .slab-quiet { background: var(--surface-2); }
 
 .slab-invert {
-  background: var(--ink);
+  /* --deep, not --ink: --ink is reassigned two lines down, and a custom
+     property resolves with the value in scope on this same element, so
+     background: var(--ink) painted the slab near-white under near-white text. */
+  background: var(--deep);
   color: var(--bg);
-  --line: color-mix(in oklab, var(--bg) 18%, transparent);
-  --muted: color-mix(in oklab, var(--bg) 62%, transparent);
-  --ink-2: color-mix(in oklab, var(--bg) 82%, transparent);
+  --line: color-mix(in oklab, var(--bg) 20%, transparent);
+  --muted: color-mix(in oklab, var(--bg) 66%, transparent);
+  --ink-2: color-mix(in oklab, var(--bg) 86%, transparent);
   --ink: var(--bg);
   --accent: var(--accent-hi);
   --surface: color-mix(in oklab, var(--bg) 8%, transparent);
+  --surface-2: color-mix(in oklab, var(--bg) 5%, transparent);
+  --accent-soft: color-mix(in oklab, var(--accent-hi) 18%, transparent);
 }
 .slab-invert .card { background: color-mix(in oklab, var(--bg) 6%, transparent); }
 
@@ -335,3 +346,63 @@ body {
   letter-spacing: -0.02em;
   flex: none;
 }
+
+
+/* ---------- bento tiles ---------- */
+.bento {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 900px) {
+  .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.tile-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 168px;
+  transition: border-color .4s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
+}
+.tile-frame:hover { border-color: var(--accent); transform: translateY(-3px); }
+.tile-frame--wide { grid-column: span 2; }
+@media (min-width: 900px) {
+  .tile-frame--tall { grid-row: span 2; }
+  .tile-frame--media { grid-column: span 2; grid-row: span 2; padding: 0; min-height: 356px; }
+}
+.tile-frame--media { padding: 0; }
+.tile-frame--fill {
+  background: var(--deep);
+  color: var(--bg);
+  border-color: transparent;
+}
+.tile-frame--accent {
+  background: linear-gradient(140deg, var(--accent-fill), var(--cyan));
+  color: #fff;
+  border-color: transparent;
+}
+.tile-num {
+  font-family: var(--font-display-stack), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  font-size: clamp(30px, 4.2vw, 52px);
+}
+
+/* corner ticks, a small frame detail that repeats across the page */
+.ticks::before, .ticks::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--accent);
+  opacity: .5;
+}
+.ticks::before { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
+.ticks::after { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }

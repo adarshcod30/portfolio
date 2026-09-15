@@ -59,7 +59,7 @@ export default function NodeField() {
     let t = 0;
 
     const draw = () => {
-      const accent = read("--accent", "#1d76db");
+      const accent = read("--accent-fill", "#1d76db");
       const cyan = read("--cyan", "#22d3ee");
       ctx.clearRect(0, 0, w, h);
 

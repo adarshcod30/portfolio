@@ -64,10 +64,12 @@ function icosphere(subdivisions: number) {
 /** Cheap layered trig noise. Not simplex, but smooth and stable over time. */
 function wobble(v: V3, t: number) {
   return (
-    Math.sin(v[0] * 2.1 + t * 0.7) * 0.5 +
-    Math.sin(v[1] * 2.7 - t * 0.55) * 0.4 +
-    Math.sin(v[2] * 3.3 + t * 0.42) * 0.32 +
-    Math.sin((v[0] + v[1] + v[2]) * 1.6 + t * 0.9) * 0.22
+    Math.sin(v[0] * 1.7 + t * 0.62) * 0.62 +
+    Math.sin(v[1] * 2.3 - t * 0.48) * 0.52 +
+    Math.sin(v[2] * 2.9 + t * 0.4) * 0.44 +
+    Math.sin((v[0] + v[1] + v[2]) * 1.4 + t * 0.85) * 0.3 +
+    Math.sin((v[0] - v[2]) * 4.6 - t * 0.7) * 0.18 +
+    Math.sin((v[1] + v[2]) * 5.9 + t * 0.55) * 0.12
   );
 }
 
@@ -113,8 +115,8 @@ export default function PolyBlob({ className }: { className?: string }) {
 
     const draw = () => {
       const cyan = hexToRgb(read("--cyan", "#22d3ee"));
-      const accent = hexToRgb(read("--accent", "#1d76db"));
-      const deep = hexToRgb(read("--ink", "#0a1524"));
+      const accent = hexToRgb(read("--accent-fill", "#1d76db"));
+      const ground = hexToRgb(read("--bg", "#f6f9fc"));
 
       ctx.clearRect(0, 0, w, h);
       const R = Math.min(w, h) * 0.42;
@@ -132,7 +134,7 @@ export default function PolyBlob({ className }: { className?: string }) {
       // collapse to (0,0,1), every face equally lit, and the whole thing render
       // as a smooth ball instead of facets.
       const world = verts.map((v) => {
-        const d = 1 + wobble(v, t) * 0.26;
+        const d = 1 + wobble(v, t) * 0.19;
         let [x, y, z] = [v[0] * d, v[1] * d, v[2] * d];
         [x, z] = [x * cosY - z * sinY, x * sinY + z * cosY];
         [y, z] = [y * cosX - z * sinX, y * sinX + z * cosX];
@@ -140,7 +142,7 @@ export default function PolyBlob({ className }: { className?: string }) {
       });
       const proj = world.map((p) => [cx + p[0] * R, cy + p[1] * R] as const);
 
-      const light: V3 = [-0.45, -0.72, 0.52];
+      const light: V3 = [0.42, -0.74, 0.52];
 
       const tris = faces.map(([a, b, c]) => {
         const wa = world[a], wb = world[b], wc = world[c];
@@ -164,16 +166,17 @@ export default function PolyBlob({ className }: { className?: string }) {
 
       for (const tri of tris) {
         if (tri.facing <= 0) continue; // back-face cull, now that normals are real
-        // widen the lit-to-unlit range so neighbouring facets separate clearly
-        const k = Math.min(1, Math.max(0, Math.pow(tri.lambert, 0.72)));
-        const depth = Math.min(1, Math.max(0, (tri.z + 1) / 2));
-        // lit faces go cyan, unlit slide toward the accent and then the ink
-        const mix = (i: number) =>
-          Math.round(
-            cyan[i] * k * (0.3 + depth * 0.7) +
-              accent[i] * (1 - k) * 0.92 +
-              deep[i] * (1 - k) * 0.22,
-          );
+        const k = Math.min(1, Math.max(0, Math.pow(tri.lambert, 0.85)));
+        // specular: the few faces pointing straight at the light go almost white,
+        // which is what stops the shape reading as a flat blue ball
+        const spec = Math.pow(Math.max(0, tri.lambert), 9);
+        const mix = (i: number) => {
+          // unlit faces lift toward the page ground rather than sinking to ink,
+          // so the whole form stays airy instead of reading as a rock
+          const base = accent[i] + (cyan[i] - accent[i]) * k;
+          const lifted = base + (ground[i] - base) * 0.3 * (1 - k);
+          return Math.round(Math.min(255, lifted + 255 * spec * 0.8));
+        };
         ctx.fillStyle = `rgb(${mix(0)}, ${mix(1)}, ${mix(2)})`;
         ctx.beginPath();
         ctx.moveTo(tri.pa[0], tri.pa[1]);
@@ -186,6 +189,16 @@ export default function PolyBlob({ className }: { className?: string }) {
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
+
+      // fade the bottom of the form into the page so it does not sit on the
+      // layout like a pasted object
+      const fade = ctx.createLinearGradient(0, h * 0.42, 0, h);
+      fade.addColorStop(0, "rgba(0,0,0,0)");
+      fade.addColorStop(1, "rgba(0,0,0,1)");
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, 0, w, h);
+      ctx.globalCompositeOperation = "source-over";
     };
 
     const step = () => {

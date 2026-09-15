@@ -17,6 +17,7 @@ const TICKER = [
 export default function Home() {
   const featured = FEATURED.map((s) => PROJECTS.find((p) => p.slug === s)!).filter(Boolean);
   const headline = COMPETITIONS.filter((c) => c.highlight);
+  const kadi = PROJECTS.find((p) => p.slug === "kadi");
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function Home() {
       <section className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-8 pt-28 sm:px-8 sm:pt-36">
         <NodeField />
         {/* the faceted shape, sized to collide with the headline rather than sit beside it */}
-        <PolyBlob className="pointer-events-none absolute right-[-18%] top-[6%] z-0 h-[64vw] w-[64vw] max-h-[520px] max-w-[520px] opacity-90 sm:right-[-6%] sm:top-[2%]" />
+        <PolyBlob className="pointer-events-none absolute right-[-26%] top-[14%] z-0 h-[78vw] w-[78vw] max-h-[620px] max-w-[620px] opacity-95 sm:right-[-12%] sm:top-[8%]" />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl">
           <Reveal>
@@ -169,6 +170,104 @@ export default function Home() {
                 </StagItem>
               );
             })}
+          </Stagger>
+        </div>
+      </section>
+
+
+      {/* ---------------- bento ---------------- */}
+      <section className="slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="eyebrow">At a glance</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-display mt-3 text-[11vw] leading-[0.9] tracking-[-0.04em] sm:text-[5.5vw]">
+              The short version<span className="text-accent">.</span>
+            </h2>
+          </Reveal>
+
+          <Stagger className="bento mt-14" gap={0.05}>
+            {kadi?.shot && (
+              <StagItem className="tile-frame tile-frame--media tile-frame--wide">
+                <Link href="/work/kadi" className="group relative block h-full w-full">
+                  <Image
+                    src={kadi.shot}
+                    alt="The Kadi command dashboard running, with the case-linkage graph and district map."
+                    width={1440}
+                    height={900}
+                    className="h-full w-full object-cover object-top transition-transform duration-[1.2s] group-hover:scale-[1.04]"
+                  />
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-deep/90 to-transparent p-6 pt-16">
+                    <span className="eyebrow !text-white/70">Flagship</span>
+                    <span className="font-display mt-1 block text-2xl tracking-tight text-white sm:text-3xl">
+                      Kadi <span className="arrow">↗</span>
+                    </span>
+                    <span className="mt-1 block text-xs text-white/75">
+                      59,985 FIRs across 31 districts, deployed for the Karnataka State Police
+                    </span>
+                  </span>
+                </Link>
+              </StagItem>
+            )}
+
+            <StagItem className="tile-frame tile-frame--accent ticks">
+              <p className="eyebrow !text-white/75">Best forecast</p>
+              <div>
+                <p className="tile-num">0.870</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/85">
+                  AUC, three months ahead, on Kadi&rsquo;s state-wide crime forecast
+                </p>
+              </div>
+            </StagItem>
+
+            <StagItem className="tile-frame">
+              <p className="eyebrow">Cost cut</p>
+              <div>
+                <p className="tile-num text-accent">78%</p>
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  Lower spend at a 77% cache hit rate, with zero wrong answers on new questions
+                </p>
+              </div>
+            </StagItem>
+
+            <StagItem className="tile-frame tile-frame--fill ticks">
+              <p className="eyebrow !text-white/70">Published</p>
+              <div>
+                <p className="tile-num">3</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/75">
+                  packages on PyPI: cachellm-proxy, creditsetu, medguardx-core
+                </p>
+              </div>
+            </StagItem>
+
+            <StagItem className="tile-frame">
+              <p className="eyebrow">Largest graph</p>
+              <div>
+                <p className="tile-num text-accent">35.7M</p>
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  edges in Orbweaver&rsquo;s account graph, 0.7292 ring precision against a 0.2242 base rate
+                </p>
+              </div>
+            </StagItem>
+
+            <StagItem className="tile-frame tile-frame--wide">
+              <p className="eyebrow">The rule I keep</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-ink2">
+                Where a result is unflattering I publish it anyway: the 0.371 genuine customers
+                wrongly swept in per fraudster caught, and 36 dated failures beside the wins.
+              </p>
+            </StagItem>
+
+            <StagItem className="tile-frame">
+              <p className="eyebrow">Languages shipped</p>
+              <div>
+                <p className="tile-num text-accent">12</p>
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  Indian languages in KrishiMitra, free to use, across 13 modules
+                </p>
+              </div>
+            </StagItem>
           </Stagger>
         </div>
       </section>
