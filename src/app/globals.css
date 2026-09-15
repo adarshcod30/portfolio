@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
+/* Light first, because the reference site is light. The dark set is a straight
+   role swap so the toggle works in both directions without redefining meaning. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f6f9fc;
+  --surface: #ffffff;
+  --surface-2: #eef4fb;
+  --ink: #0a1524;
+  --ink-2: #27384d;
+  --muted: #5d7186;
+  --line: #dbe5f0;
+  --accent: #1d76db;
+  --accent-hi: #40a9ff;
+  --accent-soft: #e7f1fd;
+  --cyan: #22d3ee;
+  --indigo: #818cf8;
+  --shadow: 0 1px 2px rgb(10 21 36 / 0.04), 0 8px 24px -12px rgb(10 21 36 / 0.16);
+}
+
+:root[data-theme="dark"] {
+  --bg: #070c15;
+  --surface: #0d1420;
+  --surface-2: #121c2b;
+  --ink: #edf4ff;
+  --ink-2: #c6d6ea;
+  --muted: #8298b1;
+  --line: #1e2c40;
+  --accent: #40a9ff;
+  --accent-hi: #7cc4ff;
+  --accent-soft: #10243a;
+  --cyan: #22d3ee;
+  --indigo: #a5b4fc;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -12px rgb(0 0 0 / 0.7);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accenthi: var(--accent-hi);
+  --color-accentsoft: var(--accent-soft);
+  --color-cyan: var(--cyan);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
+  color-scheme: light;
+  scroll-behavior: smooth;
 }
+html[data-theme="dark"] { color-scheme: dark; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans-stack), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: #fff; }
+
+/* the one piece of ornament that repeats: a hairline that fades out */
+.rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.card:hover {
+  border-color: color-mix(in oklab, var(--accent) 45%, var(--line));
+  transform: translateY(-2px);
+}
+
+.chip {
+  font-size: 11px;
+  letter-spacing: .02em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: color-mix(in oklab, var(--accent) 80%, var(--ink));
+  border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
+  white-space: nowrap;
+}
+
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1.5px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size .3s ease;
+}
+.link-underline:hover { background-size: 100% 1.5px; }
+
+/* respect the setting; the hero is decoration, never the content */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
 }
