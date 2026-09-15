@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import NodeField from "@/components/NodeField";
-import PolyBlob from "@/components/PolyBlob";
+import IceDome from "@/components/IceDome";
 import { StatusStrip, Cta } from "@/components/Chrome";
 import { Reveal, Stagger, StagItem, SplitLine, Marquee, CountUp } from "@/components/motion";
 import { IDENTITY, COMPETITIONS } from "@/content/site";
@@ -18,14 +18,29 @@ export default function Home() {
   const featured = FEATURED.map((s) => PROJECTS.find((p) => p.slug === s)!).filter(Boolean);
   const headline = COMPETITIONS.filter((c) => c.highlight);
   const kadi = PROJECTS.find((p) => p.slug === "kadi");
+  const pick = (s: string) => PROJECTS.find((p) => p.slug === s)!;
+  const stages = [
+    {
+      label: "Farmers",
+      back: pick("krishimitra"),
+      front: pick("floodcast"),
+      note: "Thirteen modules in twelve Indian languages, free to use, and a crop the district never grew is refused whatever the model says.",
+    },
+    {
+      label: "Regulators",
+      back: pick("vayu"),
+      front: pick("margadrishti"),
+      note: "Rank the intervention by modelled return, dispatch the order, then test with difference-in-differences whether it actually worked.",
+    },
+  ].filter((s) => s.back?.shot && s.front?.shot);
 
   return (
     <>
       {/* ---------------- hero ---------------- */}
       <section className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-8 pt-28 sm:px-8 sm:pt-36">
         <NodeField />
-        {/* the faceted shape, sized to collide with the headline rather than sit beside it */}
-        <PolyBlob className="pointer-events-none absolute right-[-26%] top-[14%] z-0 h-[78vw] w-[78vw] max-h-[620px] max-w-[620px] opacity-95 sm:right-[-12%] sm:top-[8%]" />
+        {/* the dome, sized to collide with the headline rather than sit beside it */}
+        <IceDome className="pointer-events-none absolute right-[-26%] top-[14%] z-0 h-[78vw] w-[78vw] max-h-[620px] max-w-[620px] opacity-95 sm:right-[-12%] sm:top-[8%]" />
 
         <div className="relative z-10 mx-auto w-full max-w-6xl">
           <Reveal>
@@ -174,6 +189,66 @@ export default function Home() {
         </div>
       </section>
 
+
+
+      {/* ---------------- offset frames ---------------- */}
+      <section className="px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="eyebrow">In the field</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-display mt-3 text-[11vw] leading-[0.9] tracking-[-0.04em] sm:text-[5.5vw]">
+              Built for people who
+              <br />
+              are not technical<span className="text-accent">.</span>
+            </h2>
+          </Reveal>
+
+          {stages.map((s, i) => (
+            <div
+              key={s.back.slug}
+              className={`stage mt-20 sm:mt-28 ${i % 2 ? "stage--flip" : ""}`}
+            >
+              <Reveal className="stage__back">
+                <Link href={`/work/${s.back.slug}`} className="panel block aspect-[16/10]">
+                  <Image
+                    src={s.back.shot}
+                    alt={`${s.back.name} running: ${s.back.tagline}.`}
+                    width={1440}
+                    height={900}
+                  />
+                </Link>
+              </Reveal>
+
+              <Reveal delay={0.12} className="stage__front">
+                <Link href={`/work/${s.front.slug}`} className="panel block aspect-[4/3]">
+                  <Image
+                    src={s.front.shot}
+                    alt={`${s.front.name} running: ${s.front.tagline}.`}
+                    width={1080}
+                    height={810}
+                  />
+                </Link>
+              </Reveal>
+
+              <Reveal delay={0.2} className="stage__caption">
+                <p className="eyebrow">{String(i + 1).padStart(2, "0")} — {s.label}</p>
+                <p className="font-display mt-2 text-2xl leading-tight tracking-tight sm:text-3xl">
+                  {s.back.name}
+                </p>
+                <p className="mt-2 text-[13px] leading-relaxed text-muted">{s.note}</p>
+                <Link
+                  href={`/work/${s.back.slug}`}
+                  className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent"
+                >
+                  Case study <span className="arrow">↗</span>
+                </Link>
+              </Reveal>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* ---------------- bento ---------------- */}
       <section className="slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">

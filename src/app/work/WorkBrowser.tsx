@@ -56,8 +56,11 @@ export default function WorkBrowser() {
                 key={v}
                 onClick={() => setView(v)}
                 aria-pressed={view === v}
+                // the active colour sits on the button itself, not only on the
+                // sliding pill behind it, so the label is never invisible if the
+                // pill has not landed yet
                 className={`eyebrow relative rounded-full px-3 py-1.5 transition-colors ${
-                  view === v ? "!text-bg" : "hover:!text-ink"
+                  view === v ? "bg-ink !text-bg" : "hover:!text-ink"
                 }`}
               >
                 {view === v && (

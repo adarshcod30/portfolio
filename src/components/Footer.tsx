@@ -8,24 +8,24 @@ export default function Footer() {
 
   return (
     <footer className="slab-invert">
-      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <p className="eyebrow">Contact</p>
         </Reveal>
 
-        <h2 className="font-display mt-5 text-[15vw] leading-[0.84] tracking-[-0.05em] sm:text-[8.5vw]">
+        <h2 className="font-display mt-4 text-[11vw] leading-[0.88] tracking-[-0.045em] sm:text-[5vw]">
           <SplitLine text="Let's talk" delay={0.05} />
         </h2>
 
         <Reveal delay={0.3}>
-          <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-ink2 sm:text-lg">
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink2">
             {IDENTITY.available}. Based in {IDENTITY.location}, and happy to talk across any
             timezone.
           </p>
         </Reveal>
 
         {/* direct lines, set large because they are the point of the page */}
-        <ul className="mt-12 border-t border-line">
+        <ul className="mt-9 border-t border-line">
           {direct.map((c, i) => (
             <li key={c.id}>
               <Reveal delay={0.06 + i * 0.04}>
@@ -33,10 +33,10 @@ export default function Footer() {
                   href={c.href}
                   target={c.href.startsWith("http") ? "_blank" : undefined}
                   rel="noreferrer"
-                  className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-5"
+                  className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-4"
                 >
                   <span className="eyebrow">{c.label}</span>
-                  <span className="font-display text-xl tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
+                  <span className="font-display text-lg tracking-tight transition-colors group-hover:text-accent sm:text-2xl">
                     {c.value} <span className="arrow text-[0.6em]">↗</span>
                   </span>
                 </a>
@@ -45,11 +45,11 @@ export default function Footer() {
           ))}
         </ul>
 
-        <div className="mt-12">
+        <div className="mt-9">
           <ProfileCards />
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-start sm:justify-between">
+        <div className="mt-12 flex flex-col gap-6 border-t border-line pt-7 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="text-sm font-medium">{IDENTITY.name}</p>
             <p className="mt-1 max-w-xs text-xs leading-relaxed text-muted">

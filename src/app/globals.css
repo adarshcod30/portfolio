@@ -8,6 +8,12 @@
   --surface-2: #eef4fb;
   --ink: #0a1524;
   --deep: #0a1524;   /* never remapped, see .slab-invert */
+  /* The contrast slab flips against whatever theme is active. Both halves are
+     stated per theme, because deriving one from --bg broke in dark mode: --bg
+     is near-black there, so "dark ground, --bg text" was black on black. */
+  --slab-bg: #0a1524;
+  --slab-fg: #eef5ff;
+  --slab-accent: #6cb8ff;
   --ink-2: #27384d;
   --muted: #5d7186;
   --line: #dbe5f0;
@@ -26,6 +32,9 @@
   --surface-2: #121c2b;
   --ink: #edf4ff;
   --deep: #050a12;
+  --slab-bg: #eef5ff;
+  --slab-fg: #0a1524;
+  --slab-accent: #1568c6;
   --ink-2: #c6d6ea;
   --muted: #8298b1;
   --line: #1e2c40;
@@ -266,21 +275,22 @@ body {
 .slab-quiet { background: var(--surface-2); }
 
 .slab-invert {
-  /* --deep, not --ink: --ink is reassigned two lines down, and a custom
-     property resolves with the value in scope on this same element, so
-     background: var(--ink) painted the slab near-white under near-white text. */
-  background: var(--deep);
-  color: var(--bg);
-  --line: color-mix(in oklab, var(--bg) 20%, transparent);
-  --muted: color-mix(in oklab, var(--bg) 66%, transparent);
-  --ink-2: color-mix(in oklab, var(--bg) 86%, transparent);
-  --ink: var(--bg);
-  --accent: var(--accent-hi);
-  --surface: color-mix(in oklab, var(--bg) 8%, transparent);
-  --surface-2: color-mix(in oklab, var(--bg) 5%, transparent);
-  --accent-soft: color-mix(in oklab, var(--accent-hi) 18%, transparent);
+  background: var(--slab-bg);
+  color: var(--slab-fg);
+  --bg: var(--slab-bg);
+  --ink: var(--slab-fg);
+  --deep: var(--slab-fg);
+  --ink-2: color-mix(in oklab, var(--slab-fg) 86%, var(--slab-bg));
+  --muted: color-mix(in oklab, var(--slab-fg) 66%, var(--slab-bg));
+  --line: color-mix(in oklab, var(--slab-fg) 22%, transparent);
+  --surface: color-mix(in oklab, var(--slab-fg) 7%, transparent);
+  --surface-2: color-mix(in oklab, var(--slab-fg) 4%, transparent);
+  --accent: var(--slab-accent);
+  --accent-hi: var(--slab-accent);
+  --accent-fill: var(--slab-accent);
+  --accent-soft: color-mix(in oklab, var(--slab-accent) 16%, transparent);
 }
-.slab-invert .card { background: color-mix(in oklab, var(--bg) 6%, transparent); }
+.slab-invert .card { background: color-mix(in oklab, var(--slab-fg) 6%, transparent); }
 
 /* ---------- visible focus, everywhere ---------- */
 :where(a, button, [role="button"], input, summary):focus-visible {
@@ -378,9 +388,15 @@ body {
 }
 .tile-frame--media { padding: 0; }
 .tile-frame--fill {
-  background: var(--deep);
-  color: var(--bg);
+  /* same trap as .slab-invert: --deep and --bg are both dark in the dark theme,
+     so this tile has to use the stated slab pair, not derive one from the other */
+  background: var(--slab-bg);
+  color: var(--slab-fg);
   border-color: transparent;
+  --ink: var(--slab-fg);
+  --ink-2: color-mix(in oklab, var(--slab-fg) 86%, var(--slab-bg));
+  --muted: color-mix(in oklab, var(--slab-fg) 66%, var(--slab-bg));
+  --accent: var(--slab-accent);
 }
 .tile-frame--accent {
   background: linear-gradient(140deg, var(--accent-fill), var(--cyan));
@@ -406,3 +422,41 @@ body {
 }
 .ticks::before { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
 .ticks::after { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
+
+
+/* ---------- offset frame composition ----------
+   The Obys move: a large panel bled to one edge with a second, smaller panel
+   overlapping it off-axis, and the caption set small and far from both. It
+   stops a pair of screenshots reading as a table of thumbnails. */
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .stage { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+  .stage__back { grid-column: 4 / -1; }
+  .stage__front { grid-column: 2 / 8; margin-top: -16%; z-index: 2; }
+  .stage__caption { grid-column: 1 / 4; padding-top: 18%; }
+  .stage--flip .stage__back { grid-column: 1 / 10; }
+  .stage--flip .stage__front { grid-column: 7 / -1; margin-top: -14%; }
+  .stage--flip .stage__caption { grid-column: 10 / -1; padding-top: 16%; text-align: right; }
+}
+.panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+  box-shadow: 0 30px 60px -32px rgb(10 21 36 / 0.35);
+}
+.panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 1s cubic-bezier(.16,1,.3,1);
+}
+.panel:hover img { transform: scale(1.04); }
