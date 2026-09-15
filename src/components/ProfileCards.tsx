@@ -9,6 +9,7 @@ export const MARK: Record<string, { mark: string; note: string }> = {
   huggingface: { mark: "HF", note: "Model spaces and demos" },
   kaggle: { mark: "Kg", note: "Competing on real datasets" },
   hackerrank: { mark: "HR", note: "Orchestrate rank #12" },
+  hackerearth: { mark: "HE", note: "Challenges and contests" },
 };
 
 export default function ProfileCards() {

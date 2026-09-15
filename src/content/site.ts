@@ -172,6 +172,7 @@ export const CONTACT = [
   { id: "discord", label: "Discord", value: "", href: "", primary: false },
   { id: "reddit", label: "Reddit", value: "", href: "", primary: false },
   { id: "hackerrank", label: "HackerRank", value: "23ucs509", href: "https://www.hackerrank.com/profile/23ucs509", primary: false },
+  { id: "hackerearth", label: "HackerEarth", value: "23ucs509", href: "https://www.hackerearth.com/@23ucs509/", primary: false },
   { id: "kaggle", label: "Kaggle", value: "adarshcod", href: "https://www.kaggle.com/adarshcod", primary: false },
   { id: "pypi", label: "PyPI", value: "adarshcod30", href: "https://pypi.org/user/adarshcod30/", primary: false },
   { id: "huggingface", label: "Hugging Face", value: "adarshcod30", href: "https://huggingface.co/adarshcod30", primary: false },

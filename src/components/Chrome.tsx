@@ -84,7 +84,12 @@ export function Hud() {
   const [open, setOpen] = useState(false);
   useEffect(() => setOpen(false), [path]);
 
-  const socials = CONTACT.filter((c) => c.href && !c.primary).slice(0, 5);
+  // GitHub is flagged primary for the contact page, but it belongs on the rail
+  // more than anything else does, so pick these explicitly
+  const RAIL = ["github", "hackerrank", "hackerearth", "kaggle", "pypi", "huggingface"];
+  const socials = RAIL.map((id) => CONTACT.find((c) => c.id === id)).filter(
+    (c): c is (typeof CONTACT)[number] => !!c?.href,
+  );
 
   return (
     <>
@@ -96,7 +101,7 @@ export function Hud() {
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between px-5 py-5 sm:px-8 sm:py-7">
         <Link
           href="/"
-          className="pointer-events-auto group"
+          className="hud-panel pointer-events-auto group !py-2.5 !px-3.5"
           aria-label={`${IDENTITY.name}, home`}
         >
           <span className="font-display block whitespace-nowrap text-[15px] leading-none tracking-tight sm:text-[17px]">
@@ -105,7 +110,7 @@ export function Hud() {
           <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
         </Link>
 
-        <div className="pointer-events-auto flex flex-col items-end gap-3">
+        <div className="hud-panel pointer-events-auto flex flex-col items-end gap-2.5">
           {/* the theme control sits above the links and names the current theme */}
           <ThemeButton />
 

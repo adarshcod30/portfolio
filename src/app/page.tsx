@@ -117,7 +117,7 @@ export default function Home() {
       <HorizontalWork items={rail} />
 
       {/* ---------------- offset frames ---------------- */}
-      <section data-section="In the field" className="px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="In the field" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="eyebrow">In the field</p>
@@ -156,7 +156,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- bento ---------------- */}
-      <section data-section="At a glance" className="slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="At a glance" className="clear-hud slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">At a glance</p></Reveal>
           <Reveal delay={0.06}>
@@ -216,7 +216,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- domains ---------------- */}
-      <section data-section="Domains" className="px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Domains" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">How it is organised</p></Reveal>
           <Reveal delay={0.06}>
@@ -224,18 +224,36 @@ export default function Home() {
               Five domains<span className="text-accent">.</span>
             </h2>
           </Reveal>
-          <Stagger className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Stagger className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" gap={0.06}>
             {DOMAINS.map((d) => {
               const n = PROJECTS.filter((p) => p.domain === d.id).length;
               return (
                 <StagItem key={d.id}>
-                  <Link href={`/work#${d.id}`} className="card tile group flex h-full flex-col p-6">
-                    <div className="flex items-baseline justify-between gap-3">
-                      <h3 className="font-display text-lg leading-tight tracking-tight group-hover:text-accent">{d.title}</h3>
+                  <Link href={`/work#${d.id}`} className="chev group">
+                    <span className="flex items-baseline justify-between gap-3">
+                      <span className="font-display text-lg leading-tight tracking-tight">
+                        {d.title}
+                      </span>
                       <span className="idx">{String(n).padStart(2, "0")}</span>
-                    </div>
-                    <p className="mt-3 flex-1 text-[13px] leading-relaxed text-muted">{d.blurb}</p>
-                    <span className="arrow mt-5 text-muted group-hover:text-accent">↗</span>
+                    </span>
+                    <span className="chev__blurb mt-3 flex-1 text-[13px] leading-relaxed">
+                      {d.blurb}
+                    </span>
+                    <svg
+                      className="chev__arrow mt-5"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M7 17 17 7" />
+                      <path d="M9 7h8v8" />
+                    </svg>
                   </Link>
                 </StagItem>
               );
@@ -245,7 +263,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- competitions ---------------- */}
-      <section data-section="Competitions" className="slab-invert px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Competitions" className="clear-hud slab-invert px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">Measured against other people</p></Reveal>
           <Reveal delay={0.06}>
