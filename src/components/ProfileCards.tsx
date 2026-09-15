@@ -19,15 +19,34 @@ export default function ProfileCards() {
       {badges.map((b, i) => (
         <li key={b.id}>
           <Reveal delay={0.04 + i * 0.03}>
-            <a href={b.href} target="_blank" rel="noreferrer" className="badge group">
-              <span className="flex items-center gap-3.5">
-                <span className="badge__mark">{MARK[b.id].mark}</span>
-                <span>
-                  <span className="block text-sm font-medium">{b.label}</span>
-                  <span className="block text-xs text-muted">{MARK[b.id].note}</span>
-                </span>
+            <a
+              href={b.href}
+              target="_blank"
+              rel="noreferrer"
+              className="chev chev--sm group"
+            >
+              <span className="chev__mark">{MARK[b.id].mark}</span>
+              <span className="font-display mt-4 block text-lg leading-tight tracking-tight">
+                {b.label}
               </span>
-              <span className="arrow text-muted group-hover:text-accent">↗</span>
+              <span className="chev__blurb mt-1.5 block flex-1 text-[13px] leading-relaxed">
+                {MARK[b.id].note}
+              </span>
+              <svg
+                className="chev__arrow mt-4"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
+                <path d="M7 17 17 7" />
+                <path d="M9 7h8v8" />
+              </svg>
             </a>
           </Reveal>
         </li>
