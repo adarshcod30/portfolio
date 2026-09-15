@@ -124,10 +124,11 @@ body {
 
 .eyebrow {
   font-family: var(--font-mono-stack), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  /* --muted at 10px failed contrast against the surface; --ink-2 clears AA */
+  color: var(--ink-2);
 }
 
 /* ---------- custom cursor ---------- */
@@ -246,7 +247,91 @@ body {
 /* big index numerals on project rows */
 .idx {
   font-family: var(--font-mono-stack), monospace;
-  font-size: 10px;
-  letter-spacing: .14em;
-  color: var(--muted);
+  font-size: 11.5px;
+  letter-spacing: .12em;
+  color: var(--ink-2);
+}
+
+
+/* ---------- contrast blocking ----------
+   The page alternates ground colour so sections read as distinct slabs instead
+   of one endless scroll. The inverted block is the strongest note on the page
+   and is reserved for the closing call to action. */
+.slab-quiet { background: var(--surface-2); }
+
+.slab-invert {
+  background: var(--ink);
+  color: var(--bg);
+  --line: color-mix(in oklab, var(--bg) 18%, transparent);
+  --muted: color-mix(in oklab, var(--bg) 62%, transparent);
+  --ink-2: color-mix(in oklab, var(--bg) 82%, transparent);
+  --ink: var(--bg);
+  --accent: var(--accent-hi);
+  --surface: color-mix(in oklab, var(--bg) 8%, transparent);
+}
+.slab-invert .card { background: color-mix(in oklab, var(--bg) 6%, transparent); }
+
+/* ---------- visible focus, everywhere ---------- */
+:where(a, button, [role="button"], input, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- media frame used by case studies and cards ---------- */
+.shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .9s cubic-bezier(.16,1,.3,1);
+}
+.shot:hover img { transform: scale(1.035); }
+
+/* a hairline sheen so a screenshot does not sit flat on the page */
+.shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(160deg, color-mix(in oklab, var(--bg) 22%, transparent), transparent 42%);
+}
+
+/* ---------- profile badges ---------- */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  transition: border-color .35s ease, transform .35s cubic-bezier(.16,1,.3,1);
+}
+.badge:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.badge__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono-stack), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex: none;
 }

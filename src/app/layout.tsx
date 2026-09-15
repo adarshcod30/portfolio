@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
 import { Hud } from "@/components/Chrome";
 import { Preloader, Cursor } from "@/components/Entrance";
 import { ScrollProgress } from "@/components/motion";
-import { IDENTITY, CONTACT, NAV } from "@/content/site";
+import Footer from "@/components/Footer";
+import { IDENTITY } from "@/content/site";
 
 const sans = Geist({ variable: "--font-sans-stack", subsets: ["latin"] });
 const mono = Geist_Mono({ variable: "--font-mono-stack", subsets: ["latin"] });
@@ -36,7 +36,6 @@ export const metadata: Metadata = {
 const THEME_BOOT = `(function(){var t='light';try{t=localStorage.getItem('theme')||'light';}catch(e){}document.documentElement.setAttribute('data-theme',t);})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  const social = CONTACT.filter((c) => c.href && !c.primary);
   return (
     // the boot script stamps data-theme before React hydrates, so the server HTML
     // and the client necessarily differ on that one attribute
@@ -60,45 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ScrollProgress />
         <Hud />
         <main id="main">{children}</main>
-        <footer className="border-t border-line px-5 py-14 sm:px-8">
-          <div className="mx-auto max-w-6xl">
-            <p className="font-display text-[13vw] leading-[0.86] tracking-[-0.045em] sm:text-[7vw]">
-              Let&rsquo;s talk<span className="text-accent">.</span>
-            </p>
-            <div className="mt-10 flex flex-col gap-8 border-t border-line pt-8 sm:flex-row sm:justify-between">
-              <div>
-                <p className="text-sm font-medium">{IDENTITY.name}</p>
-                <p className="mt-1 max-w-xs text-xs leading-relaxed text-muted">
-                  {IDENTITY.degree}, {IDENTITY.school}. {IDENTITY.years}.
-                </p>
-              </div>
-              <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2">
-                {NAV.map((n) => (
-                  <Link key={n.href} href={n.href} className="eyebrow hover:!text-accent">
-                    {n.label}
-                  </Link>
-                ))}
-              </nav>
-              <ul className="flex flex-wrap gap-x-4 gap-y-2">
-                {social.map((s) => (
-                  <li key={s.id}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="eyebrow hover:!text-accent"
-                    >
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <p className="eyebrow mt-8">
-              Every number on this site is reproducible from the repository it belongs to
-            </p>
-          </div>
-        </footer>
+        <Footer />
       </body>
     </html>
   );

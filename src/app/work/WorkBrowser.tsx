@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
@@ -134,7 +135,7 @@ function FullRow({ p, i }: { p: Project; i: number }) {
     >
       <Link
         href={`/work/${p.slug}`}
-        className="tile group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line py-7 sm:gap-8 sm:py-8"
+        className="tile group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line py-7 sm:grid-cols-[auto_1fr_auto_auto] sm:gap-8 sm:py-8"
       >
         <span className="idx">{String(i + 1).padStart(2, "0")}</span>
         <span>
@@ -148,6 +149,19 @@ function FullRow({ p, i }: { p: Project; i: number }) {
             ))}
           </span>
         </span>
+        {p.shot ? (
+          <span className="hidden h-20 w-36 shrink-0 overflow-hidden rounded-lg border border-line sm:block">
+            <Image
+              src={p.shot}
+              alt=""
+              width={720}
+              height={450}
+              className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]"
+            />
+          </span>
+        ) : (
+          <span className="hidden sm:block sm:w-36" aria-hidden />
+        )}
         <span className="arrow text-lg text-muted group-hover:text-accent sm:text-2xl">↗</span>
       </Link>
     </motion.li>
@@ -162,7 +176,30 @@ function GridCard({ p, i }: { p: Project; i: number }) {
       viewport={{ once: true, margin: "-8% 0px" }}
       transition={{ duration: 0.7, delay: Math.min(i, 8) * 0.03, ease: EASE }}
     >
-      <Link href={`/work/${p.slug}`} className="card tile group flex h-full flex-col p-5">
+      <Link href={`/work/${p.slug}`} className="card tile group flex h-full flex-col overflow-hidden">
+        {p.shot ? (
+          <span className="block aspect-[16/10] overflow-hidden border-b border-line bg-surface2">
+            <Image
+              src={p.shot}
+              alt=""
+              width={1080}
+              height={675}
+              className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+            />
+          </span>
+        ) : (
+          // no live deployment to capture, so the slot carries the name instead
+          // of an empty grey rectangle
+          <span
+            className="grid aspect-[16/10] place-items-center overflow-hidden border-b border-line bg-accentsoft px-4"
+            aria-hidden
+          >
+            <span className="font-display truncate text-center text-2xl tracking-tight text-accent opacity-45">
+              {p.name}
+            </span>
+          </span>
+        )}
+        <span className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
           <span className="idx">{String(i + 1).padStart(2, "0")}</span>
           <span className="arrow text-muted group-hover:text-accent">↗</span>
@@ -178,6 +215,7 @@ function GridCard({ p, i }: { p: Project; i: number }) {
           {p.stack.slice(0, 3).map((s) => (
             <span key={s} className="chip">{s}</span>
           ))}
+        </span>
         </span>
       </Link>
     </motion.li>

@@ -3,7 +3,7 @@
 
 export type Project = {
   slug: string; domain: string; name: string; tagline: string; note: string;
-  stack: string[]; live: string; code: string; highlights: string[];
+  stack: string[]; live: string; code: string; shot: string; highlights: string[];
 };
 
 export const DOMAINS = [
@@ -23,6 +23,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://kadilabs-60078029367.development.catalystserverless.in/app/`,
     code: `https://github.com/adarshcod30/Kadi`,
+    shot: `/shots/kadi.jpg`,
     stack: [`DBSCAN`, `Entity Resolution`, `Forecasting`, `Graph`, `Graph Analytics`, `Node.js`, `Python`, `React`, `SQL`, `TypeScript`, `Zoho Catalyst`],
     highlights: [
       `The Karnataka State Crime Records Bureau stated that fragmented station-level data blocked state-wide analysis. Scoped one product where a station sees its own slice and the bureau reads the whole state off the same graph.`,
@@ -41,6 +42,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://krishimitra-blush.vercel.app`,
     code: `https://github.com/adarshcod30/KrishiMitra`,
+    shot: `/shots/krishimitra.jpg`,
     stack: [`CNN`, `CatBoost`, `Docker`, `FAO-56`, `FastAPI`, `Next.js`, `PyTorch`, `Transfer Learning`],
     highlights: [
       `Built each module around a question a farmer actually asks: what to sow, what is wrong with this leaf, when to water, how much urea. Shipped 13 modules in 12 Indian languages, free to use.`,
@@ -59,6 +61,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://vayu-802568501157.asia-south1.run.app/`,
     code: `https://github.com/adarshcod30/Vayu`,
+    shot: `/shots/vayu.jpg`,
     stack: [`CNN-LSTM`, `Causal Inference`, `Cloud Run`, `DuckDB`, `Gemini`, `Geospatial`, `LightGBM`, `MapLibre`, `PyTorch`, `Python`, `Satellite Imagery`],
     highlights: [
       `Built the loop a regulator actually needs: a citizen photographs a source, a vision model verifies it, the platform ranks candidate interventions by modelled return, and a dispatched order is later checked for whether it worked.`,
@@ -77,6 +80,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://vaidyamitra-adarshcod30s-projects.vercel.app`,
     code: `https://github.com/VaidyaMitra/VaidyaMitra`,
+    shot: `/shots/vaidyamitra.jpg`,
     stack: [`AWS Bedrock Nova`, `FastAPI`, `Next.js`],
     highlights: [
       `Clinical text cannot be handed to a hosted model as-is, so every identifier is masked before the request leaves the service, enforced across a 38-endpoint API rather than at one choke point.`,
@@ -94,6 +98,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://huggingface.co/spaces/adarshcod30/margadrishti`,
     code: `https://github.com/adarshcod30/MargaDrishti`,
+    shot: `/shots/margadrishti.jpg`,
     stack: [`8 Model Families`, `Bias Auditing`, `Gi* Statistics`, `H3`, `LightGBM`, `Python`],
     highlights: [
       `Modelled Bengaluru road-capacity loss over 298k violations on one H3-by-hourly substrate, with strictly causal lag features at t-1h, t-24h and t-168h so nothing leaks from the future.`,
@@ -112,6 +117,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://floodcast-gurugram.vercel.app`,
     code: `https://github.com/adarshcod30/Floodcast-Gurugram`,
+    shot: `/shots/floodcast.jpg`,
     stack: [`Live Rainfall Data`, `TypeScript`],
     highlights: [
       `Answered the one question a commuter actually asks, will my route flood and when, instead of a city-wide alert they still have to interpret themselves.`,
@@ -129,6 +135,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://medicure-ai-wheat.vercel.app`,
     code: `https://github.com/adarshcod30/Medicure-AI`,
+    shot: `/shots/medicure.jpg`,
     stack: [`NPPA and Jan Aushadhi data`, `Next.js`, `Python`, `RAG`, `Vision OCR`],
     highlights: [
       `A patient cannot tell whether ninety-five rupees for a strip is fair, and confusing Celebrex with Celexa is a real pharmacy-counter failure. Built one flow from a photo of the strip to composition, fair price and a cheaper generic.`,
@@ -147,6 +154,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://huggingface.co/spaces/adarshcod30/drdetect-dr-screening`,
     code: `https://github.com/adarshcod30/Diabetic-Retinopathy-Detection`,
+    shot: `/shots/dr.jpg`,
     stack: [`CLAHE`, `Grad-CAM`, `Ordinal Heads`, `PyTorch`],
     highlights: [
       `Grading a 0 as a 4 is not the same mistake as grading a 0 as a 1, so trained ICDR grades 0 to 4 with rank-consistent ordinal heads instead of plain cross-entropy, on patient-level splits where both eyes never straddle train and test.`,
@@ -162,6 +170,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/AGENTIQ`,
+    shot: ``,
     stack: [`Docker`, `Express`, `GitHub Actions`, `LLM Agents`, `MCP`, `Node.js`, `OpenAPI 3.1`, `Vitest`, `Zod`],
     highlights: [
       `Autonomy only sells if it is accountable. Framed an agentic testing platform around one rule: an agent may act, but only through 19 schema-validated tools, each granted per host and audited.`,
@@ -180,6 +189,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://adarshcod30.github.io/Orbweaver/`,
     code: `https://github.com/adarshcod30/Orbweaver`,
+    shot: `/shots/orbweaver.jpg`,
     stack: [`Cost Modelling`, `Densest Subgraph`, `Graph Analytics`, `Knapsack`, `Python`, `igraph`],
     highlights: [
       `Promotion abuse is a group behaviour, so a queue built on per-account scores misses the ring. Reframed the output from flagged accounts to ranked rings, reaching 0.7292 precision against a 0.2242 base rate.`,
@@ -198,6 +208,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://openforensics.streamlit.app`,
     code: `https://github.com/adarshcod30/OpenForensics`,
+    shot: `/shots/openforensics.jpg`,
     stack: [`EfficientNetV2`, `Grad-CAM`, `PyTorch`, `ResNet50`, `VGG16`],
     highlights: [
       `A detector that outputs only a label is unusable as evidence, so built a three-backbone ensemble of ResNet50, VGG16 and EfficientNetV2-B0 with calibrated confidence and an explicit borderline warning band.`,
@@ -213,6 +224,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://med-guard-x.vercel.app`,
     code: `https://github.com/adarshcod30/MedGuardX`,
+    shot: `/shots/medguardx.jpg`,
     stack: [`Docker`, `FastAPI`, `JWT`, `JWT RBAC`, `Next.js`, `Python`, `spaCy`],
     highlights: [
       `Masking is not one operation: a doctor, a billing clerk and a researcher need different views of the same record. Built a role-by-purpose-by-consent policy matrix choosing full access, partial mask, full anonymise or deny per request.`,
@@ -231,6 +243,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/Specledger`,
+    shot: ``,
     stack: [`Calibration`, `LLM Extraction`, `Logistic Calibration`, `Python`],
     highlights: [
       `An LLM's self-reported confidence is not a probability, so it cannot decide what auto-publishes. Replaced it with a logistic calibrator over 11 evidence features fitted on held-out data, choosing the threshold to hit a measured precision floor.`,
@@ -248,6 +261,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://artifact-repro-triage.streamlit.app`,
     code: `https://github.com/adarshcod30/artifact-repro-triage`,
+    shot: `/shots/artifact.jpg`,
     stack: [`Deterministic Checks`, `LLM`, `Python`, `Streamlit`],
     highlights: [
       `A model asked whether a repository contains what its README promises will simply agree, so the pipeline runs deterministic filesystem checks first and allows exactly one model call afterwards.`,
@@ -264,6 +278,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://pypi.org/project/cachellm-proxy/`,
     code: `https://github.com/adarshcod30/CacheLLM`,
+    shot: `/shots/cachellm.jpg`,
     stack: [`Docker`, `Embeddings`, `FastAPI`, `PyPI`, `Python`, `Redis`],
     highlights: [
       `Teams pay full price to answer the same question reworded. Built a drop-in proxy that keeps the OpenAI request and response shape including streaming, verified against the official Python and Node SDKs and LangChain, so adopting it costs one base-URL change.`,
@@ -282,6 +297,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://inflxautostream.streamlit.app/`,
     code: `https://github.com/adarshcod30/Inflx`,
+    shot: `/shots/inflx.jpg`,
     stack: [`Gemini`, `LangGraph`, `RAG`, `Streamlit`],
     highlights: [
       `A sales agent that invents a product detail costs a customer, so no product answer comes from the model directly: every one is routed through retrieval, and greetings bypass retrieval entirely.`,
@@ -299,6 +315,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/Travel-Planner-Agent`,
+    shot: ``,
     stack: [`Aegra`, `Bedrock`, `LangGraph`, `MCP`, `Playwright`],
     highlights: [
       `Built five successive generations of the same planner, linear, parallel, orchestrator, human-in-the-loop and an MCP factory graph, keeping every generation runnable so the architectural trade-offs can be compared rather than argued about.`,
@@ -314,6 +331,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/buy-or-wait-financial-agent`,
+    shot: ``,
     stack: [`Agent Loop`, `Amazon Bedrock`, `Bedrock`, `Python`, `Typed Extraction`],
     highlights: [
       `Ranked #12 of a 24-hour agentic challenge by letting the agent propose and a deterministic layer decide: a 90-day cash-flow forecast keeps only payment plans that never breach the minimum balance.`,
@@ -331,6 +349,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/Multi-Modal-Evidence-Review`,
+    shot: ``,
     stack: [`Gemini Vision`, `Python`],
     highlights: [
       `A blurry photo of the right bumper, a sharp photo of the wrong bumper and a sharp photo of real damage look identical to a naive classifier. Built a four-stage vision-language pipeline that separates them.`,
@@ -346,6 +365,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://credit-setu-iota.vercel.app`,
     code: `https://github.com/adarshcod30/CreditSetu`,
+    shot: `/shots/creditsetu.jpg`,
     stack: [`Change-Point Detection`, `LightGBM`, `PyPI`, `Python`, `SHAP`, `ruptures`],
     highlights: [
       `Built for the lenders that actually underwrite thin-file borrowers, NBFCs, microfinance institutions and BNPL platforms, and shipped it as a pip-installable library they embed rather than another dashboard to stand up.`,
@@ -364,6 +384,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://air-cargo-intelligence.vercel.app`,
     code: `https://github.com/adarshcod30/Air-Cargo-Intelligence`,
+    shot: `/shots/aircargo.jpg`,
     stack: [`Multi-Agent`, `Multi-Agent Analytics`, `Open Government Data`, `PostgreSQL`, `Python`, `SARIMA`],
     highlights: [
       `Turned fragmented public aviation data into a product that answers ranking and anomaly questions directly, rather than handing users another raw data portal.`,
@@ -382,6 +403,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/Talent-Intelligence-Candidate-Discovery-Platform`,
+    shot: ``,
     stack: [`Pandas`, `Python`, `Streamlit`],
     highlights: [
       `Ranked 100,000 profiles in under 18 seconds on one CPU core with zero network calls, after proving per-profile LLM scoring infeasible at that scale and cost.`,
@@ -399,6 +421,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://huggingface.co/adarshcod30/flipkart-gridlock-2.0`,
     code: `https://github.com/adarshcod30/Flipkart-Gridlock-2.0`,
+    shot: `/shots/flipkart.jpg`,
     stack: [`Geohash`, `KFold`, `LightGBM`, `Optuna`, `XGBoost`],
     highlights: [
       `The dataset spans exactly two days, so the real problem is not a bigger model but a historical-prior feature that cannot leak the label it predicts. Decoded geohashes to coordinates and built a per-location per-time-slot demand profile from the one fully labelled day.`,
@@ -416,6 +439,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: ``,
     code: `https://github.com/adarshcod30/PrimeTradeML`,
+    shot: ``,
     stack: [`CI`, `Docker`, `Python`, `YAML`],
     highlights: [
       `Built a deterministic, Dockerized batch pipeline for trading-signal generation where the same inputs always reproduce the same outputs, because a signal you cannot reproduce is a signal you cannot audit.`,
@@ -431,6 +455,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://adarshcod30.github.io/Adaptive-Graph-Search-Suite/`,
     code: `https://github.com/adarshcod30/Adaptive-Graph-Search-Suite`,
+    shot: `/shots/graphsuite.jpg`,
     stack: [`C++20`, `CMake`, `WebAssembly`],
     highlights: [
       `Implemented 12 routing algorithms in C++20 over 1.7M junctions spanning Delhi NCR, 9 cities, the national highway grid and 70k rail nodes, from BFS and Dijkstra through to the techniques production engines actually use.`,
@@ -446,6 +471,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://sui-guard.vercel.app`,
     code: `https://github.com/adarshcod30/SuiGuard`,
+    shot: `/shots/suiguard.jpg`,
     stack: [`Bedrock`, `LangGraph.js`, `React`, `TypeScript`],
     highlights: [
       `Compiled plain-English intent into raw Sui Programmable Transaction Blocks, then ran risk analysis on the compiled transaction before execution, so a user sees what they are actually signing rather than a summary of it.`,

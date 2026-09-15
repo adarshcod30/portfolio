@@ -58,11 +58,13 @@ def main() -> None:
             else:
                 stack = [x.strip() for x in (st or "").split(",") if x.strip()]
             links = p.get("links", {}) or {}
+            shot_file = pathlib.Path(__file__).resolve().parents[1] / "public" / "shots" / f"{slug}.jpg"
             rows.append({
                 "slug": slug, "domain": did,
                 "name": p.get("name", slug), "tagline": p.get("tagline", ""),
                 "note": p.get("note", ""), "stack": stack,
                 "live": links.get("live", ""), "code": links.get("code", ""),
+                "shot": f"/shots/{slug}.jpg" if shot_file.exists() else "",
                 "highlights": bullets[:6],
             })
 
@@ -71,7 +73,7 @@ def main() -> None:
             "",
             "export type Project = {",
             "  slug: string; domain: string; name: string; tagline: string; note: string;",
-            "  stack: string[]; live: string; code: string; highlights: string[];",
+            "  stack: string[]; live: string; code: string; shot: string; highlights: string[];",
             "};", "",
             "export const DOMAINS = ["]
     for did, dtitle, dblurb, _ in DOMAINS:
@@ -79,7 +81,7 @@ def main() -> None:
     body += ["] as const;", "", "export const PROJECTS: Project[] = ["]
     for r in rows:
         body.append("  {")
-        for k in ("slug", "domain", "name", "tagline", "note", "live", "code"):
+        for k in ("slug", "domain", "name", "tagline", "note", "live", "code", "shot"):
             body.append(f"    {k}: `{esc(str(r[k]))}`,")
         body.append("    stack: [" + ", ".join(f"`{esc(s)}`" for s in r["stack"]) + "],")
         body.append("    highlights: [")

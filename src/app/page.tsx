@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import NodeField from "@/components/NodeField";
+import PolyBlob from "@/components/PolyBlob";
 import { StatusStrip, Cta } from "@/components/Chrome";
 import { Reveal, Stagger, StagItem, SplitLine, Marquee, CountUp } from "@/components/motion";
 import { IDENTITY, COMPETITIONS } from "@/content/site";
@@ -21,12 +23,10 @@ export default function Home() {
       {/* ---------------- hero ---------------- */}
       <section className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-8 pt-28 sm:px-8 sm:pt-36">
         <NodeField />
-        <div
-          className="blob left-[52%] top-[14%] h-[38vw] w-[38vw] max-h-[420px] max-w-[420px] sm:left-[58%] sm:top-[10%]"
-          aria-hidden
-        />
+        {/* the faceted shape, sized to collide with the headline rather than sit beside it */}
+        <PolyBlob className="pointer-events-none absolute right-[-18%] top-[6%] z-0 h-[64vw] w-[64vw] max-h-[520px] max-w-[520px] opacity-90 sm:right-[-6%] sm:top-[2%]" />
 
-        <div className="relative mx-auto w-full max-w-6xl">
+        <div className="relative z-10 mx-auto w-full max-w-6xl">
           <Reveal>
             <StatusStrip />
           </Reveal>
@@ -52,7 +52,7 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <div className="relative mx-auto mt-14 w-full max-w-6xl">
+        <div className="relative z-10 mx-auto mt-14 w-full max-w-6xl">
           <Stagger className="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-7 sm:grid-cols-4">
             {[
               { n: 32, s: "", label: "shipped products" },
@@ -93,7 +93,7 @@ export default function Home() {
                 <Reveal delay={i * 0.05}>
                   <Link
                     href={`/work/${p.slug}`}
-                    className="tile group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line py-7 sm:gap-8 sm:py-9"
+                    className="tile group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-b border-line py-7 sm:grid-cols-[auto_1fr_auto_auto] sm:gap-8 sm:py-9"
                   >
                     <span className="idx">{String(i + 1).padStart(2, "0")}</span>
                     <span>
@@ -109,6 +109,17 @@ export default function Home() {
                         ))}
                       </span>
                     </span>
+                    {p.shot && (
+                      <span className="hidden h-24 w-44 shrink-0 overflow-hidden rounded-xl border border-line sm:block">
+                        <Image
+                          src={p.shot}
+                          alt=""
+                          width={880}
+                          height={550}
+                          className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.06]"
+                        />
+                      </span>
+                    )}
                     <span className="arrow text-lg text-muted group-hover:text-accent sm:text-2xl">
                       ↗
                     </span>
@@ -130,7 +141,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- domains ---------------- */}
-      <section className="border-t border-line bg-surface2 px-5 py-24 sm:px-8 sm:py-32">
+      <section className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="eyebrow">How it is organised</p>
@@ -163,7 +174,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- competitions ---------------- */}
-      <section className="px-5 py-24 sm:px-8 sm:py-32">
+      <section className="slab-invert px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="eyebrow">Measured against other people</p>
@@ -201,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- the method ---------------- */}
-      <section className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
+      <section className="slab-quiet border-t border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <p className="eyebrow">The method</p>
