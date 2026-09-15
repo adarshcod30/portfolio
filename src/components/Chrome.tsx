@@ -109,8 +109,8 @@ export function Hud() {
           {/* the theme control sits above the links and names the current theme */}
           <ThemeButton />
 
-          {/* labels share a left edge; only the open route is boxed */}
-          <nav aria-label="Primary" className="hidden flex-col items-start gap-0.5 md:flex">
+          {/* labels share a right edge; only the open route is boxed */}
+          <nav aria-label="Primary" className="hidden flex-col items-end gap-0.5 text-right md:flex">
             {NAV.map((n) => {
               const active =
                 n.href === "/" ? path === "/" : path === n.href || path.startsWith(n.href + "/");

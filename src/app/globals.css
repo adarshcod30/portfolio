@@ -492,16 +492,17 @@ body {
 
 
 /* ---------- primary navigation ----------
-   Plain, bold, high-contrast labels. Only the route you are on is boxed, so the
-   box means "you are here" rather than decorating every item. */
+   Set in the display face, the same one as the headline, rather than the mono
+   used for small labels. Plain and bold; only the route you are on is boxed, so
+   the box means "you are here" rather than decorating every item. */
 .navlink {
-  font-family: var(--font-mono-stack), ui-monospace, monospace;
-  font-size: 12px;
+  font-family: var(--font-display-stack), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
   color: var(--ink);
-  padding: 6px 14px;
+  padding: 5px 14px;
   border: 1px solid transparent;
   border-radius: 999px;
   transition: color .25s ease, border-color .25s ease, background-color .25s ease;
