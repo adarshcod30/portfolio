@@ -19,10 +19,20 @@ export function Section({
     <section id={id} className="px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-6xl">
         {eyebrow && (
-          <p className="eyebrow mb-3">{eyebrow}</p>
+          <Reveal>
+            <p className="eyebrow mb-3">{eyebrow}</p>
+          </Reveal>
         )}
-        <h2 className="font-display text-3xl leading-tight tracking-tight sm:text-5xl">{title}</h2>
-        {blurb && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{blurb}</p>}
+        <Reveal delay={0.05}>
+          <h2 className="font-display text-[9vw] leading-[0.92] tracking-[-0.04em] sm:text-[4.2vw]">
+            {title}
+          </h2>
+        </Reveal>
+        {blurb && (
+          <Reveal delay={0.1}>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">{blurb}</p>
+          </Reveal>
+        )}
         <div className="mt-8">{children}</div>
       </div>
     </section>

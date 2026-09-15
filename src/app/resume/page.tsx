@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader, Section, Callout } from "@/components/UI";
+import { Reveal } from "@/components/motion";
 import { RESUMES } from "@/content/resumes.generated";
 
 export const metadata: Metadata = {
@@ -16,18 +17,23 @@ export default function ResumePage() {
         blurb="Every one is a single page, parses cleanly in an applicant tracking system, and is generated from the same source file this site is built from. Pick the role you are hiring for."
       />
       <Section title="Download">
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {RESUMES.map((r) => (
+        <ul className="border-t border-line">
+          {RESUMES.map((r, i) => (
             <li key={r.file}>
-              <a
-                href={`/resume/${r.file}`}
-                target="_blank"
-                rel="noreferrer"
-                className="card flex items-center justify-between gap-4 p-4"
-              >
-                <span className="text-sm font-medium">{r.label}</span>
-                <span className="font-mono text-[11px] text-muted">PDF · {r.kb} KB</span>
-              </a>
+              <Reveal delay={Math.min(i, 8) * 0.03}>
+                <a
+                  href={`/resume/${r.file}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="tile group grid grid-cols-[auto_1fr_auto] items-baseline gap-5 border-b border-line py-5"
+                >
+                  <span className="idx">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-lg tracking-tight transition-colors group-hover:text-accent sm:text-2xl">
+                    {r.label}
+                  </span>
+                  <span className="idx">PDF · {r.kb} KB <span className="arrow">↓</span></span>
+                </a>
+              </Reveal>
             </li>
           ))}
         </ul>

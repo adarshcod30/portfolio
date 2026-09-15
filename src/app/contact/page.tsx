@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader, Section, Callout } from "@/components/UI";
+import { Reveal } from "@/components/motion";
 import { CONTACT, IDENTITY } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -20,18 +21,22 @@ export default function Contact() {
       />
 
       <Section title="Direct">
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {primary.map((c) => (
+        <ul className="border-t border-line">
+          {primary.map((c, i) => (
             <li key={c.id}>
-              <a
-                href={c.href}
-                target={c.href.startsWith("http") ? "_blank" : undefined}
-                rel="noreferrer"
-                className="card flex items-center justify-between gap-4 p-4"
-              >
-                <span className="text-xs uppercase tracking-wider text-muted">{c.label}</span>
-                <span className="text-sm font-medium">{c.value}</span>
-              </a>
+              <Reveal delay={i * 0.04}>
+                <a
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="tile group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-6"
+                >
+                  <span className="eyebrow">{c.label}</span>
+                  <span className="font-display text-xl tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
+                    {c.value} <span className="arrow text-[0.6em]">↗</span>
+                  </span>
+                </a>
+              </Reveal>
             </li>
           ))}
         </ul>
