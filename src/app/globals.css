@@ -489,3 +489,26 @@ body {
     0 0 22px var(--bg),
     0 1px 2px var(--bg);
 }
+
+
+/* ---------- primary navigation ----------
+   Plain, bold, high-contrast labels. Only the route you are on is boxed, so the
+   box means "you are here" rather than decorating every item. */
+.navlink {
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition: color .25s ease, border-color .25s ease, background-color .25s ease;
+}
+.navlink:hover { color: var(--accent); }
+.navlink[aria-current="page"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}

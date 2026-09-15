@@ -24,7 +24,7 @@ export function HorizontalWork({ items }: { items: Project[] }) {
       {/* desktop: pinned, moves sideways */}
       <div ref={ref} className="relative hidden h-[420vh] lg:block" data-section="Work">
         <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-          <div className="px-8">
+          <div className="px-8 md:pr-48">
             <p className="eyebrow">Selected work</p>
             <h2 className="font-display mt-2 text-[4.6vw] leading-[0.95] tracking-[-0.04em]">
               Twenty-six shipped<span className="text-accent">.</span>

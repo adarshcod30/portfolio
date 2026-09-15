@@ -109,20 +109,17 @@ export function Hud() {
           {/* the theme control sits above the links and names the current theme */}
           <ThemeButton />
 
-          <nav aria-label="Primary" className="hidden flex-col items-end gap-1.5 md:flex">
-            {NAV.filter((n) => n.href !== "/").map((n) => {
-              const active = path === n.href || path.startsWith(n.href + "/");
+          {/* labels share a left edge; only the open route is boxed */}
+          <nav aria-label="Primary" className="hidden flex-col items-start gap-0.5 md:flex">
+            {NAV.map((n) => {
+              const active =
+                n.href === "/" ? path === "/" : path === n.href || path.startsWith(n.href + "/");
               return (
                 <Link
                   key={n.href}
                   href={n.href}
                   aria-current={active ? "page" : undefined}
-                  // a bordered pill, so it reads as something you can press
-                  className={`eyebrow rounded-full border px-3.5 py-1.5 backdrop-blur transition-colors ${
-                    active
-                      ? "border-accent bg-accentsoft !text-accent"
-                      : "border-line bg-surface/55 !text-ink2 hover:border-accent hover:bg-accentsoft hover:!text-accent"
-                  }`}
+                  className="navlink"
                 >
                   {n.label}
                 </Link>

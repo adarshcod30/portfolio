@@ -55,7 +55,7 @@ export function PageHeader({
     // part of the site they are in
     <header
       data-section={eyebrow}
-      className="relative overflow-hidden border-b border-line px-5 pb-14 pt-32 sm:px-8 sm:pt-40"
+      className="relative overflow-hidden border-b border-line px-5 pb-14 pt-32 sm:px-8 sm:pt-40 md:pr-48"
     >
       {/* a wash unique to each page, so the tabs do not all feel identical */}
       <div
