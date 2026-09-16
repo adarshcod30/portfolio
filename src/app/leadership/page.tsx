@@ -93,7 +93,9 @@ export default function Leadership() {
                 ))}
               </ul>
             </div>
-            <div>
+            {/* lifted beside the heading on wide screens, so the figures do not
+                start a full block below the name of the conference */}
+            <div className="lg:-mt-28">
               <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-[var(--line)]">
                 {mun26.figures.map((f) => (
                   <div key={f.label} className="mun-fig">
