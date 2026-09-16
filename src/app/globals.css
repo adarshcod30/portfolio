@@ -43,9 +43,12 @@
   --cyan: #67e8f9;
   --indigo: #a5b4fc;
   --deep: #02040a;
-  --slab-bg: #eef5ff;
-  --slab-fg: #06090f;
-  --slab-accent: #1568c6;
+  /* The contrasting slab lifts off the page rather than inverting to white:
+     in the dark theme the whole site stays dark, and the separation comes
+     from a lighter, bluer ground plus a rule at each edge. */
+  --slab-bg: #101a2b;
+  --slab-fg: #eaf2ff;
+  --slab-accent: #6fd6f7;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 24px 60px -28px rgb(0 0 0 / 0.9);
 }
 
@@ -284,6 +287,7 @@ body {
 .slab-invert {
   background: var(--slab-bg);
   color: var(--slab-fg);
+  border-block: 1px solid var(--line);
   --bg: var(--slab-bg);
   --ink: var(--slab-fg);
   --deep: var(--slab-fg);
@@ -365,70 +369,6 @@ body {
 }
 
 
-/* ---------- bento tiles ---------- */
-.bento {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-@media (min-width: 900px) {
-  .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-.tile-frame {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--surface);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 168px;
-  transition: border-color .4s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
-}
-.tile-frame:hover { border-color: var(--accent); transform: translateY(-3px); }
-.tile-frame--wide { grid-column: span 2; }
-@media (min-width: 900px) {
-  .tile-frame--tall { grid-row: span 2; }
-  .tile-frame--media { grid-column: span 2; grid-row: span 2; padding: 0; min-height: 356px; }
-}
-.tile-frame--media { padding: 0; }
-.tile-frame--fill {
-  /* same trap as .slab-invert: --deep and --bg are both dark in the dark theme,
-     so this tile has to use the stated slab pair, not derive one from the other */
-  background: var(--slab-bg);
-  color: var(--slab-fg);
-  border-color: transparent;
-  --ink: var(--slab-fg);
-  --ink-2: color-mix(in oklab, var(--slab-fg) 86%, var(--slab-bg));
-  --muted: color-mix(in oklab, var(--slab-fg) 66%, var(--slab-bg));
-  --accent: var(--slab-accent);
-}
-.tile-frame--accent {
-  background: linear-gradient(140deg, var(--accent-fill), var(--cyan));
-  color: #fff;
-  border-color: transparent;
-}
-.tile-num {
-  font-family: var(--font-display-stack), sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-  font-size: clamp(30px, 4.2vw, 52px);
-}
-
-/* corner ticks, a small frame detail that repeats across the page */
-.ticks::before, .ticks::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-color: var(--accent);
-  opacity: .5;
-}
-.ticks::before { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
-.ticks::after { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
 
 
 /* ---------- offset frame composition ----------
@@ -635,8 +575,9 @@ body {
    and the slab swaps them again. */
 :root { --chev-fill: #1568c6; --chev-on: #ffffff; }
 :root[data-theme="dark"] { --chev-fill: #bfe6f6; --chev-on: #06131d; }
+/* the slab is a dark ground in both themes now, so a light fill works on it
+   either way and only the light theme's page default needs overriding */
 :root .slab-invert { --chev-fill: #bfe6f6; --chev-on: #06131d; }
-:root[data-theme="dark"] .slab-invert { --chev-fill: #0d3f66; --chev-on: #eaf6ff; }
 
 .railchev {
   position: relative;
