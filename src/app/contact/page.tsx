@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHeader, Section, Callout } from "@/components/UI";
 import { Reveal } from "@/components/motion";
+import ResumePicker from "@/components/ResumePicker";
 import ProfileCards from "@/components/ProfileCards";
 import { CONTACT, IDENTITY } from "@/content/site";
 
@@ -53,11 +53,13 @@ export default function Contact() {
 
       <Section title="Or take the paperwork">
         <Callout>
-          Fourteen role-specific resumes are on the{" "}
-          <Link href="/resume" className="font-medium text-accent link-underline">
-            resume page
-          </Link>
-          , all one page, all generated from the same facts as this site.
+          <span className="flex flex-wrap items-center justify-between gap-4">
+            <span>
+              Fourteen role-specific resumes, all one page, all generated from the same facts as
+              this site. Pick the one for the role you are hiring for.
+            </span>
+            <ResumePicker />
+          </span>
         </Callout>
       </Section>
     </>

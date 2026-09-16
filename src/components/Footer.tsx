@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "./motion";
 import ProfileCards from "./ProfileCards";
+import ResumePicker from "./ResumePicker";
 import { IDENTITY, CONTACT, NAV } from "@/content/site";
 
 /**
@@ -46,6 +47,7 @@ export default function Footer() {
                 <Link href="/contact" className="closing__cta group">
                   Every way to reach me <span className="arrow">↗</span>
                 </Link>
+                <ResumePicker />
                 {email && (
                   <a href={email.href} className="closing__mail group">
                     {email.value} <span className="arrow text-[0.7em]">↗</span>

@@ -13,7 +13,7 @@ const { chromium } = require('/Users/adarsh/.npm/_npx/9833c18b2d85bc59/node_modu
 const BASE = process.argv[2] || 'http://localhost:3000';
 const ROUTES = [
   '/', '/work', '/about', '/competitions', '/leadership',
-  '/gallery', '/resume', '/contact',
+  '/contact',
   '/work/kadi', '/work/orbweaver', '/work/agentiq', '/work/travel',
 ];
 

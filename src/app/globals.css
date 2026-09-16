@@ -434,6 +434,130 @@ body {
 .domtile.is-active .domtile__fill { background: var(--accent); }
 @media (min-width: 1024px) { .domtile { min-width: 0; } }
 
+/* ---------- resume picker ----------
+   A blue panel over a blurred page. Stated colours, because it floats over both
+   themes and has to read the same on each. */
+.resume-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid rgb(86 203 240 / .45);
+  background: rgb(86 203 240 / .08);
+  color: #cfefff;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color .3s ease, border-color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);
+}
+.resume-trigger:hover { background: rgb(86 203 240 / .18); border-color: #56cbf0; transform: translateY(-2px); }
+
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(2 6 14 / .72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.resume-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden auto;
+  width: min(880px, 100%);
+  max-height: min(88vh, 820px);
+  border-radius: 22px;
+  border: 1px solid rgb(120 190 255 / .28);
+  background: linear-gradient(155deg, #0e2c57 0%, #0a1c3c 45%, #061126 100%);
+  color: #eaf2ff;
+  padding: 30px 30px 26px;
+  box-shadow: 0 40px 120px -30px rgb(20 90 200 / .55), inset 0 1px 0 rgb(255 255 255 / .06);
+}
+.resume-panel__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(520px 260px at 90% -10%, rgb(86 203 240 / .30), transparent 70%),
+    radial-gradient(420px 240px at 0% 110%, rgb(60 110 255 / .22), transparent 70%);
+}
+.resume-eyebrow {
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #7fd4f5;
+}
+.resume-title {
+  margin-top: 8px;
+  font-family: var(--font-display-stack), sans-serif;
+  font-size: clamp(24px, 3.4vw, 34px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.resume-title span { color: #56cbf0; }
+.resume-sub { margin-top: 10px; max-width: 52ch; font-size: 14px; line-height: 1.6; color: #a9c1df; }
+.resume-close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgb(160 200 255 / .25);
+  color: #cfe3ff;
+  transition: background-color .25s ease, border-color .25s ease;
+}
+.resume-close:hover { background: rgb(160 200 255 / .12); border-color: rgb(160 200 255 / .5); }
+.resume-close:focus-visible, .resume-role:focus-visible, .resume-trigger:focus-visible { outline: 2px solid #56cbf0; outline-offset: 2px; }
+
+.resume-groups { display: grid; gap: 22px; margin-top: 26px; }
+.resume-group {
+  margin-bottom: 10px;
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #86a3c7;
+}
+.resume-list { display: grid; gap: 8px; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .resume-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.resume-role {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 100%;
+  border-radius: 12px;
+  border: 1px solid rgb(140 190 255 / .16);
+  background: rgb(255 255 255 / .035);
+  padding: 13px 15px;
+  transition: background-color .25s ease, border-color .25s ease, transform .3s cubic-bezier(.16,1,.3,1);
+}
+.resume-role:hover {
+  background: linear-gradient(135deg, rgb(86 203 240 / .22), rgb(60 110 255 / .16));
+  border-color: rgb(86 203 240 / .6);
+  transform: translateY(-2px);
+}
+.resume-role__name { font-size: 14.5px; font-weight: 600; letter-spacing: -.01em; color: #eaf2ff; }
+.resume-role__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: #86a3c7;
+}
+.resume-role:hover .resume-role__meta { color: #bfe9fb; }
+
 /* ---------- the closing block ----------
    The end of the site is dark in both themes, so its colours are stated here
    once rather than derived from --ink and --bg, which swap meaning between
