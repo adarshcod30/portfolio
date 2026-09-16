@@ -443,8 +443,8 @@ export const MUN_ORGANISED = [
 export const MUN = [
   { event: "LNMIIT MUN'26", role: "Coordinator, organising society", award: "Best Delegation to LNMIIT", year: "2026" },
   { event: "AIYS MUN 2026", role: "Society delegation, as Coordinator", award: "1 Special, 2 Honourable Mentions", year: "2026" },
-  { event: "LNMIIT Intra MUN 2026", role: "Coordinator, Deputy Moderator AIPPM", award: "", year: "2026" },
-  { event: "LNMIIT MUN'25", role: "Core Organising Committee", award: "", year: "2025" },
+  { event: "LNMIIT Intra MUN 2026", role: "Coordinator, Deputy Moderator AIPPM", award: "Organizer", year: "2026" },
+  { event: "LNMIIT MUN'25", role: "Core Organising Committee", award: "Organizer", year: "2025" },
   { event: "Thapar MUN'24", role: "Delegate", award: "Honourable Mention", year: "2024" },
   { event: "BITS MUN'24", role: "Delegate", award: "Honourable Mention", year: "2024" },
   { event: "LNMIIT MUN'24", role: "Delegate", award: "Special Mention", year: "2024" },
