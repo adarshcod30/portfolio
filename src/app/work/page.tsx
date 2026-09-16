@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import WorkBrowser from "./WorkBrowser";
 import { Reveal } from "@/components/motion";
-import { PROJECTS } from "@/content/projects.generated";
+import { PROJECTS, DOMAINS } from "@/content/projects.generated";
+import { COUNT_WORD } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Twenty-six shipped projects across five domains, each with a case study.",
+  description: "Twenty-six shipped projects across six domains, each with a case study.",
 };
 
 export default function WorkPage() {
@@ -30,7 +31,7 @@ export default function WorkPage() {
               <span className="block">{PROJECTS.length} projects</span>
             </Reveal>
             <Reveal delay={0.14}>
-              <span className="block">five domains<span className="text-accent">.</span></span>
+              <span className="block">{COUNT_WORD[DOMAINS.length].toLowerCase()} domains<span className="text-accent">.</span></span>
             </Reveal>
           </h1>
           <Reveal delay={0.24}>

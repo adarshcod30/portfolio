@@ -15,23 +15,27 @@ import { EASE } from "./motion";
 const GROUPS = [
   {
     name: "Agents and LLMs",
-    items: ["LangGraph", "LangChain", "MCP", "Amazon Bedrock", "LangSmith", "RAG"],
+    items: ["LangGraph", "LangChain", "MCP", "Amazon Bedrock", "LangSmith", "DeepEval", "Ragas", "Langfuse"],
   },
   {
     name: "Machine learning",
-    items: ["PyTorch", "Scikit-learn", "CatBoost", "LightGBM", "XGBoost", "Optuna"],
+    items: ["Scikit-learn", "XGBoost", "LightGBM", "CatBoost", "Optuna", "SHAP", "Pandas", "NumPy"],
+  },
+  {
+    name: "Deep learning",
+    items: ["PyTorch", "TensorFlow", "Keras", "Transformers", "OpenCV", "ResNet50", "EfficientNetV2", "Grad-CAM"],
   },
   {
     name: "Backend and data",
-    items: ["FastAPI", "Pydantic", "PostgreSQL", "DuckDB", "Redis", "Pandas"],
+    items: ["FastAPI", "Pydantic", "PostgreSQL", "MongoDB", "DuckDB", "Redis", "Node.js", "Express"],
   },
   {
     name: "Frontend",
-    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MapLibre GL", "Recharts"],
+    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vite", "Recharts", "MapLibre GL", "Streamlit"],
   },
   {
     name: "Ship and run",
-    items: ["AWS", "Vercel", "Cloud Run", "GitHub Actions", "Linux", "CI/CD"],
+    items: ["AWS", "Google Cloud Run", "Vercel", "Render", "GitHub Actions", "Docker", "Linux", "Git"],
   },
 ] as const;
 
@@ -99,9 +103,9 @@ export default function Stack() {
 
         {/* a floor under the list, so swapping a wrapping group for a short one
             does not make the page jump */}
-        <div className="min-h-[92px] flex-1 sm:min-h-[52px]">
+        <div className="min-h-[164px] flex-1 sm:min-h-[88px]">
           <AnimatePresence mode="wait">
-            <motion.ul key={g.name} className="flex flex-wrap gap-x-8 gap-y-2.5">
+            <motion.ul key={g.name} className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-7">
               {g.items.map((t, n) => (
                 <motion.li
                   key={t}

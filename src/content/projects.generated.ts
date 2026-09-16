@@ -7,7 +7,8 @@ export type Project = {
 };
 
 export const DOMAINS = [
-  { id: `public-interest`, title: `Public-interest AI`, blurb: `Problems that already have victims: crop loss, air quality, road capacity, misdiagnosis, floods, thin-file credit.` },
+  { id: `public-interest`, title: `Public-interest AI`, blurb: `Problems that already have victims: crop loss, air quality, road capacity, floods and policing.` },
+  { id: `health`, title: `Clinical and diagnostic AI`, blurb: `Medicine, where a wrong answer costs more than a click: grading, identification and clinical assistance built to abstain when unsure.` },
   { id: `trust`, title: `Trust and verification`, blurb: `Systems whose job is deciding whether to believe something, and showing the evidence for the answer.` },
   { id: `agents`, title: `Agents and AI infrastructure`, blurb: `The plumbing under AI products: routing, caching, tool layers, retrieval and evaluation.` },
   { id: `data`, title: `Data and decision systems`, blurb: `Turning a pile of records into a ranked queue somebody can actually work through.` },
@@ -73,24 +74,6 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    slug: `vaidyamitra`,
-    domain: `public-interest`,
-    name: `VaidyaMitra`,
-    tagline: `Privacy-First Clinical GenAI Assistant`,
-    note: ``,
-    live: `https://vaidyamitra-adarshcod30s-projects.vercel.app`,
-    code: `https://github.com/VaidyaMitra/VaidyaMitra`,
-    shot: `/shots/vaidyamitra.jpg`,
-    stack: [`AWS Bedrock Nova`, `FastAPI`, `Next.js`],
-    highlights: [
-      `Clinical text cannot be handed to a hosted model as-is, so every identifier is masked before the request leaves the service, enforced across a 38-endpoint API rather than at one choke point.`,
-      `Benchmarked four Amazon Bedrock models on latency and multilingual quality and selected Nova Pro at 605 ms against alternatives above 1,050 ms, setting maxTokens on every call to avoid quota-reservation throttling.`,
-      `Matched prescriptions to Jan Aushadhi generics with substitution-safety warnings, surfacing savings up to 93.7%, and simplified clinical reports into 15 Indian languages.`,
-      `Masked every identifier before it reaches the model across a 38-endpoint API, so a hosted model never sees patient-identifying text.`,
-      `Benchmarked four Bedrock models on latency and multilingual quality to select Nova Pro at 605 ms against alternatives above 1,050 ms, and set maxTokens explicitly to avoid quota-reservation throttling.`,
-    ],
-  },
-  {
     slug: `margadrishti`,
     domain: `public-interest`,
     name: `MargaDrishti`,
@@ -128,8 +111,26 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: `vaidyamitra`,
+    domain: `health`,
+    name: `VaidyaMitra`,
+    tagline: `Privacy-First Clinical GenAI Assistant`,
+    note: ``,
+    live: `https://vaidyamitra-adarshcod30s-projects.vercel.app`,
+    code: `https://github.com/VaidyaMitra/VaidyaMitra`,
+    shot: `/shots/vaidyamitra.jpg`,
+    stack: [`AWS Bedrock Nova`, `FastAPI`, `Next.js`],
+    highlights: [
+      `Clinical text cannot be handed to a hosted model as-is, so every identifier is masked before the request leaves the service, enforced across a 38-endpoint API rather than at one choke point.`,
+      `Benchmarked four Amazon Bedrock models on latency and multilingual quality and selected Nova Pro at 605 ms against alternatives above 1,050 ms, setting maxTokens on every call to avoid quota-reservation throttling.`,
+      `Matched prescriptions to Jan Aushadhi generics with substitution-safety warnings, surfacing savings up to 93.7%, and simplified clinical reports into 15 Indian languages.`,
+      `Masked every identifier before it reaches the model across a 38-endpoint API, so a hosted model never sees patient-identifying text.`,
+      `Benchmarked four Bedrock models on latency and multilingual quality to select Nova Pro at 605 ms against alternatives above 1,050 ms, and set maxTokens explicitly to avoid quota-reservation throttling.`,
+    ],
+  },
+  {
     slug: `medicure`,
-    domain: `public-interest`,
+    domain: `health`,
     name: `Medicure AI`,
     tagline: `Retrieval-First Medicine Identification`,
     note: ``,
@@ -148,7 +149,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: `dr`,
-    domain: `public-interest`,
+    domain: `health`,
     name: `Diabetic Retinopathy Screening`,
     tagline: `Explainable Grading for Rural Screening Programmes`,
     note: ``,

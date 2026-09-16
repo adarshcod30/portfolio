@@ -11,8 +11,11 @@ OUT = pathlib.Path(__file__).resolve().parents[1] / "src" / "content" / "project
 # his "all the products under different domain heads"
 DOMAINS = [
     ("public-interest", "Public-interest AI",
-     "Problems that already have victims: crop loss, air quality, road capacity, misdiagnosis, floods, thin-file credit.",
-     ["kadi", "krishimitra", "vayu", "vaidyamitra", "margadrishti", "floodcast", "medicure", "dr"]),
+     "Problems that already have victims: crop loss, air quality, road capacity, floods and policing.",
+     ["kadi", "krishimitra", "vayu", "margadrishti", "floodcast"]),
+    ("health", "Clinical and diagnostic AI",
+     "Medicine, where a wrong answer costs more than a click: grading, identification and clinical assistance built to abstain when unsure.",
+     ["vaidyamitra", "medicure", "dr"]),
     ("trust", "Trust and verification",
      "Systems whose job is deciding whether to believe something, and showing the evidence for the answer.",
      ["agentiq", "orbweaver", "openforensics", "medguardx", "specledger", "artifact"]),

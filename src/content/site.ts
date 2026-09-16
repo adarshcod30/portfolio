@@ -188,3 +188,9 @@ export const NAV = [
   { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];
+
+/** Headings spell the count out, so it is read from the data, not retyped. */
+export const COUNT_WORD = [
+  "Zero", "One", "Two", "Three", "Four", "Five",
+  "Six", "Seven", "Eight", "Nine", "Ten",
+] as const;

@@ -4,7 +4,7 @@ import IceDome from "@/components/IceDome";
 import { StatusStrip, Cta } from "@/components/Chrome";
 import Stack from "@/components/Stack";
 import { Reveal, Stagger, StagItem, SplitLine, CountUp } from "@/components/motion";
-import { IDENTITY, COMPETITIONS } from "@/content/site";
+import { IDENTITY, COMPETITIONS, COUNT_WORD } from "@/content/site";
 import { PROJECTS, DOMAINS } from "@/content/projects.generated";
 
 export default function Home() {
@@ -218,7 +218,7 @@ export default function Home() {
           <Reveal><p className="eyebrow">How it is organised</p></Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-display mt-3 text-[11vw] leading-[0.9] tracking-[-0.04em] sm:text-[5vw]">
-              Five domains<span className="text-accent">.</span>
+              {COUNT_WORD[DOMAINS.length]} domains<span className="text-accent">.</span>
             </h2>
           </Reveal>
           <Stagger className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" gap={0.06}>
