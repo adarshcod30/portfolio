@@ -228,48 +228,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------------- the engine, full bleed ---------------- */}
+      {/* ---------------- the engine ---------------- */}
       {graph?.shot && (
-        <section data-section="Under the products" className="relative border-y border-line">
-          <Link href={`/work/${graph.slug}`} className="group block">
-            {/* the screenshot is already near-black, so it bleeds into the page
-                instead of sitting on it as another framed rectangle */}
-            {/* the app's own control panel is cropped out of this copy: at band
-                size its text collided with the headline and read as noise */}
-            <Image
-              src="/shots/graphsuite-band.jpg"
-              alt="The Adaptive Graph Search Suite running: a bidirectional Dijkstra search across the Indian national highway network."
-              width={1660}
-              height={1178}
-              className="h-[58vh] min-h-[420px] w-full object-cover object-center brightness-[1.22] saturate-[1.12] transition-transform duration-[1.4s] group-hover:scale-[1.03]"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{
-                background:
-                  [
-                    // the caption sits bottom left, so the ground is built there
-                    // and the map is left alone through the middle and right
-                    "linear-gradient(to top, var(--bg) 6%, color-mix(in oklab, var(--bg) 78%, transparent) 34%, transparent 66%)",
-                    "linear-gradient(to right, var(--bg) 0%, color-mix(in oklab, var(--bg) 58%, transparent) 17%, color-mix(in oklab, var(--bg) 22%, transparent) 38%, transparent 54%)",
-                  ].join(", "),
-              }}
-            />
-            <div className="absolute inset-x-0 bottom-0 px-5 pb-10 sm:px-8 sm:pb-14">
-              <div className="mx-auto max-w-6xl">
+        <section data-section="Under the products" className="px-5 py-24 sm:px-8 sm:py-32">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <Reveal>
                 <p className="eyebrow">Under the products</p>
-                <h2 className="font-display mt-2 max-w-2xl text-[9vw] leading-[0.94] tracking-[-0.04em] sm:text-[3.4vw]">
-                  Twelve routing algorithms,
-                  <br />
-                  compiled into the browser<span className="text-accent">.</span>
+              </Reveal>
+              <Reveal delay={0.06}>
+                <h2 className="font-display mt-3 text-[9vw] leading-[0.96] tracking-[-0.035em] sm:text-[3.2vw] lg:text-[2.35vw]">
+                  Twelve routing algorithms, compiled
+                  into the browser<span className="text-accent">.</span>
                 </h2>
-                <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink2">
+              </Reveal>
+              <Reveal delay={0.14}>
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-ink2">
                   {graph.name}, in C++20 over 1.7M junctions. Contraction Hierarchies reach 44x
                   faster with 460x fewer settled nodes than Dijkstra, and every route is verified
                   exact against a reference implementation rather than trusted on the speedup.
                 </p>
-                <dl className="mt-7 grid max-w-xl grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+              </Reveal>
+              <Reveal delay={0.2}>
+                <dl className="mt-8 grid max-w-sm grid-cols-2 gap-x-6 gap-y-6">
                   {[
                     ["1.7M", "junctions"],
                     ["44x", "faster than Dijkstra"],
@@ -284,12 +265,37 @@ export default function Home() {
                     </div>
                   ))}
                 </dl>
-                <span className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-accent">
+              </Reveal>
+              <Reveal delay={0.26}>
+                <Link
+                  href={`/work/${graph.slug}`}
+                  className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent"
+                >
                   Read the case study <span className="arrow">↗</span>
-                </span>
-              </div>
+                </Link>
+              </Reveal>
             </div>
-          </Link>
+
+            <Reveal delay={0.12} className="lg:col-span-7">
+              {/* the panel matches the image's own ratio, so nothing is cropped
+                  and the search is readable at this size */}
+              <Link
+                href={`/work/${graph.slug}`}
+                className="panel group block aspect-[1660/1178] overflow-hidden"
+              >
+                <Image
+                  src="/shots/graphsuite-band.jpg"
+                  alt="The Adaptive Graph Search Suite running: a bidirectional Dijkstra search across the Indian national highway network."
+                  width={1660}
+                  height={1178}
+                  className="h-full w-full object-cover transition-transform duration-[1.4s] group-hover:scale-[1.04]"
+                />
+              </Link>
+              <p className="eyebrow mt-3 !text-muted">
+                Bidirectional Dijkstra over the national highway grid, 30.9 ms in the tab
+              </p>
+            </Reveal>
+          </div>
         </section>
       )}
 
