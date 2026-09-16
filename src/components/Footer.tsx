@@ -1,62 +1,74 @@
 import Link from "next/link";
-import { Reveal, SplitLine } from "./motion";
-import ProfileCards, { MARK } from "./ProfileCards";
+import { Reveal } from "./motion";
+import ProfileCards from "./ProfileCards";
 import { IDENTITY, CONTACT, NAV } from "@/content/site";
 
+/**
+ * The closing block.
+ *
+ * It used to restate the whole contact page: three large contact rows, seven
+ * full-size chevrons and a long sign-off, running to 865px. There is a contact
+ * page for that. This is a door to it at roughly half the height, on a stated
+ * near-black ground so it reads as the end of the site in either theme.
+ */
 export default function Footer() {
-  const direct = CONTACT.filter((c) => c.primary && c.href && !MARK[c.id]);
+  const email = CONTACT.find((c) => c.id === "email-college" && c.href);
 
   return (
-    <footer data-section="Contact" className="slab-invert">
-      <div className="clear-hud mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
-        <Reveal>
-          <p className="eyebrow">Contact</p>
-        </Reveal>
+    <footer data-section="Contact" className="closing">
+      <div className="closing__glow" aria-hidden />
 
-        <h2 className="font-display mt-4 text-[9vw] leading-[0.9] tracking-[-0.04em] sm:text-[3.6vw]">
-          <SplitLine text="Let's talk" delay={0.05} />
-        </h2>
-
-        <Reveal delay={0.3}>
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-ink2">
-            {IDENTITY.available}. Based in {IDENTITY.location}, and happy to talk across any
-            timezone.
-          </p>
-        </Reveal>
-
-        {/* direct lines, set large because they are the point of the page */}
-        <ul className="mt-9 border-t border-line">
-          {direct.map((c, i) => (
-            <li key={c.id}>
-              <Reveal delay={0.06 + i * 0.04}>
-                <a
-                  href={c.href}
-                  target={c.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  className="group flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-line py-3.5"
-                >
-                  <span className="eyebrow">{c.label}</span>
-                  <span className="font-display text-sm font-medium tracking-tight transition-colors group-hover:text-accent sm:text-base">
-                    {c.value} <span className="arrow text-[0.6em]">↗</span>
-                  </span>
-                </a>
-              </Reveal>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-9">
-          <ProfileCards />
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+        {/* the same live status the hero opens with, so the page closes on the
+            one fact a visitor is here to check */}
+        <div className="closing__status">
+          <span className="flex items-center gap-2.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            {IDENTITY.available}
+          </span>
+          <span className="opacity-70">
+            {IDENTITY.location} <span className="opacity-40">/</span> IST
+          </span>
         </div>
 
-        <div className="mt-12 flex flex-col gap-6 border-t border-line pt-7 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <p className="text-sm font-medium">{IDENTITY.name}</p>
-            <p className="mt-1 max-w-xs text-xs leading-relaxed text-muted">
-              {IDENTITY.degree}, {IDENTITY.school}. {IDENTITY.years}.
-            </p>
+        <div className="grid gap-9 py-11 lg:grid-cols-12 lg:items-center lg:gap-8 lg:py-12">
+          <div className="lg:col-span-5">
+            <Reveal>
+              <h2 className="font-display text-[13vw] leading-[0.86] tracking-[-0.045em] sm:text-[5.5vw] lg:text-[3.1vw]">
+                Let&rsquo;s talk<span className="text-accent">.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+                <Link href="/contact" className="closing__cta group">
+                  Every way to reach me <span className="arrow">↗</span>
+                </Link>
+                {email && (
+                  <a href={email.href} className="closing__mail group">
+                    {email.value} <span className="arrow text-[0.7em]">↗</span>
+                  </a>
+                )}
+              </div>
+            </Reveal>
           </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2">
+
+          <Reveal delay={0.16} className="lg:col-span-7 lg:justify-self-end">
+            <ProfileCards compact />
+          </Reveal>
+        </div>
+
+        <div className="closing__base">
+          <p className="text-[13px]">
+            <span className="font-medium">{IDENTITY.name}</span>
+            <span className="text-muted">
+              {"  ·  "}
+              {IDENTITY.degree}, {IDENTITY.school}, {IDENTITY.years}
+            </span>
+          </p>
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-1.5">
             {NAV.map((n) => (
               <Link key={n.href} href={n.href} className="eyebrow hover:!text-accent">
                 {n.label}
@@ -65,7 +77,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <p className="eyebrow mt-8 !text-muted">
+        <p className="eyebrow pb-9 pt-5 !text-muted">
           Every number on this site is reproducible from the repository it belongs to
         </p>
       </div>

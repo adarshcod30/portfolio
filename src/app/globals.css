@@ -371,6 +371,93 @@ body {
 
 
 
+/* ---------- the closing block ----------
+   The end of the site is dark in both themes, so its colours are stated here
+   once rather than derived from --ink and --bg, which swap meaning between
+   them. Near-black ground, one cyan accent doing all the contrast work. */
+.closing {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #04080f;
+  color: #eaf2ff;
+  border-top: 1px solid rgb(86 203 240 / .22);
+  --ink: #eaf2ff;
+  --ink-2: #b9c8dd;
+  --muted: #8296ad;
+  --line: rgb(234 242 255 / .13);
+  --accent: #56cbf0;
+  --accent-soft: rgb(86 203 240 / .14);
+  --chev-fill: #bfe6f6;
+  --chev-on: #06131d;
+}
+/* one wash of light off the top left corner, so the block has a direction */
+.closing__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(760px 320px at 8% 0%, rgb(86 203 240 / .16), transparent 68%),
+    radial-gradient(520px 300px at 92% 108%, rgb(110 140 255 / .10), transparent 70%);
+}
+
+.closing__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* the one filled element on the page: dark type on accent, which is the
+   strongest contrast available on this ground */
+.closing__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #05121a;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  transition: background-color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);
+}
+.closing__cta:hover { background: #8fe3ff; transform: translateY(-2px); }
+
+.closing__mail {
+  font-size: 14px;
+  color: var(--ink-2);
+  transition: color .3s ease;
+}
+.closing__mail:hover { color: var(--accent); }
+
+.closing__base {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 720px) {
+  .closing__base {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+}
+
 /* ---------- the method, set as a split ----------
    The section's whole claim is that proposing and deciding are separate jobs,
    so it is laid out as two columns with a rule between them rather than as a

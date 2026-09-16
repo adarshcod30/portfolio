@@ -18,7 +18,7 @@ export const MARK: Record<string, { mark: string; note: string }> = {
  * only ever want at the end of it, so the shape survived and the rail did not:
  * this is the one place it appears.
  */
-export default function ProfileCards() {
+export default function ProfileCards({ compact = false }: { compact?: boolean }) {
   const badges = CONTACT.filter((c) => c.href && MARK[c.id]);
   return (
     <ul className="flex flex-wrap gap-1">
@@ -29,17 +29,23 @@ export default function ProfileCards() {
               href={b.href}
               target="_blank"
               rel="noreferrer"
-              className="railchev railchev--lg"
+              className={`railchev ${compact ? "" : "railchev--lg"}`}
               aria-label={`${b.label} profile`}
               title={MARK[b.id].note}
             >
               <svg
                 className="railchev__edge"
-                viewBox="0 0 44 132"
+                viewBox={compact ? "0 0 32 96" : "0 0 44 132"}
                 aria-hidden="true"
                 focusable="false"
               >
-                <polygon points="0.6,18.6 22,0.6 43.4,18.6 43.4,131.4 22,113.4 0.6,131.4" />
+                <polygon
+                  points={
+                    compact
+                      ? "0.6,13.4 16,0.6 31.4,13.4 31.4,95.4 16,82.6 0.6,95.4"
+                      : "0.6,18.6 22,0.6 43.4,18.6 43.4,131.4 22,113.4 0.6,131.4"
+                  }
+                />
               </svg>
               <span className="railchev__label">{b.label}</span>
             </a>
