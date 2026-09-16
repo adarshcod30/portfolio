@@ -10,6 +10,7 @@ import { PROJECTS, DOMAINS } from "@/content/projects.generated";
 export default function Home() {
   const headline = COMPETITIONS.filter((c) => c.highlight);
   const kadi = PROJECTS.find((p) => p.slug === "kadi");
+  const graph = PROJECTS.find((p) => p.slug === "graphsuite");
   const pick = (s: string) => PROJECTS.find((p) => p.slug === s)!;
   // Six products, paired so each stage overlaps two frames, and every project
   // carries its own audience and note in the gutter beside its own frame.
@@ -227,6 +228,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------------- the engine, full bleed ---------------- */}
+      {graph?.shot && (
+        <section data-section="Under the products" className="relative border-y border-line">
+          <Link href={`/work/${graph.slug}`} className="group block">
+            {/* the screenshot is already near-black, so it bleeds into the page
+                instead of sitting on it as another framed rectangle */}
+            {/* the app's own control panel is cropped out of this copy: at band
+                size its text collided with the headline and read as noise */}
+            <Image
+              src="/shots/graphsuite-band.jpg"
+              alt="The Adaptive Graph Search Suite running: a bidirectional Dijkstra search across the Indian national highway network."
+              width={1660}
+              height={1178}
+              className="h-[58vh] min-h-[420px] w-full object-cover object-center brightness-[1.22] saturate-[1.12] transition-transform duration-[1.4s] group-hover:scale-[1.03]"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  [
+                    // the caption sits bottom left, so the ground is built there
+                    // and the map is left alone through the middle and right
+                    "linear-gradient(to top, var(--bg) 6%, color-mix(in oklab, var(--bg) 78%, transparent) 34%, transparent 66%)",
+                    "linear-gradient(to right, var(--bg) 0%, color-mix(in oklab, var(--bg) 58%, transparent) 17%, color-mix(in oklab, var(--bg) 22%, transparent) 38%, transparent 54%)",
+                  ].join(", "),
+              }}
+            />
+            <div className="absolute inset-x-0 bottom-0 px-5 pb-10 sm:px-8 sm:pb-14">
+              <div className="mx-auto max-w-6xl">
+                <p className="eyebrow">Under the products</p>
+                <h2 className="font-display mt-2 max-w-2xl text-[9vw] leading-[0.94] tracking-[-0.04em] sm:text-[3.4vw]">
+                  Twelve routing algorithms,
+                  <br />
+                  compiled into the browser<span className="text-accent">.</span>
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-relaxed text-ink2">
+                  {graph.name}, in C++20 over 1.7M junctions. Contraction Hierarchies reach 44x
+                  faster with 460x fewer settled nodes than Dijkstra, and every route is verified
+                  exact against a reference implementation rather than trusted on the speedup.
+                </p>
+                <dl className="mt-7 grid max-w-xl grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
+                  {[
+                    ["1.7M", "junctions"],
+                    ["44x", "faster than Dijkstra"],
+                    ["38 ms", "to re-cost 207k nodes"],
+                    ["0", "servers to run it"],
+                  ].map(([v, k]) => (
+                    <div key={k}>
+                      <dt className="font-display text-2xl leading-none tracking-tight text-accent sm:text-3xl">
+                        {v}
+                      </dt>
+                      <dd className="eyebrow mt-1.5">{k}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <span className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-accent">
+                  Read the case study <span className="arrow">↗</span>
+                </span>
+              </div>
+            </div>
+          </Link>
+        </section>
+      )}
+
       {/* ---------------- bento ---------------- */}
       <section data-section="At a glance" className="clear-hud slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
@@ -237,51 +303,88 @@ export default function Home() {
             </h2>
           </Reveal>
 
-          <Stagger className="bento mt-14" gap={0.05}>
-            {kadi?.shot && (
-              <StagItem className="tile-frame tile-frame--media tile-frame--wide">
-                <Link href="/work/kadi" className="group relative block h-full w-full">
-                  <Image src={kadi.shot} alt="The Kadi command dashboard running, with the case-linkage graph and district map." width={1440} height={900}
-                    className="h-full w-full object-cover object-top transition-transform duration-[1.2s] group-hover:scale-[1.04]" />
-                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-16">
-                    <span className="eyebrow !text-white/70">Flagship</span>
-                    <span className="font-display mt-1 block text-2xl tracking-tight text-white sm:text-3xl">Kadi <span className="arrow">↗</span></span>
-                    <span className="mt-1 block text-xs text-white/75">59,985 FIRs across 31 districts, deployed for the Karnataka State Police</span>
+          <Stagger className="mosaic mt-14" gap={0.05}>
+            <StagItem className="mosaic__media">
+              {kadi?.shot && (
+                <span className="tile-frame tile-frame--media block h-full">
+                  <Link href="/work/kadi" className="group relative block h-full w-full">
+                    <Image
+                      src={kadi.shot}
+                      alt="The Kadi command dashboard running, with the case-linkage graph and district map."
+                      width={1440}
+                      height={900}
+                      className="h-full w-full object-cover object-top transition-transform duration-[1.2s] group-hover:scale-[1.04]"
+                    />
+                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-16 lg:pr-32">
+                      <span className="eyebrow !text-white/70">Flagship</span>
+                      <span className="font-display mt-1 block text-2xl tracking-tight text-white sm:text-3xl">
+                        Kadi <span className="arrow">↗</span>
+                      </span>
+                      <span className="mt-1 block text-xs text-white/75">
+                        59,985 FIRs across 31 districts, deployed for the Karnataka State Police
+                      </span>
+                    </span>
+                  </Link>
+                </span>
+              )}
+            </StagItem>
+
+            <StagItem className="mosaic__stack">
+              <span className="tile-frame tile-frame--accent ticks">
+                <span className="eyebrow !text-white/75">Best forecast</span>
+                <span className="block">
+                  <span className="tile-num block">0.870</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-white/85">
+                    AUC, three months ahead, on Kadi&rsquo;s state-wide crime forecast
                   </span>
-                </Link>
-              </StagItem>
-            )}
-            <StagItem className="tile-frame tile-frame--accent ticks">
-              <p className="eyebrow !text-white/75">Best forecast</p>
-              <div><p className="tile-num">0.870</p>
-                <p className="mt-2 text-xs leading-relaxed text-white/85">AUC, three months ahead, on Kadi&rsquo;s state-wide crime forecast</p></div>
+                </span>
+              </span>
+              <span className="tile-frame">
+                <span className="eyebrow">Cost cut</span>
+                <span className="block">
+                  <span className="tile-num block text-accent">78%</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-muted">
+                    Lower spend at a 77% cache hit rate, with zero wrong answers on new questions
+                  </span>
+                </span>
+              </span>
+              <span className="tile-frame tile-frame--fill ticks">
+                <span className="eyebrow">Published</span>
+                <span className="block">
+                  <span className="tile-num block">3</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-muted">
+                    packages on PyPI: cachellm-proxy, creditsetu, medguardx-core
+                  </span>
+                </span>
+              </span>
             </StagItem>
-            <StagItem className="tile-frame">
-              <p className="eyebrow">Cost cut</p>
-              <div><p className="tile-num text-accent">78%</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted">Lower spend at a 77% cache hit rate, with zero wrong answers on new questions</p></div>
-            </StagItem>
-            <StagItem className="tile-frame tile-frame--fill ticks">
-              <p className="eyebrow">Published</p>
-              <div><p className="tile-num">3</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted">packages on PyPI: cachellm-proxy, creditsetu, medguardx-core</p></div>
-            </StagItem>
-            <StagItem className="tile-frame">
-              <p className="eyebrow">Largest graph</p>
-              <div><p className="tile-num text-accent">35.7M</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted">edges in Orbweaver&rsquo;s account graph, 0.7292 ring precision against a 0.2242 base rate</p></div>
-            </StagItem>
-            <StagItem className="tile-frame tile-frame--wide">
-              <p className="eyebrow">The rule I keep</p>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink2">
-                Where a result is unflattering I publish it anyway: the 0.371 genuine customers wrongly
-                swept in per fraudster caught, and 36 dated failures beside the wins.
-              </p>
-            </StagItem>
-            <StagItem className="tile-frame">
-              <p className="eyebrow">Languages shipped</p>
-              <div><p className="tile-num text-accent">12</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted">Indian languages in KrishiMitra, free to use, across 13 modules</p></div>
+
+            <StagItem className="mosaic__row">
+              <span className="tile-frame">
+                <span className="eyebrow">The rule I keep</span>
+                <span className="mt-3 block text-[15px] leading-relaxed text-ink2">
+                  Where a result is unflattering I publish it anyway: the 0.371 genuine customers
+                  wrongly swept in per fraudster caught, and 36 dated failures beside the wins.
+                </span>
+              </span>
+              <span className="tile-frame">
+                <span className="eyebrow">Largest graph</span>
+                <span className="block">
+                  <span className="tile-num block text-accent">35.7M</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-muted">
+                    edges in Orbweaver&rsquo;s account graph, 0.7292 ring precision against a 0.2242 base rate
+                  </span>
+                </span>
+              </span>
+              <span className="tile-frame ticks">
+                <span className="eyebrow">Languages shipped</span>
+                <span className="block">
+                  <span className="tile-num block text-accent">12</span>
+                  <span className="mt-2 block text-xs leading-relaxed text-muted">
+                    Indian languages in KrishiMitra, free to use, across 13 modules
+                  </span>
+                </span>
+              </span>
             </StagItem>
           </Stagger>
         </div>

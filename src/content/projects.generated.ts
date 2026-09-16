@@ -171,7 +171,7 @@ export const PROJECTS: Project[] = [
     note: ``,
     live: `https://agentiq-vert.vercel.app`,
     code: `https://github.com/adarshcod30/AGENTIQ`,
-    shot: ``,
+    shot: `/shots/agentiq.jpg`,
     stack: [`Docker`, `Express`, `GitHub Actions`, `LLM Agents`, `MCP`, `Node.js`, `OpenAPI 3.1`, `Vitest`, `Zod`],
     highlights: [
       `Autonomy only sells if it is accountable. Framed an agentic testing platform around one rule: an agent may act, but only through 19 schema-validated tools, each granted per host and audited.`,

@@ -410,6 +410,60 @@ body {
   color: #fff;
   border-color: transparent;
 }
+/* ---------- the short version: an overlapping mosaic ----------
+   These tiles used to sit in an even four-column grid, which read as a
+   dashboard rather than as a page. They now overlap: a tall flagship frame on
+   the left, a stack pulled across its right edge, and a row below pulled up
+   over both. Every tile keeps an opaque background and a lifted shadow so the
+   stacking reads as depth, and overlaps only ever happen at edges, never over
+   another tile's text. */
+.mosaic { display: flex; flex-direction: column; gap: 14px; }
+.mosaic__stack, .mosaic__row { display: flex; flex-direction: column; gap: 14px; }
+
+@media (min-width: 1000px) {
+  .mosaic {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
+    gap: 0;
+  }
+  .mosaic__media { grid-column: 1; grid-row: 1; }
+  /* a definite height, not a minimum: the inner link is h-full, and a
+     percentage height cannot resolve against a min-height alone, which left
+     the image short and the caption floating mid-tile */
+  .mosaic__media .tile-frame { height: 540px; min-height: 0; }
+
+  .mosaic__stack {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 54px 0 0 -96px;
+    gap: 16px;
+    z-index: 3;
+  }
+
+  .mosaic__row {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    /* the stack is the taller of the two above, so this pull is measured against
+       its bottom edge. -16px eats the last tile's padding and stops there:
+       anything deeper started covering the words inside it. */
+    margin-top: -16px;
+    z-index: 4;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+    gap: 0;
+  }
+    /* the wide tile reserves a right gutter the size of the overlap, so the tile
+     that crosses it lands on padding rather than on the sentence */
+  .mosaic__row > *:nth-child(1) { grid-column: 1 / 6; padding-right: 128px; z-index: 5; }
+  .mosaic__row > *:nth-child(2) { grid-column: 5 / 10; margin-top: 44px; z-index: 6; }
+  .mosaic__row > *:nth-child(3) { grid-column: 10 / -1; margin-top: 18px; z-index: 5; }
+
+  /* anything that sits on top of something else earns a shadow */
+  .mosaic__stack > *, .mosaic__row > * { box-shadow: 0 26px 54px -30px rgb(3 8 16 / .62); }
+}
+
 .tile-num {
   font-family: var(--font-display-stack), sans-serif;
   font-weight: 700;
