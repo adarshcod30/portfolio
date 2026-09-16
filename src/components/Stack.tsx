@@ -81,8 +81,11 @@ export default function Stack() {
       aria-label="Technology stack"
       className="border-y border-line px-5 py-11 sm:px-8 sm:py-14"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-baseline md:gap-14">
-        <div className="shrink-0 md:w-52">
+      <div className="mx-auto max-w-6xl">
+        {/* label and group name share one line, which hands the whole width to
+            the names below. Sharing a row with them forced the longer groups
+            onto a second line that carried one word and read as a hole. */}
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
           <p className="eyebrow">
             Stack <span className="opacity-40">/</span> {String(i + 1).padStart(2, "0")} of{" "}
             {String(GROUPS.length).padStart(2, "0")}
@@ -90,22 +93,27 @@ export default function Stack() {
           <AnimatePresence mode="wait">
             <motion.p
               key={g.name}
-              initial={{ y: 12, opacity: 0 }}
+              initial={{ y: 10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0, transition: { duration: 0.3, ease: EASE } }}
+              exit={{ y: -8, opacity: 0, transition: { duration: 0.3, ease: EASE } }}
               transition={{ duration: 0.5, ease: EASE }}
-              className="font-display mt-2 text-xl leading-tight tracking-tight text-accent"
+              className="font-display text-lg leading-none tracking-tight text-accent"
             >
               {g.name}
             </motion.p>
           </AnimatePresence>
         </div>
 
-        {/* a floor under the list, so swapping a wrapping group for a short one
-            does not make the page jump */}
-        <div className="min-h-[164px] flex-1 sm:min-h-[88px]">
+        {/* One line from md up, spread edge to edge. The size is tied to the
+            viewport rather than stepped at breakpoints: the longest group needs
+            941px of the 960 available at 1024, so a fixed 20px would have run off
+            the side anywhere between md and lg. */}
+        <div className="mt-7 min-h-[112px] sm:min-h-[64px] md:min-h-[32px]">
           <AnimatePresence mode="wait">
-            <motion.ul key={g.name} className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-7">
+            <motion.ul
+              key={g.name}
+              className="flex flex-wrap justify-between gap-x-5 gap-y-3 md:flex-nowrap"
+            >
               {g.items.map((t, n) => (
                 <motion.li
                   key={t}
@@ -113,7 +121,7 @@ export default function Stack() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -14, opacity: 0, transition: { delay: n * 0.025, duration: 0.3 } }}
                   transition={{ delay: n * 0.05, duration: 0.55, ease: EASE }}
-                  className="font-display text-lg leading-none tracking-tight text-ink2 sm:text-xl"
+                  className="font-display whitespace-nowrap text-[15px] font-bold leading-none tracking-tight text-ink md:text-[clamp(13px,1.55vw,21px)]"
                 >
                   {t}
                 </motion.li>
@@ -124,7 +132,7 @@ export default function Stack() {
       </div>
 
       {/* how long until the set changes */}
-      <div className="mx-auto mt-8 h-px max-w-6xl bg-line">
+      <div className="mx-auto mt-7 h-px max-w-6xl bg-line">
         <motion.div
           key={i}
           className="h-full bg-accent"
