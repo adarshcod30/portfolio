@@ -125,10 +125,10 @@ export function Hud() {
       {/* pinned: the name */}
       <div className="fixed left-5 top-5 z-50 sm:left-8 sm:top-7">
         <Link href="/" className="group block" aria-label={`${IDENTITY.name}, home`}>
-          <span className="font-display block whitespace-nowrap text-[15px] leading-none tracking-tight sm:text-[17px]">
+          <span className="font-display block whitespace-nowrap text-[17px] leading-none tracking-tight sm:text-[21px]">
             Adarsh Dwivedi<span className="text-accent">.</span>
           </span>
-          <span className="eyebrow mt-1 block">{IDENTITY.role}</span>
+          <span className="eyebrow mt-1.5 block !text-[11px] sm:!text-[12px]">{IDENTITY.role}</span>
         </Link>
       </div>
 
