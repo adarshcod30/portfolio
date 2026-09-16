@@ -45,18 +45,31 @@ function LocalTime() {
 
 function ThemeButton() {
   const { theme, toggle } = useTheme();
+  const dark = theme === "dark";
   return (
     <button
       onClick={toggle}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-      className="group flex items-center gap-2 rounded-full border border-line bg-surface/70 py-1.5 pl-2 pr-3.5 backdrop-blur transition-colors hover:border-accent"
+      role="switch"
+      aria-checked={dark}
+      aria-label={`Dark theme ${dark ? "on" : "off"}`}
+      className="themeswitch group"
+      data-dark={dark || undefined}
     >
-      <span className="grid h-5 w-5 place-items-center rounded-full bg-accentsoft text-[10px] leading-none text-accent">
-        {theme === "light" ? "◐" : "◑"}
+      <span className="themeswitch__track" aria-hidden>
+        <span className="themeswitch__icon themeswitch__icon--sun">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        </span>
+        <span className="themeswitch__icon themeswitch__icon--moon">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />
+          </svg>
+        </span>
+        <span className="themeswitch__knob" />
       </span>
-      <span className="eyebrow !text-ink2 transition-colors group-hover:!text-accent">
-        {theme === "light" ? "Light" : "Dark"}
-      </span>
+      <span className="themeswitch__text">{dark ? "Dark" : "Light"}</span>
     </button>
   );
 }
@@ -126,8 +139,10 @@ export function Hud() {
         }`}
       >
         {current && (
-          <Link href={current.href} aria-current="page" className="navlink">
-            {current.label}
+          <Link href={current.href} aria-current="page" className="navchip">
+            <span className="navchip__dot" aria-hidden />
+            <span className="navitem__idx">{String(NAV.indexOf(current) + 1).padStart(2, "0")}</span>
+            <span>{current.label}</span>
           </Link>
         )}
       </div>
@@ -136,17 +151,24 @@ export function Hud() {
       <div className="absolute right-5 top-5 z-40 flex flex-col items-end gap-3 sm:right-8 sm:top-7">
         <ThemeButton />
 
-        <nav aria-label="Primary" className="-mr-3.5 hidden flex-col items-end gap-0.5 text-right md:flex">
-          {NAV.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              aria-current={isActive(n.href) ? "page" : undefined}
-              className="navlink"
-            >
-              {n.label}
-            </Link>
-          ))}
+        <nav aria-label="Primary" className="navpanel hidden md:flex">
+          {NAV.map((n, i) => {
+            const on = isActive(n.href);
+            return (
+              <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className="navitem">
+                {on && (
+                  <motion.span
+                    layoutId="navitem-active"
+                    className="navitem__bg"
+                    transition={{ duration: 0.5, ease: EASE }}
+                    aria-hidden
+                  />
+                )}
+                <span className="navitem__idx">{String(i + 1).padStart(2, "0")}</span>
+                <span className="navitem__label">{n.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
         <button

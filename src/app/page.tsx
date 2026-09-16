@@ -58,6 +58,7 @@ export default function Home() {
       {/* ---------------- hero: one object, almost nothing else ---------------- */}
       <section
         data-section="Home"
+        data-section-step="off"
         className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-28 sm:px-8 sm:pt-32"
       >
         {/* the crown sits just under the calls to action: anchored at 56% of the
@@ -401,7 +402,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- method ---------------- */}
-      <section data-section="Method" className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Method" data-section-title="The method" className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-5xl">
           <Reveal><p className="eyebrow">The method</p></Reveal>
           <Reveal delay={0.06}>

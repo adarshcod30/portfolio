@@ -5,6 +5,7 @@ import { Hud } from "@/components/Chrome";
 import { Preloader, Cursor } from "@/components/Entrance";
 import { ScrollProgress } from "@/components/motion";
 import Footer from "@/components/Footer";
+import SectionSteps from "@/components/SectionSteps";
 import { IDENTITY } from "@/content/site";
 
 const sans = Geist({ variable: "--font-sans-stack", subsets: ["latin"] });
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ScrollProgress />
         <Hud />
         <main id="main">{children}</main>
+        <SectionSteps />
         <Footer />
       </body>
     </html>

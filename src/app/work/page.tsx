@@ -43,7 +43,9 @@ export default function WorkPage() {
           </Reveal>
         </div>
       </header>
-      <WorkBrowser />
+      <section data-section="Projects" data-section-title="All projects">
+        <WorkBrowser />
+      </section>
     </>
   );
 }
