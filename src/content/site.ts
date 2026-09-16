@@ -403,7 +403,7 @@ export const MUN_ORGANISED = [
     name: "LNMIIT MUN'26",
     edition: "10th edition",
     dates: "24 to 25 January 2026",
-    role: "Coordinator, organising society",
+    role: "Secretariat and Organizer, Aug 2025 to Jan 2026",
     context: "Under Plinth 2026, co-organised with the Department of HSS, the LNMIIT Centre for Wellness and Positive Health and the LNMIIT Centre for Sustainability and Innovation.",
     figures: [
       { value: "~170", label: "delegates" },
@@ -442,7 +442,7 @@ export const MUN_ORGANISED = [
 ];
 
 export const MUN = [
-  { event: "LNMIIT MUN'26", role: "Coordinator, organising society", award: "Best Delegation to LNMIIT", year: "2026" },
+  { event: "LNMIIT MUN'26", role: "Secretariat and Organizer", award: "Best Delegation to LNMIIT", year: "2026" },
   { event: "AIYS MUN 2026", role: "Society delegation, as Coordinator", award: "1 Special, 2 Honourable Mentions", year: "2026" },
   { event: "LNMIIT Intra MUN 2026", role: "Coordinator, Deputy Moderator AIPPM", award: "Organizer", year: "2026" },
   { event: "LNMIIT MUN'25", role: "Core Organising Committee", award: "Organizer", year: "2025" },
