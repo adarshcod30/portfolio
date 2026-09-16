@@ -207,6 +207,33 @@ export const COMPETITIONS: {
     tier: "entered",
   },
   {
+    name: "Redrob AI Hackathon",
+    kind: "Data & AI Challenge",
+    when: "Jun to Jul 2026",
+    result: "Submitted, results pending",
+    project: "Talent Intelligence Engine",
+    detail:
+      "As team EnSoc, a team of two: rank 100,000 candidates for senior AI engineering roles on a local CPU. It ranks the full pool in under 18 seconds with zero network calls, removes every honeypot profile before scoring, and writes a factual justification and trust score per candidate. A second entry, SkillProof, went into the ideathon track.",
+    links: [{ label: "Talent Intelligence Engine", url: "https://github.com/adarshcod30/Talent-Intelligence-Candidate-Discovery-Platform" }],
+    highlight: false,
+    tier: "entered",
+  },
+  {
+    name: "IDBI Innovate 2026",
+    kind: "IDBI Bank",
+    when: "Jul 2026",
+    result: "Prototype submitted",
+    project: "CreditSetu",
+    detail:
+      "CreditSetu, explainable credit scoring for thin-file borrowers, submitted with a live deployment, a proof-of-concept deck and the full repository, for a ₹15 lakh prize pool.",
+    links: [
+      { label: "CreditSetu", url: "https://github.com/adarshcod30/CreditSetu" },
+      { label: "Live", url: "https://credit-setu-iota.vercel.app/" },
+    ],
+    highlight: false,
+    tier: "entered",
+  },
+  {
     name: "Smart India Hackathon 2026",
     kind: "Ministry of Education, national",
     when: "2026",
