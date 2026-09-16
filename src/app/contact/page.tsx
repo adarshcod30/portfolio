@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/UI";
 import { Reveal, SplitLine, Stagger, StagItem } from "@/components/motion";
 import ResumePicker from "@/components/ResumePicker";
-import ProfileCards from "@/components/ProfileCards";
+import ProfileArrows from "@/components/ProfileArrows";
 import CopyButton from "@/components/CopyButton";
 import LocalTime from "@/components/LocalTime";
 import { BrandIcon, BRANDS } from "@/components/Icons";
@@ -14,9 +14,8 @@ export const metadata: Metadata = {
 };
 
 export default function Contact() {
-  const direct = CONTACT.filter((c) => c.kind === "direct");
+  const direct = CONTACT.filter((c) => c.kind === "direct" || c.card);
   const [lead, ...rest] = direct;
-  const profiles = CONTACT.filter((c) => c.kind !== "direct");
 
   return (
     <>
@@ -117,31 +116,15 @@ export default function Contact() {
               </Reveal>
               <Reveal delay={0.1}>
                 <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-                  Where the work lives, and where I do not talk about it. Hover a banner for the handle.
+                  Where the work lives, and where I do not talk about it.
                 </p>
               </Reveal>
             </div>
           </div>
 
-          <div className="mt-12 flex justify-center">
-            <ProfileCards />
+          <div className="mt-12">
+            <ProfileArrows />
           </div>
-
-          <ul className="handles mt-14">
-            {profiles.map((p) => (
-              <li key={p.id} style={{ "--brand": BRANDS[p.icon]?.color ?? "var(--ink)" } as React.CSSProperties}>
-                <BrandIcon id={p.icon} size={16} />
-                <span className="text-ink2">{p.label}</span>
-                {p.href ? (
-                  <a href={p.href} target="_blank" rel="noreferrer" className="handles__v link-underline">
-                    {p.value}
-                  </a>
-                ) : (
-                  <CopyButton value={p.value} label={p.value} className="handles__v handles__copy" />
-                )}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

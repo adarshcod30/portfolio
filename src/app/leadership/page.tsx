@@ -125,7 +125,7 @@ export default function Leadership() {
       </section>
 
       {/* The term, in order */}
-      <Section eyebrow="Sep 2025 to May 2026" title="The year as Coordinator" blurb="What the term actually consisted of, month by month.">
+      <Section eyebrow="May 2025 to Apr 2026" title="The year as Coordinator" blurb="What the term actually consisted of, month by month.">
         <ol className="term">
           {TERM.map((t, i) => (
             <li key={t.what}>

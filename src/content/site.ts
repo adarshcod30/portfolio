@@ -363,18 +363,18 @@ export const COMPETITIONS: {
 /** The Debate Society, role by role. Dates come from the society's own announcement mails. */
 export const DEBSOC = {
   org: "The Debate Society, LNMIIT",
-  dates: "Sep 2023 to May 2026",
+  dates: "Sep 2023 to Apr 2026",
   summary:
     "The society runs debates, discussions and the LNMIIT Model United Nations. I joined in my first month at college, sat on the organising committee of one MUN, and then led the society as one of its three Coordinators for the year it ran the largest MUN LNMIIT has hosted.",
   roles: [
     {
       title: "Coordinator",
-      dates: "Sep 2025 to May 2026",
-      detail: "One of three Coordinators leading the society. Ran the Intra MUN, sent a delegation to AIYS MUN, and organised LNMIIT MUN'26, before handing over to the next Coordinators in May 2026.",
+      dates: "May 2025 to Apr 2026",
+      detail: "One of three Coordinators leading the society. Ran the Intra MUN, sent a delegation to AIYS MUN, and organised LNMIIT MUN'26, before handing over to the next Coordinators.",
     },
     {
       title: "Senior Member",
-      dates: "Aug 2024 to Aug 2025",
+      dates: "Aug 2024 to Apr 2025",
       detail: "Core organising committee for LNMIIT MUN'25, and the named contact on its outreach to other colleges.",
     },
     {
@@ -387,14 +387,14 @@ export const DEBSOC = {
 
 /** The term as Coordinator, in the order it happened. */
 export const TERM = [
-  { when: "Sep 2025", what: "Named one of three Coordinators of the Debate Society." },
+  { when: "May 2025", what: "Took over as one of three Coordinators of the Debate Society." },
   { when: "Nov 2025", what: "Put LNMIIT MUN'26 live for registrations on Unstop." },
   { when: "Dec 2025", what: "Met the faculty mentor, then asked faculty for institutional support for MUN'26." },
   { when: "10 Jan 2026", what: "Coordinated the Intra MUN, and sat as Deputy Moderator of its AIPPM." },
   { when: "10 to 11 Jan 2026", what: "Society delegation at AIYS MUN: one Special Mention and two Honourable Mentions." },
   { when: "24 to 25 Jan 2026", what: "LNMIIT MUN'26, about 170 delegates, and LNMIIT won Best Delegation." },
   { when: "Feb 2026", what: "Filed the event reports to HSS, L-CSI, L-CWPH and Plinth." },
-  { when: "May 2026", what: "Handed the society to the next Coordinators." },
+  { when: "Apr 2026", what: "Handed the society to the next Coordinators." },
 ];
 
 export const MUN_ORGANISED = [
@@ -492,13 +492,14 @@ export const CONTACT: {
   note: string;
   /** shown on the card's button; a copy-only line has no href */
   action?: string;
+  /** a profile that also gets a card beside the direct lines */
+  card?: boolean;
 }[] = [
   { id: "email-personal", label: "Personal email", value: "adarshdwivedi256@gmail.com", href: "mailto:adarshdwivedi256@gmail.com", kind: "direct", icon: "gmail", note: "Personal inbox", action: "Write" },
   { id: "email-college", label: "College email", value: "23ucs509@lnmiit.ac.in", href: "mailto:23ucs509@lnmiit.ac.in", kind: "direct", icon: "mail", note: "LNMIIT inbox", action: "Write" },
   { id: "phone", label: "Phone", value: "+91 93055 97756", href: "tel:+919305597756", kind: "direct", icon: "phone", note: "Primary number", action: "Call" },
-  { id: "phone-alt", label: "Alternate phone", value: "+91 96517 07756", href: "tel:+919651707756", kind: "direct", icon: "phone", note: "Alternate number", action: "Call" },
   { id: "whatsapp", label: "WhatsApp", value: "+91 93055 97756", href: "https://wa.me/919305597756", kind: "direct", icon: "whatsapp", note: "Message on WhatsApp", action: "Chat" },
-  { id: "linkedin", label: "LinkedIn", value: "adarshdwivedi30", href: "https://www.linkedin.com/in/adarshdwivedi30/", kind: "work", icon: "linkedin", note: "Experience and leadership" },
+  { id: "linkedin", label: "LinkedIn", value: "adarshdwivedi30", href: "https://www.linkedin.com/in/adarshdwivedi30/", kind: "work", icon: "linkedin", note: "Experience and leadership", action: "Connect", card: true },
   { id: "github", label: "GitHub", value: "adarshcod30", href: "https://github.com/adarshcod30", kind: "work", icon: "github", note: "32 public repositories" },
   { id: "hackerrank", label: "HackerRank", value: "23ucs509", href: "https://www.hackerrank.com/profile/23ucs509", kind: "work", icon: "hackerrank", note: "Orchestrate rank #12" },
   { id: "hackerearth", label: "HackerEarth", value: "23ucs509", href: "https://www.hackerearth.com/@23ucs509/", kind: "work", icon: "hackerearth", note: "Challenges and contests" },

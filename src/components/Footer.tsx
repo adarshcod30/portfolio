@@ -15,8 +15,8 @@ import { IDENTITY, CONTACT, NAV } from "@/content/site";
  */
 export default function Footer() {
   const email = CONTACT.find((c) => c.id === "email-personal" && c.href);
-  // one tap each for the lines people actually use: mail, WhatsApp, a call
-  const quick = ["email-personal", "whatsapp", "phone"]
+  // one tap each for the lines people actually use: mail, WhatsApp, a call, LinkedIn
+  const quick = ["email-personal", "whatsapp", "phone", "linkedin"]
     .map((id) => CONTACT.find((c) => c.id === id))
     .filter((c): c is (typeof CONTACT)[number] => Boolean(c?.href));
 

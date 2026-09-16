@@ -1510,3 +1510,80 @@ body {
 
 /* between lg and xl the bar has to clear the wordmark on the left */
 @media (max-width: 1279px) { .navitem { padding: 8px 12px; } }
+
+/* ---------- profile arrows, contact page ---------- */
+.arrows { display: flex; flex-direction: column; gap: 12px; }
+.arrows__row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (min-width: 640px) { .arrows__row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.arrows__cell { min-width: 0; }
+@media (min-width: 1024px) {
+  /* each row is one line, and every arrow shares it equally, so a row of five
+     runs exactly as long as a row of six */
+  .arrows__row { display: flex; gap: 0; }
+  .arrows__cell { flex: 1 1 0; }
+  .arrows__cell + .arrows__cell { margin-left: -6px; }
+}
+.arrow-chip {
+  --notch: 18px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+  padding: 0 calc(var(--notch) + 2px) 0 calc(var(--notch) + 8px);
+  text-align: left;
+  isolation: isolate;
+  clip-path: polygon(0 0, calc(100% - var(--notch)) 0, 100% 50%, calc(100% - var(--notch)) 100%, 0 100%, var(--notch) 50%);
+  background: color-mix(in oklab, var(--brand) 45%, var(--line));
+  color: var(--ink-2);
+  transition: background-color .35s ease, color .3s ease, transform .45s cubic-bezier(.16,1,.3,1);
+}
+/* the inner face, one pixel in, so the clipped shape keeps a hairline edge */
+.arrow-chip::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  clip-path: inherit;
+  background: color-mix(in oklab, var(--brand) 7%, var(--slab-bg, var(--bg)));
+  transition: background-color .35s ease;
+}
+.arrow-chip:hover, .arrow-chip:focus-visible, .arrow-chip[data-copied] {
+  background: var(--brand);
+  color: var(--ink);
+  transform: translateX(4px);
+  outline: none;
+}
+.arrow-chip:hover::before, .arrow-chip:focus-visible::before, .arrow-chip[data-copied]::before {
+  background: color-mix(in oklab, var(--brand) 20%, var(--slab-bg, var(--bg)));
+}
+.arrow-chip__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+}
+.arrow-chip__text { display: flex; flex-direction: column; min-width: 0; }
+.arrow-chip__label {
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.arrow-chip__value {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (prefers-reduced-motion: reduce) { .arrow-chip { transition: none; } .arrow-chip:hover { transform: none; } }
