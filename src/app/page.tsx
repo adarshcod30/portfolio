@@ -9,7 +9,6 @@ import { PROJECTS, DOMAINS } from "@/content/projects.generated";
 
 export default function Home() {
   const headline = COMPETITIONS.filter((c) => c.highlight);
-  const kadi = PROJECTS.find((p) => p.slug === "kadi");
   const graph = PROJECTS.find((p) => p.slug === "graphsuite");
   const pick = (s: string) => PROJECTS.find((p) => p.slug === s)!;
   // Six products, paired so each stage overlaps two frames, and every project
@@ -299,103 +298,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* ---------------- bento ---------------- */}
-      <section data-section="At a glance" className="clear-hud slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mx-auto max-w-6xl">
-          <Reveal><p className="eyebrow">At a glance</p></Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-display mt-3 text-[11vw] leading-[0.9] tracking-[-0.04em] sm:text-[5vw]">
-              The short version<span className="text-accent">.</span>
-            </h2>
-          </Reveal>
-
-          <Stagger className="mosaic mt-14" gap={0.05}>
-            <StagItem className="mosaic__media">
-              {kadi?.shot && (
-                <span className="tile-frame tile-frame--media block h-full">
-                  <Link href="/work/kadi" className="group relative block h-full w-full">
-                    <Image
-                      src={kadi.shot}
-                      alt="The Kadi command dashboard running, with the case-linkage graph and district map."
-                      width={1440}
-                      height={900}
-                      className="h-full w-full object-cover object-top transition-transform duration-[1.2s] group-hover:scale-[1.04]"
-                    />
-                    <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-6 pt-16 lg:pr-32">
-                      <span className="eyebrow !text-white/70">Flagship</span>
-                      <span className="font-display mt-1 block text-2xl tracking-tight text-white sm:text-3xl">
-                        Kadi <span className="arrow">↗</span>
-                      </span>
-                      <span className="mt-1 block text-xs text-white/75">
-                        59,985 FIRs across 31 districts, deployed for the Karnataka State Police
-                      </span>
-                    </span>
-                  </Link>
-                </span>
-              )}
-            </StagItem>
-
-            <StagItem className="mosaic__stack">
-              <span className="tile-frame tile-frame--accent ticks">
-                <span className="eyebrow !text-white/75">Best forecast</span>
-                <span className="block">
-                  <span className="tile-num block">0.870</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-white/85">
-                    AUC, three months ahead, on Kadi&rsquo;s state-wide crime forecast
-                  </span>
-                </span>
-              </span>
-              <span className="tile-frame">
-                <span className="eyebrow">Cost cut</span>
-                <span className="block">
-                  <span className="tile-num block text-accent">78%</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-muted">
-                    Lower spend at a 77% cache hit rate, with zero wrong answers on new questions
-                  </span>
-                </span>
-              </span>
-              <span className="tile-frame tile-frame--fill ticks">
-                <span className="eyebrow">Published</span>
-                <span className="block">
-                  <span className="tile-num block">3</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-muted">
-                    packages on PyPI: cachellm-proxy, creditsetu, medguardx-core
-                  </span>
-                </span>
-              </span>
-            </StagItem>
-
-            <StagItem className="mosaic__row">
-              <span className="tile-frame">
-                <span className="eyebrow">The rule I keep</span>
-                <span className="mt-3 block text-[15px] leading-relaxed text-ink2">
-                  Where a result is unflattering I publish it anyway: the 0.371 genuine customers
-                  wrongly swept in per fraudster caught, and 36 dated failures beside the wins.
-                </span>
-              </span>
-              <span className="tile-frame">
-                <span className="eyebrow">Largest graph</span>
-                <span className="block">
-                  <span className="tile-num block text-accent">35.7M</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-muted">
-                    edges in Orbweaver&rsquo;s account graph, 0.7292 ring precision against a 0.2242 base rate
-                  </span>
-                </span>
-              </span>
-              <span className="tile-frame ticks">
-                <span className="eyebrow">Languages shipped</span>
-                <span className="block">
-                  <span className="tile-num block text-accent">12</span>
-                  <span className="mt-2 block text-xs leading-relaxed text-muted">
-                    Indian languages in KrishiMitra, free to use, across 13 modules
-                  </span>
-                </span>
-              </span>
-            </StagItem>
-          </Stagger>
-        </div>
-      </section>
-
       {/* ---------------- domains ---------------- */}
       <section data-section="Domains" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
@@ -405,25 +307,47 @@ export default function Home() {
               {COUNT_WORD[DOMAINS.length]} domains<span className="text-accent">.</span>
             </h2>
           </Reveal>
-          <Stagger className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" gap={0.06}>
+          <Stagger className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" gap={0.06}>
             {DOMAINS.map((d) => {
-              const n = PROJECTS.filter((p) => p.domain === d.id).length;
+              const inDomain = PROJECTS.filter((p) => p.domain === d.id);
+              const names = inDomain.slice(0, 3).map((p) => p.name);
+              const rest = inDomain.length - names.length;
               return (
-                <StagItem key={d.id}>
+                <StagItem key={d.id} className="h-full">
                   <Link href={`/work#${d.id}`} className="chev group">
-                    <span className="flex items-baseline justify-between gap-3">
-                      <span className="font-display text-lg leading-tight tracking-tight">
-                        {d.title}
-                      </span>
-                      <span className="idx">{String(n).padStart(2, "0")}</span>
+                    {/* clip-path removes any border, so the edge is drawn as an
+                        svg on top of it. preserveAspectRatio none matches the
+                        polygon exactly at any tile height, and the stroke is
+                        kept off the scaling so it stays a hairline. */}
+                    <svg
+                      className="chev__edge"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <polygon
+                        points="0,11 50,0 100,11 100,100 50,89 0,100"
+                        vectorEffect="non-scaling-stroke"
+                      />
+                    </svg>
+
+                    <span className="chev__n">{String(inDomain.length).padStart(2, "0")}</span>
+                    <span className="font-display mt-1 block text-[19px] leading-tight tracking-tight">
+                      {d.title}
                     </span>
-                    <span className="chev__blurb mt-3 flex-1 text-[13px] leading-relaxed">
+                    <span className="chev__rule" />
+                    <span className="chev__blurb block text-[13px] leading-relaxed">
                       {d.blurb}
                     </span>
+                    <span className="chev__names mt-auto block">
+                      {names.join("  ·  ")}
+                      {rest > 0 && <span className="opacity-60">{`  +${rest} more`}</span>}
+                    </span>
                     <svg
-                      className="chev__arrow mt-5"
-                      width="22"
-                      height="22"
+                      className="chev__arrow mt-4"
+                      width="20"
+                      height="20"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"

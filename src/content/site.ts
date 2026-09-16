@@ -43,9 +43,9 @@ export const COMPETITIONS = [
     name: "HackerRank Orchestrate",
     kind: "24-hour agentic AI challenges",
     when: "Jun – Sep 2026",
-    result: "#12, then #290 with a bronze medal, from #427",
+    result: "#12 and a silver medal, up from #427",
     detail:
-      "Three rounds, and the climb is the point: #427 and top 25% in June, #290 with a bronze medal and top 15% in August, #12 in September. Every submission is public.",
+      "Three rounds, and the climb is the point: #427 and top 25% in June, then #290 with a bronze medal and top 15% in August, then #12 with a silver medal and top 1% in September. Every submission is public.",
     links: [
       { label: "Buy or Wait, #12", url: "https://github.com/adarshcod30/buy-or-wait-financial-agent" },
       { label: "Message Notification Router, #290", url: "https://github.com/adarshcod30/Message-Notification-Router" },
@@ -58,9 +58,9 @@ export const COMPETITIONS = [
     name: "KSP Datathon 2026",
     kind: "Karnataka State Police",
     when: "2026",
-    result: "Reached Level 2",
+    result: "Finalist, reached Level 2",
     detail:
-      "Fifty days of work on Kadi, built end to end and deployed on Zoho Catalyst for the Karnataka State Crime Records Bureau. Not a finalist, and still the project I rate above everything else I have built.",
+      "Fifty days of work on Kadi, built end to end and deployed on Zoho Catalyst for the Karnataka State Crime Records Bureau. It is the project I rate above everything else I have built.",
     links: [{ label: "Kadi", url: "https://github.com/adarshcod30/Kadi" }],
     highlight: true,
   },
@@ -68,11 +68,11 @@ export const COMPETITIONS = [
     name: "AWS AI for Bharat Hackathon",
     kind: "Amazon Web Services",
     when: "2026",
-    result: "Reached the final rounds",
+    result: "Finalist",
     detail:
       "Took VaidyaMitra through to the closing stages: a privacy-first clinical assistant where every identifier is masked before it reaches the model, running on Amazon Bedrock in ten Indian languages.",
     links: [{ label: "VaidyaMitra", url: "https://github.com/VaidyaMitra/VaidyaMitra" }],
-    highlight: false,
+    highlight: true,
   },
   {
     name: "Hacksplosion 2026",
@@ -81,7 +81,7 @@ export const COMPETITIONS = [
     result: "Cleared Levels 1, 2 and 3",
     detail: "An AI-driven resume-to-job matching pipeline, built during the same period as the Deloitte internship.",
     links: [],
-    highlight: false,
+    highlight: true,
   },
   {
     name: "SWITCH Energy-X (India)",
