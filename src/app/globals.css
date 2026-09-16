@@ -901,8 +901,6 @@ body {
 
    The rotation for bottom-up text lives on an inner span. Putting it on the link
    would rotate the shape with the text and point the arrows down. */
-.socialrail li + li { margin-top: -12px; }
-.socialrail li:hover { position: relative; z-index: 1; }
 /* The fill has to invert against whatever it sits on, and the closing block is
    a light slab in the dark theme and a dark slab in the light one. Four stated
    cases rather than a derivation, because --ink and --bg swap meaning per theme
@@ -912,45 +910,6 @@ body {
 /* the slab is a dark ground in both themes now, so a light fill works on it
    either way and only the light theme's page default needs overriding */
 :root .slab-invert { --chev-fill: #bfe6f6; --chev-on: #06131d; }
-
-.railchev {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 96px;
-  color: var(--ink-2);
-  transition: color .3s ease;
-}
-.railchev__edge {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  fill: transparent;
-  stroke: currentColor;
-  stroke-width: 1;
-  opacity: .45;
-  transition: fill .4s cubic-bezier(.16,1,.3,1), opacity .3s ease;
-}
-.railchev:hover { color: var(--chev-on); }
-.railchev:hover .railchev__edge { fill: var(--chev-fill); opacity: 1; }
-.railchev:focus-visible .railchev__edge { fill: var(--chev-fill); opacity: 1; }
-.railchev:focus-visible { color: var(--chev-on); outline: none; }
-.railchev--lg { width: 44px; height: 132px; }
-.railchev--lg .railchev__label { font-size: 9.5px; letter-spacing: 0.12em; }
-.railchev__label {
-  position: relative;
-  display: block;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: var(--font-mono-stack), ui-monospace, monospace;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
 
 /* ---------- about ---------- */
 .reveal-fill, .reveal-fill > div { height: 100%; }
@@ -1188,3 +1147,186 @@ body {
   color: var(--bg);
   background: var(--accent);
 }
+
+
+/* ---------- profile chevrons, with brand marks ---------- */
+.chevrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.chevrow--compact { gap: 6px; justify-content: flex-start; }
+@media (min-width: 1024px) { .chevrow--compact { justify-content: flex-end; } }
+
+.chevban {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-top: 26px;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: transform .45s cubic-bezier(.16,1,.3,1), color .3s ease;
+}
+.chevrow--compact .chevban { gap: 8px; padding-top: 18px; }
+.chevban__edge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: color-mix(in oklab, var(--brand) 5%, transparent);
+  stroke: color-mix(in oklab, var(--brand) 38%, var(--line));
+  stroke-width: 1;
+  transition: fill .45s cubic-bezier(.16,1,.3,1), stroke .3s ease;
+}
+.chevban__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--brand) 12%, transparent);
+  transition: background-color .35s ease, transform .45s cubic-bezier(.16,1,.3,1);
+}
+.chevrow--compact .chevban__icon { width: 26px; height: 26px; }
+.chevban__label {
+  position: relative;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chevrow--compact .chevban__label { font-size: 8px; letter-spacing: .1em; }
+.chevban:hover, .chevban:focus-visible, .chevban[data-copied] {
+  transform: translateY(-6px);
+  color: var(--ink);
+  outline: none;
+}
+.chevban:hover .chevban__edge, .chevban:focus-visible .chevban__edge, .chevban[data-copied] .chevban__edge {
+  fill: color-mix(in oklab, var(--brand) 22%, transparent);
+  stroke: var(--brand);
+}
+.chevban:hover .chevban__icon { background: color-mix(in oklab, var(--brand) 26%, transparent); transform: scale(1.08); }
+@media (prefers-reduced-motion: reduce) { .chevban, .chevban__icon { transition: none; } .chevban:hover { transform: none; } }
+
+/* ---------- contact ---------- */
+.contact-hero__glow {
+  position: absolute;
+  inset: -30% -10% auto auto;
+  width: 640px;
+  height: 640px;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: .2;
+  filter: blur(60px);
+  background: radial-gradient(circle, var(--cyan), transparent 66%);
+}
+.contact-status {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  box-shadow: var(--shadow);
+}
+.contact-status > div { padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.contact-status > div:last-child { border-bottom: 0; }
+.contact-status dd { margin-top: 6px; font-size: 15px; color: var(--ink); }
+
+.reach {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.reach::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px 220px at 0% 0%, color-mix(in oklab, var(--brand) 16%, transparent), transparent 70%);
+  opacity: .55;
+  transition: opacity .45s ease;
+}
+.reach:hover::before { opacity: 1; }
+.reach--lead { padding: 32px; }
+.reach__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  color: var(--brand);
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--brand) 30%, transparent);
+}
+.reach--lead .reach__icon { width: 64px; height: 64px; border-radius: 18px; }
+.reach__value {
+  margin-top: 22px;
+  font-size: clamp(19px, 1.8vw, 24px);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+.reach__value--lead { margin-top: 26px; font-size: clamp(18px, 2.5vw, 36px); overflow-wrap: normal; word-break: break-word; }
+.reach__go, .reach__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}
+.reach__go { background: var(--ink); color: var(--bg); }
+.reach__go:hover { background: var(--accent); color: #05121a; }
+.reach__copy { border: 1px solid var(--line); color: var(--ink-2); }
+.reach__copy:hover { border-color: var(--accent); color: var(--accent); }
+
+.handles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  border-top: 1px solid var(--line);
+}
+.handles li {
+  display: grid;
+  grid-template-columns: 16px 6.5rem 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.handles li svg { color: var(--brand); }
+.handles__v { justify-self: start; color: var(--ink); overflow-wrap: anywhere; text-align: left; }
+.handles__copy { cursor: copy; }
+.handles__copy:hover { color: var(--accent); }
+
+.contact-resume {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 26px 28px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: linear-gradient(120deg, color-mix(in oklab, var(--accent) 10%, var(--surface)), var(--surface));
+}
+
+.closing__quick {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgb(234 242 255 / .14);
+  color: #eaf2ff;
+  background: color-mix(in oklab, var(--brand) 14%, transparent);
+  transition: transform .35s cubic-bezier(.16,1,.3,1), border-color .3s ease, background-color .3s ease;
+}
+.closing__quick:hover { transform: translateY(-3px); border-color: var(--brand); background: color-mix(in oklab, var(--brand) 28%, transparent); }

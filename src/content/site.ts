@@ -475,23 +475,42 @@ export const INTERESTS = [
   { title: "Badminton", figure: "", unit: "", detail: "The one thing on this page that has nothing to do with a screen." },
 ];
 
-// TODO(adarsh): handles marked "" are the ones I could not verify. Fill these in and rebuild.
-export const CONTACT = [
-  { id: "email-personal", label: "Personal email", value: "", href: "", primary: true },
-  { id: "email-college", label: "College email", value: "23ucs509@lnmiit.ac.in", href: "mailto:23ucs509@lnmiit.ac.in", primary: true },
-  { id: "phone", label: "Phone", value: "+91 93055 97756", href: "tel:+919305597756", primary: true },
-  { id: "whatsapp", label: "WhatsApp", value: "+91 93055 97756", href: "https://wa.me/919305597756", primary: true },
-  { id: "linkedin", label: "LinkedIn", value: "adarshdwivedi30", href: "https://www.linkedin.com/in/adarshdwivedi30/", primary: true },
-  { id: "github", label: "GitHub", value: "adarshcod30", href: "https://github.com/adarshcod30", primary: true },
-  { id: "instagram", label: "Instagram", value: "", href: "", primary: false },
-  { id: "x", label: "X", value: "", href: "", primary: false },
-  { id: "discord", label: "Discord", value: "", href: "", primary: false },
-  { id: "reddit", label: "Reddit", value: "", href: "", primary: false },
-  { id: "hackerrank", label: "HackerRank", value: "23ucs509", href: "https://www.hackerrank.com/profile/23ucs509", primary: false },
-  { id: "hackerearth", label: "HackerEarth", value: "23ucs509", href: "https://www.hackerearth.com/@23ucs509/", primary: false },
-  { id: "kaggle", label: "Kaggle", value: "adarshcod", href: "https://www.kaggle.com/adarshcod", primary: false },
-  { id: "pypi", label: "PyPI", value: "adarshcod30", href: "https://pypi.org/user/adarshcod30/", primary: false },
-  { id: "huggingface", label: "Hugging Face", value: "adarshcod30", href: "https://huggingface.co/adarshcod30", primary: false },
+/**
+ * Every way to reach me. kind decides where a line appears: direct lines are
+ * the big cards on the contact page, work and social profiles run as the
+ * chevrons. icon names a mark in components/Icons.tsx.
+ */
+export type ContactKind = "direct" | "work" | "social";
+
+export const CONTACT: {
+  id: string;
+  label: string;
+  value: string;
+  href: string;
+  kind: ContactKind;
+  icon: string;
+  note: string;
+  /** shown on the card's button; a copy-only line has no href */
+  action?: string;
+}[] = [
+  { id: "email-personal", label: "Personal email", value: "adarshdwivedi256@gmail.com", href: "mailto:adarshdwivedi256@gmail.com", kind: "direct", icon: "gmail", note: "Personal inbox", action: "Write" },
+  { id: "email-college", label: "College email", value: "23ucs509@lnmiit.ac.in", href: "mailto:23ucs509@lnmiit.ac.in", kind: "direct", icon: "mail", note: "LNMIIT inbox", action: "Write" },
+  { id: "phone", label: "Phone", value: "+91 93055 97756", href: "tel:+919305597756", kind: "direct", icon: "phone", note: "Primary number", action: "Call" },
+  { id: "phone-alt", label: "Alternate phone", value: "+91 96517 07756", href: "tel:+919651707756", kind: "direct", icon: "phone", note: "Alternate number", action: "Call" },
+  { id: "whatsapp", label: "WhatsApp", value: "+91 93055 97756", href: "https://wa.me/919305597756", kind: "direct", icon: "whatsapp", note: "Message on WhatsApp", action: "Chat" },
+  { id: "linkedin", label: "LinkedIn", value: "adarshdwivedi30", href: "https://www.linkedin.com/in/adarshdwivedi30/", kind: "work", icon: "linkedin", note: "Experience and leadership" },
+  { id: "github", label: "GitHub", value: "adarshcod30", href: "https://github.com/adarshcod30", kind: "work", icon: "github", note: "32 public repositories" },
+  { id: "hackerrank", label: "HackerRank", value: "23ucs509", href: "https://www.hackerrank.com/profile/23ucs509", kind: "work", icon: "hackerrank", note: "Orchestrate rank #12" },
+  { id: "hackerearth", label: "HackerEarth", value: "23ucs509", href: "https://www.hackerearth.com/@23ucs509/", kind: "work", icon: "hackerearth", note: "Challenges and contests" },
+  { id: "kaggle", label: "Kaggle", value: "adarshcod", href: "https://www.kaggle.com/adarshcod", kind: "work", icon: "kaggle", note: "Competing on real datasets" },
+  { id: "pypi", label: "PyPI", value: "adarshcod30", href: "https://pypi.org/user/adarshcod30/", kind: "work", icon: "pypi", note: "3 published packages" },
+  { id: "huggingface", label: "Hugging Face", value: "adarshcod30", href: "https://huggingface.co/adarshcod30", kind: "work", icon: "huggingface", note: "Model spaces and demos" },
+  { id: "x", label: "X", value: "@Adarsh_256_", href: "https://x.com/Adarsh_256_", kind: "social", icon: "x", note: "Follow on X" },
+  { id: "instagram", label: "Instagram", value: "@__adarsh.30", href: "https://www.instagram.com/__adarsh.30/", kind: "social", icon: "instagram", note: "Follow on Instagram" },
+  { id: "reddit", label: "Reddit", value: "u/Additional_30", href: "https://www.reddit.com/user/Additional_30/", kind: "social", icon: "reddit", note: "Profile on Reddit" },
+  // Discord has no public profile URL without the numeric user id, so the
+  // card copies the username rather than linking somewhere unhelpful
+  { id: "discord", label: "Discord", value: "adarsh256", href: "", kind: "social", icon: "discord", note: "Add me by username" },
 ];
 
 export const NAV = [

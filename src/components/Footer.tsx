@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Reveal } from "./motion";
 import ProfileCards from "./ProfileCards";
 import ResumePicker from "./ResumePicker";
+import { BrandIcon, BRANDS } from "./Icons";
 import { IDENTITY, CONTACT, NAV } from "@/content/site";
 
 /**
@@ -13,7 +14,11 @@ import { IDENTITY, CONTACT, NAV } from "@/content/site";
  * near-black ground so it reads as the end of the site in either theme.
  */
 export default function Footer() {
-  const email = CONTACT.find((c) => c.id === "email-college" && c.href);
+  const email = CONTACT.find((c) => c.id === "email-personal" && c.href);
+  // one tap each for the lines people actually use: mail, WhatsApp, a call
+  const quick = ["email-personal", "whatsapp", "phone"]
+    .map((id) => CONTACT.find((c) => c.id === id))
+    .filter((c): c is (typeof CONTACT)[number] => Boolean(c?.href));
 
   return (
     <footer data-section="Contact" className="closing">
@@ -48,8 +53,26 @@ export default function Footer() {
                   Every way to reach me <span className="arrow">↗</span>
                 </Link>
                 <ResumePicker />
+              </div>
+            </Reveal>
+            <Reveal delay={0.14}>
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {quick.map((q) => (
+                  <a
+                    key={q.id}
+                    href={q.href}
+                    target={q.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noreferrer"
+                    className="closing__quick"
+                    style={{ "--brand": BRANDS[q.icon]?.color ?? "var(--accent)" } as React.CSSProperties}
+                    aria-label={`${q.label}: ${q.value}`}
+                    title={q.value}
+                  >
+                    <BrandIcon id={q.icon} size={16} />
+                  </a>
+                ))}
                 {email && (
-                  <a href={email.href} className="closing__mail group">
+                  <a href={email.href} className="closing__mail group ml-2">
                     {email.value} <span className="arrow text-[0.7em]">↗</span>
                   </a>
                 )}
