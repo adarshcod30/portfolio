@@ -21,12 +21,12 @@ const display = Bricolage_Grotesque({
 export const metadata: Metadata = {
   metadataBase: new URL("https://adarshdwivedi.vercel.app"),
   title: {
-    default: `${IDENTITY.name} — ${IDENTITY.role}`,
-    template: `%s — ${IDENTITY.name}`,
+    default: `${IDENTITY.name} · ${IDENTITY.role}`,
+    template: `%s · ${IDENTITY.name}`,
   },
   description: IDENTITY.tagline,
   openGraph: {
-    title: `${IDENTITY.name} — ${IDENTITY.role}`,
+    title: `${IDENTITY.name} · ${IDENTITY.role}`,
     description: IDENTITY.tagline,
     type: "website",
   },

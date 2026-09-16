@@ -155,7 +155,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
           <div>
             <section>
               <Reveal>
-                <p className="eyebrow">01 — The problem</p>
+                <p className="eyebrow">01 · The problem</p>
               </Reveal>
               <Reveal delay={0.06}>
                 <p className="font-display mt-5 text-[6vw] leading-[1.08] tracking-[-0.03em] sm:text-[2.4vw]">
@@ -167,7 +167,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
             {approach.length > 0 && (
               <section className="mt-20">
                 <Reveal>
-                  <p className="eyebrow">02 — How it works</p>
+                  <p className="eyebrow">02 · How it works</p>
                 </Reveal>
                 <ul className="mt-8 border-t border-line">
                   {approach.map((h, i) => (
@@ -187,7 +187,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
             {result && (
               <section className="mt-20">
                 <Reveal>
-                  <p className="eyebrow">03 — What it cost, and what it returned</p>
+                  <p className="eyebrow">03 · What it cost, and what it returned</p>
                 </Reveal>
                 <Reveal delay={0.06}>
                   <p className="font-display mt-5 text-[5.5vw] leading-[1.1] tracking-[-0.03em] text-accent sm:text-[2.1vw]">
