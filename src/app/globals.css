@@ -3,27 +3,30 @@
 /* Light first, because the reference site is light. The dark set is a straight
    role swap so the toggle works in both directions without redefining meaning. */
 :root {
-  --bg: #f6f9fc;
+  /* Light theme. A cool paper ground with real ink rather than grey on grey:
+     body copy sits near 12:1, secondary copy above 7:1 and muted labels above
+     4.5:1, and one saturated cobalt carries every accent. */
+  --bg: #f2f5fa;
   --surface: #ffffff;
-  --surface-2: #eef4fb;
-  --ink: #0a1524;
-  --deep: #0a1524;   /* never remapped, see .slab-invert */
-  /* The contrast slab flips against whatever theme is active. Both halves are
-     stated per theme, because deriving one from --bg broke in dark mode: --bg
-     is near-black there, so "dark ground, --bg text" was black on black. */
-  --slab-bg: #0a1524;
-  --slab-fg: #eef5ff;
-  --slab-accent: #6cb8ff;
-  --ink-2: #27384d;
-  --muted: #5d7186;
-  --line: #dbe5f0;
-  --accent: #1568c6;      /* measured 5.1:1 on --bg; #1d76db was 4.26 */
-  --accent-hi: #40a9ff;
-  --accent-fill: #1d76db; /* shapes and fills, where contrast does not apply */
-  --accent-soft: #e7f1fd;
-  --cyan: #22d3ee;
-  --indigo: #818cf8;
-  --shadow: 0 1px 2px rgb(10 21 36 / 0.04), 0 8px 24px -12px rgb(10 21 36 / 0.16);
+  --surface-2: #e8eef7;
+  --ink: #0a1628;
+  --deep: #0a1628;   /* never remapped, see .slab-invert */
+  /* The contrast slab is stated per theme. In light it is a tinted blue panel
+     rather than a black band, so the page changes key instead of switching
+     off the lights. */
+  --slab-bg: #e3ecf9;
+  --slab-fg: #0a1628;
+  --slab-accent: #0b57c4;
+  --ink-2: #243650;
+  --muted: #4f627a;
+  --line: #d2dcea;
+  --accent: #0b5ed7;      /* 5.4:1 on --bg */
+  --accent-hi: #3b82f6;
+  --accent-fill: #1f6fe0; /* shapes and fills, where contrast does not apply */
+  --accent-soft: #e0ebfd;
+  --cyan: #0ea5c6;
+  --indigo: #5b5fe6;
+  --shadow: 0 1px 2px rgb(10 22 40 / 0.05), 0 2px 6px -2px rgb(10 22 40 / 0.06), 0 14px 32px -16px rgb(10 22 40 / 0.18);
 }
 
 :root[data-theme="dark"] {
@@ -90,7 +93,8 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--accent); color: #fff; }
+::selection { background: #bcd4fb; color: #0a1628; }
+:root[data-theme="dark"] ::selection { background: rgb(86 203 240 / .32); color: #ffffff; }
 
 /* the one piece of ornament that repeats: a hairline that fades out */
 .rule {
@@ -909,7 +913,8 @@ body {
 :root[data-theme="dark"] { --chev-fill: #bfe6f6; --chev-on: #06131d; }
 /* the slab is a dark ground in both themes now, so a light fill works on it
    either way and only the light theme's page default needs overriding */
-:root .slab-invert { --chev-fill: #bfe6f6; --chev-on: #06131d; }
+:root .slab-invert { --chev-fill: #0b57c4; --chev-on: #ffffff; }
+:root[data-theme="dark"] .slab-invert { --chev-fill: #bfe6f6; --chev-on: #06131d; }
 
 /* ---------- about ---------- */
 .reveal-fill, .reveal-fill > div { height: 100%; }
@@ -1587,3 +1592,78 @@ body {
   text-overflow: ellipsis;
 }
 @media (prefers-reduced-motion: reduce) { .arrow-chip { transition: none; } .arrow-chip:hover { transform: none; } }
+
+
+/* ---------- light theme finish ----------
+   The dark theme is the designed default, so a handful of pieces were drawn
+   against a dark ground with stated colours. These are their light versions.
+   Scoped with :not([data-theme="dark"]) so an unset theme also gets them. */
+:root:not([data-theme="dark"]) .slab-invert {
+  background: linear-gradient(180deg, #e8f0fb 0%, #dce7f7 100%);
+  border-block-color: #c9d7ec;
+}
+:root:not([data-theme="dark"]) .slab-invert .card {
+  background: #ffffff;
+  border-color: #cfdcef;
+}
+:root:not([data-theme="dark"]) .slab-quiet { background: #e9eff8; }
+:root:not([data-theme="dark"]) .card { border-color: #d6e0ed; }
+:root:not([data-theme="dark"]) .card:hover { border-color: color-mix(in oklab, var(--accent) 55%, #d6e0ed); box-shadow: 0 1px 2px rgb(10 22 40 / .05), 0 18px 40px -18px rgb(11 94 215 / .28); }
+:root:not([data-theme="dark"]) .chip {
+  background: #e3edfd;
+  color: #0a4fb3;
+  border-color: #c7d9f7;
+}
+
+/* the resume button outside the dark closing block */
+:root:not([data-theme="dark"]) main .resume-trigger {
+  color: var(--accent);
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  background: var(--accent-soft);
+}
+:root:not([data-theme="dark"]) main .resume-trigger:hover { background: #cfe0fb; border-color: var(--accent); }
+
+/* page header wash: a cobalt and violet glow instead of a pale cyan smear */
+:root:not([data-theme="dark"]) header[data-section] > div[aria-hidden]:first-child,
+:root:not([data-theme="dark"]) .contact-hero__glow {
+  background: radial-gradient(circle, rgb(59 130 246 / .55), rgb(139 92 246 / .18) 45%, transparent 70%) !important;
+  opacity: .22 !important;
+}
+
+/* chrome */
+:root:not([data-theme="dark"]) .navbar,
+:root:not([data-theme="dark"]) .navchip,
+:root:not([data-theme="dark"]) .themeswitch {
+  background: rgb(255 255 255 / .82);
+  border-color: #d2dcea;
+}
+:root:not([data-theme="dark"]) .navitem__bg {
+  background: #dbe8fd;
+  box-shadow: inset 0 0 0 1px #9fc0f5, 0 6px 16px -8px rgb(11 94 215 / .45);
+}
+:root:not([data-theme="dark"]) .navitem[aria-current="page"],
+:root:not([data-theme="dark"]) .navitem[aria-current="page"] .navitem__idx { color: #0a4fb3; }
+:root:not([data-theme="dark"]) .themeswitch__track { background: #e6edf7; }
+
+/* contact */
+:root:not([data-theme="dark"]) .reach::before { opacity: .35; }
+:root:not([data-theme="dark"]) .reach__go { background: #0a1628; color: #fff; }
+:root:not([data-theme="dark"]) .reach__go:hover { background: var(--accent); color: #fff; }
+:root:not([data-theme="dark"]) .contact-resume { background: linear-gradient(120deg, #e3edfd, #ffffff); border-color: #cddbef; }
+:root:not([data-theme="dark"]) .arrow-chip { color: var(--ink-2); }
+:root:not([data-theme="dark"]) .arrow-chip::before { background: color-mix(in oklab, var(--brand) 6%, #ffffff); }
+:root:not([data-theme="dark"]) .arrow-chip:hover::before,
+:root:not([data-theme="dark"]) .arrow-chip[data-copied]::before { background: color-mix(in oklab, var(--brand) 14%, #ffffff); }
+
+/* pager */
+:root:not([data-theme="dark"]) .pager__link { background: #ffffff; border-color: #d2dcea; box-shadow: var(--shadow); }
+:root:not([data-theme="dark"]) .pager__arrow { background: #0a1628; color: #fff; }
+:root:not([data-theme="dark"]) .pager__link:hover .pager__arrow { background: var(--accent); color: #fff; }
+
+/* about, leadership */
+:root:not([data-theme="dark"]) .xp-point { background: #ffffff; }
+:root:not([data-theme="dark"]) .xp-point:hover { background: #f3f7fe; }
+:root:not([data-theme="dark"]) .mun-fig { background: #ffffff; }
+:root:not([data-theme="dark"]) .mun-outcome { background: #ffffff; border-color: color-mix(in oklab, var(--accent) 35%, #d2dcea); }
+:root:not([data-theme="dark"]) .agenda__tag { color: #fff; }
+:root:not([data-theme="dark"]) .comp-result { background: #e0ebfd; border-color: #bcd2f6; color: #0a4fb3; }
