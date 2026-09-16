@@ -224,7 +224,7 @@ export default async function CaseStudy({ params }: { params: Promise<Params> })
         </div>
         <div className="mx-auto mt-10 max-w-6xl">
           <Link href="/work" className="group inline-flex items-center gap-2 text-sm font-medium text-accent">
-            All 26 projects <span className="arrow">↗</span>
+            All {PROJECTS.length} projects <span className="arrow">↗</span>
           </Link>
         </div>
       </section>

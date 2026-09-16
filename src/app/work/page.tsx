@@ -6,7 +6,7 @@ import { COUNT_WORD } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Twenty-six shipped projects across six domains, each with a case study.",
+  description: `${PROJECTS.length} shipped projects across ${DOMAINS.length} domains, each with a case study.`,
 };
 
 export default function WorkPage() {

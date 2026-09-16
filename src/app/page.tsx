@@ -117,7 +117,7 @@ export default function Home() {
           <Stagger className="grid grid-cols-3 border-t border-line sm:grid-cols-6">
             {[
               { n: 32, s: "", label: "shipped products" },
-              { n: 26, s: "", label: "case studies" },
+              { n: PROJECTS.length, s: "", label: "case studies" },
               { n: 10, s: "+", label: "hackathons" },
               { n: DOMAINS.length, s: "", label: "problem domains" },
               { n: 3, s: "", label: "PyPI packages" },
