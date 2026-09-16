@@ -55,7 +55,7 @@ export default function About() {
           </div>
 
           <Reveal delay={0.2}>
-            <figure className="portrait">
+            <figure className="portrait portrait--hero">
               <Image
                 src="/photos/adarsh-portrait.jpg"
                 alt="Adarsh Dwivedi in a navy blazer, standing outdoors in the evening."
@@ -157,7 +157,7 @@ export default function About() {
 
           <Stagger className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-[var(--line)] md:grid-cols-2">
             {deloitte.bullets.map((b, i) => (
-              <StagItem key={i} className={`xp-point ${i === deloitte.bullets.length - 1 ? "md:col-span-2" : ""}`}>
+              <StagItem key={i} className={`xp-point ${deloitte.bullets.length % 2 && i === deloitte.bullets.length - 1 ? "md:col-span-2" : ""}`}>
                 <span className="idx">{String(i + 1).padStart(2, "0")}</span>
                 <p className="mt-3 text-[15px] leading-relaxed text-ink2">{b}</p>
               </StagItem>

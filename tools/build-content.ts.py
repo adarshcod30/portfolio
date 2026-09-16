@@ -3,7 +3,7 @@
 One source of truth for every factual claim on this site and on the 14 resumes.
 Change a number in profile.json, rebuild both, and they cannot disagree.
 """
-import json, pathlib, re
+import hashlib, json, pathlib, re
 
 SRC = pathlib.Path(__file__).resolve().parents[2] / "resume-build" / "profile.json"
 OUT = pathlib.Path(__file__).resolve().parents[1] / "src" / "content" / "projects.generated.ts"
@@ -33,10 +33,20 @@ DOMAINS = [
 # richest narrative variant first; the rest are merged in for extra detail
 PREF = ["product", "aiproduct", "swe", "agentic", "genai", "ai", "ml", "dl", "data", "ops", "aipe"]
 
+def shots_version() -> str:
+    """One hash over every shot. Next caps image patterns at 25, too few for a
+    pattern per project, so all shots share a version and any change bumps it."""
+    h = hashlib.sha1()
+    for f in sorted((pathlib.Path(__file__).resolve().parents[1] / "public" / "shots").glob("*.jpg")):
+        h.update(f.name.encode()); h.update(f.read_bytes())
+    return h.hexdigest()[:8]
+
+
 def esc(s: str) -> str:
     return s.replace("\\", "\\\\").replace("`", "\\`").replace("${", "\\${")
 
 def main() -> None:
+    version = shots_version()
     P = json.loads(SRC.read_text())["projects"]
     placed = {s for _, _, _, slugs in DOMAINS for s in slugs}
     missing = [k for k in P if k not in placed]
@@ -67,7 +77,9 @@ def main() -> None:
                 "name": p.get("name", slug), "tagline": p.get("tagline", ""),
                 "note": p.get("note", ""), "stack": stack,
                 "live": links.get("live", ""), "code": links.get("code", ""),
-                "shot": f"/shots/{slug}.jpg" if shot_file.exists() else "",
+                # the query is a hash of the shots, so replacing one changes its URL
+                # and no browser or optimizer cache can keep serving the old image
+                "shot": f"/shots/{slug}.jpg?v={version}" if shot_file.exists() else "",
                 "highlights": bullets[:6],
             })
 
