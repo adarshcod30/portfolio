@@ -127,7 +127,7 @@ export function Hud() {
 
       {/* pinned: where you are, once the list has scrolled off */}
       <div
-        className={`fixed right-5 top-5 z-50 transition-opacity duration-500 sm:right-8 sm:top-7 ${
+        className={`fixed right-[6px] top-5 z-50 transition-opacity duration-500 sm:right-[18px] sm:top-7 ${
           past && current ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
@@ -142,7 +142,7 @@ export function Hud() {
       <div className="absolute right-5 top-5 z-40 flex flex-col items-end gap-3 sm:right-8 sm:top-7">
         <ThemeButton />
 
-        <nav aria-label="Primary" className="hidden flex-col items-end gap-0.5 text-right md:flex">
+        <nav aria-label="Primary" className="-mr-3.5 hidden flex-col items-end gap-0.5 text-right md:flex">
           {NAV.map((n) => (
             <Link
               key={n.href}
@@ -165,11 +165,26 @@ export function Hud() {
         </button>
       </div>
 
-      {/* social rail, pinned bottom-left, nested chevrons running up the edge */}
-      <ul className="pointer-events-none fixed bottom-6 left-4 z-50 hidden flex-col gap-[3px] lg:flex">
+      {/* social rail: sits in the page under the wordmark and scrolls away with
+          the rest of the top matter, rather than following you down the page */}
+      <ul className="socialrail absolute left-8 top-[92px] z-40 hidden flex-col lg:flex">
         {socials.map((s) => (
-          <li key={s.id} className="pointer-events-auto">
-            <a href={s.href} target="_blank" rel="noreferrer" className="railchev">
+          <li key={s.id}>
+            <a
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="railchev"
+              aria-label={`${s.label} profile`}
+            >
+              <svg
+                className="railchev__edge"
+                viewBox="0 0 32 96"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <polygon points="0.6,13.4 16,0.6 31.4,13.4 31.4,95.4 16,82.6 0.6,95.4" />
+              </svg>
               <span className="railchev__label">{s.label}</span>
             </a>
           </li>

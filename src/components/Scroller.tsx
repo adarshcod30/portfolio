@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import type { Project } from "@/content/projects.generated";
 
 /**
@@ -106,54 +106,5 @@ function Panel({ p, i }: { p: Project; i: number }) {
         <span className="arrow text-muted group-hover:text-accent">↗</span>
       </span>
     </Link>
-  );
-}
-
-/**
- * Fixed marker telling you which section you are in, because a long dark page
- * with full-bleed sections gives no other cue. Reads `data-section` off
- * whatever is currently crossing the middle of the viewport.
- */
-export function SectionMarker() {
-  const [label, setLabel] = useState("");
-  useEffect(() => {
-    const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-section]"));
-    if (!nodes.length) return;
-    const pick = () => {
-      const mid = window.innerHeight / 2;
-      let best: { d: number; name: string } | null = null;
-      for (const n of nodes) {
-        const r = n.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) continue;
-        const d = Math.abs(r.top + r.height / 2 - mid);
-        const name = n.dataset.section || "";
-        // the hero needs no label: the wordmark and the headline already say it,
-        // and the chip collided with the stats row
-        if (name === "Home") continue;
-        if (!best || d < best.d) best = { d, name };
-      }
-      setLabel(best?.name ?? "");
-    };
-    pick();
-    window.addEventListener("scroll", pick, { passive: true });
-    window.addEventListener("resize", pick);
-    return () => {
-      window.removeEventListener("scroll", pick);
-      window.removeEventListener("resize", pick);
-    };
-  }, []);
-
-  return (
-    <div className="pointer-events-none fixed bottom-5 right-5 z-40 hidden sm:block">
-      <motion.span
-        key={label}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: label ? 1 : 0, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="eyebrow rounded-full border border-line bg-surface/80 px-4 py-2 backdrop-blur"
-      >
-        {label || " "}
-      </motion.span>
-    </div>
   );
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import IceDome from "@/components/IceDome";
 import { StatusStrip, Cta } from "@/components/Chrome";
-import { HorizontalWork, SectionMarker } from "@/components/Scroller";
+import { HorizontalWork } from "@/components/Scroller";
 import { Reveal, Stagger, StagItem, SplitLine, Marquee, CountUp } from "@/components/motion";
 import { IDENTITY, COMPETITIONS } from "@/content/site";
 import { PROJECTS, DOMAINS } from "@/content/projects.generated";
@@ -39,7 +39,6 @@ export default function Home() {
 
   return (
     <>
-      <SectionMarker />
 
       {/* ---------------- hero: one object, almost nothing else ---------------- */}
       <section
@@ -117,7 +116,7 @@ export default function Home() {
       <HorizontalWork items={rail} />
 
       {/* ---------------- offset frames ---------------- */}
-      <section data-section="In the field" className="clear-hud clear-rail px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="In the field" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="eyebrow">In the field</p>
@@ -156,7 +155,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- bento ---------------- */}
-      <section data-section="At a glance" className="clear-hud clear-rail slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="At a glance" className="clear-hud slab-quiet border-y border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">At a glance</p></Reveal>
           <Reveal delay={0.06}>
@@ -216,7 +215,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- domains ---------------- */}
-      <section data-section="Domains" className="clear-hud clear-rail px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Domains" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">How it is organised</p></Reveal>
           <Reveal delay={0.06}>
@@ -263,7 +262,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- competitions ---------------- */}
-      <section data-section="Competitions" className="clear-hud clear-rail slab-invert px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Competitions" className="clear-hud slab-invert px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal><p className="eyebrow">Measured against other people</p></Reveal>
           <Reveal delay={0.06}>
@@ -296,7 +295,7 @@ export default function Home() {
       </section>
 
       {/* ---------------- method ---------------- */}
-      <section data-section="Method" className="clear-rail border-t border-line px-5 py-24 sm:px-8 sm:py-32">
+      <section data-section="Method" className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-4xl">
           <Reveal><p className="eyebrow">The method</p></Reveal>
           <Reveal delay={0.06}>

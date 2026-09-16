@@ -576,38 +576,64 @@ body {
 @media (min-width: 768px) {
   .clear-hud { padding-right: 190px; }
 }
-/* the social rail runs up the left edge from lg, and it is a solid block now */
+/* the social rail sits under the wordmark from lg, so only the top block of a
+   page has to reserve its width */
 @media (min-width: 1024px) {
   .clear-rail { padding-left: 76px; }
+}
+/* the column needs 608px of headroom below the wordmark. On anything shorter it
+   would collide with the bottom of the hero, and the footer carries the same
+   links anyway. */
+@media (max-height: 640px) {
+  .socialrail { display: none; }
 }
 
 
 /* ---------- social rail chevrons ----------
-   The same upward arrow as the domain tiles, running up the left edge and nested
-   with almost no gap so the column reads as one stack of blocks.
+   The same upward arrow as the domain tiles, running up the left edge.
 
-   The shape lives on the link and the rotation lives on an inner span. Putting
-   both on one element rotated the clip-path with the text and left the arrows
-   pointing down. */
+   Outline only. A clip-path fill would paint a solid slab over the hero object,
+   so the shape is an inline <svg> polygon with no fill and a hair stroke, which
+   lets the dome show straight through it. Every tile is the same 32x96 box, so
+   the notch is identical down the column and the svg needs no scaling.
+
+   The rotation for bottom-up text lives on an inner span. Putting it on the link
+   would rotate the shape with the text and point the arrows down. */
+.socialrail li + li { margin-top: -12px; }
+.socialrail li:hover { position: relative; z-index: 1; }
 .railchev {
-  display: block;
-  clip-path: polygon(
-    0 15px, 50% 0, 100% 15px,
-    100% 100%, 50% calc(100% - 15px), 0 100%
-  );
-  background: #bfe6f6;
-  color: #06131d;
-  padding: 26px 7px 28px;
-  transition: background-color .4s cubic-bezier(.16,1,.3,1), color .3s ease;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 96px;
+  color: var(--ink2);
+  transition: color .3s ease;
 }
-.railchev:hover { background: #0d3f66; color: #eaf6ff; }
+.railchev__edge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: .45;
+  transition: fill .4s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.railchev:hover { color: #06131d; }
+.railchev:hover .railchev__edge { fill: #bfe6f6; opacity: 1; }
+.railchev:focus-visible .railchev__edge { fill: #bfe6f6; opacity: 1; }
+.railchev:focus-visible { color: #06131d; outline: none; }
 .railchev__label {
+  position: relative;
   display: block;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-family: var(--font-mono-stack), ui-monospace, monospace;
-  font-size: 10.5px;
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
 }

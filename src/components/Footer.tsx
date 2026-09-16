@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer data-section="Contact" className="slab-invert">
-      <div className="clear-hud clear-rail mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+      <div className="clear-hud mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <p className="eyebrow">Contact</p>
         </Reveal>
