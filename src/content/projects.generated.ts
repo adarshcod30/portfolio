@@ -169,7 +169,7 @@ export const PROJECTS: Project[] = [
     name: `AGENTIQ`,
     tagline: `Agentic API Testing and Security Validation`,
     note: ``,
-    live: ``,
+    live: `https://agentiq-vert.vercel.app`,
     code: `https://github.com/adarshcod30/AGENTIQ`,
     shot: ``,
     stack: [`Docker`, `Express`, `GitHub Actions`, `LLM Agents`, `MCP`, `Node.js`, `OpenAPI 3.1`, `Vitest`, `Zod`],

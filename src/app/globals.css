@@ -441,14 +441,22 @@ body {
   grid-template-columns: 1fr;
   gap: 16px;
 }
+/* Two frames per stage, overlapping, and a caption for each sitting in the
+   gutter its own frame leaves empty: the back frame is pushed to one side and
+   the front frame to the other, so the two pockets never collide. Row 1 holds
+   the back frame and its caption, row 2 the front frame and its caption, with
+   the front pulled up to overlap. */
 @media (min-width: 900px) {
   .stage { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
-  .stage__back { grid-column: 4 / -1; }
-  .stage__front { grid-column: 2 / 8; margin-top: -16%; z-index: 2; }
-  .stage__caption { grid-column: 1 / 4; padding-top: 18%; }
-  .stage--flip .stage__back { grid-column: 1 / 10; }
-  .stage--flip .stage__front { grid-column: 7 / -1; margin-top: -14%; }
-  .stage--flip .stage__caption { grid-column: 10 / -1; padding-top: 16%; text-align: right; }
+  .stage__back  { grid-column: 5 / -1; grid-row: 1; }
+  .stage__cap-a { grid-column: 1 / 5; grid-row: 1; padding: 6% 28px 0 0; }
+  .stage__front { grid-column: 2 / 8;  grid-row: 2; margin-top: -13%; z-index: 2; }
+  .stage__cap-b { grid-column: 8 / -1; grid-row: 2; padding: 4% 0 0 28px; }
+
+  .stage--flip .stage__back  { grid-column: 1 / 9; }
+  .stage--flip .stage__cap-a { grid-column: 9 / -1; padding: 6% 0 0 28px; text-align: right; }
+  .stage--flip .stage__front { grid-column: 6 / -1; }
+  .stage--flip .stage__cap-b { grid-column: 1 / 6; padding: 4% 28px 0 0; text-align: right; }
 }
 .panel {
   position: relative;

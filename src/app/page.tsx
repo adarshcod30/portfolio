@@ -11,20 +11,46 @@ export default function Home() {
   const headline = COMPETITIONS.filter((c) => c.highlight);
   const kadi = PROJECTS.find((p) => p.slug === "kadi");
   const pick = (s: string) => PROJECTS.find((p) => p.slug === s)!;
+  // Six products, paired so each stage overlaps two frames, and every project
+  // carries its own audience and note in the gutter beside its own frame.
   const stages = [
     {
-      label: "Farmers",
-      back: pick("krishimitra"),
-      front: pick("floodcast"),
-      note: "Thirteen modules in twelve Indian languages, free to use, and a crop the district never grew is refused whatever the model says.",
+      back: {
+        p: pick("krishimitra"),
+        who: "For smallholder farmers",
+        note: "Thirteen modules in twelve Indian languages, free to use, each built around a question a farmer actually asks. A crop the district has never grown is refused whatever the model says.",
+      },
+      front: {
+        p: pick("floodcast"),
+        who: "For daily commuters",
+        note: "Answers the one question a commuter asks, will my route flood and when, by matching live rainfall against 73 researched flood points instead of issuing a city-wide alert.",
+      },
     },
     {
-      label: "Regulators",
-      back: pick("vayu"),
-      front: pick("margadrishti"),
-      note: "Rank the intervention by modelled return, dispatch the order, then test with difference-in-differences whether it actually worked.",
+      back: {
+        p: pick("vayu"),
+        who: "For pollution regulators",
+        note: "Enforcement usually targets the dirtiest sensor rather than the site where action pays most. Ranks interventions by Gaussian-plume modelled return, then tests whether the order actually worked.",
+      },
+      front: {
+        p: pick("margadrishti"),
+        who: "For city traffic planners",
+        note: "Models where Bengaluru loses road capacity and when, over 298k violations, with strictly causal lag features so nothing leaks from the future. Publishes what the data cannot answer.",
+      },
     },
-  ].filter((s) => s.back?.shot && s.front?.shot);
+    {
+      back: {
+        p: pick("kadi"),
+        who: "For police stations and the state bureau",
+        note: "A station officer gets a ranked case queue with a plain-language reason and a next action. The bureau reads state-wide analysis off the same graph of 59,985 records.",
+      },
+      front: {
+        p: pick("agentiq"),
+        who: "For the engineers who ship APIs",
+        note: "Turns a URL and a plain-English intent into executable functional and security tests, with every agent action passing through 19 schema-validated tools that are granted per host and audited.",
+      },
+    },
+  ].filter((s) => s.back.p && s.front.p);
 
   return (
     <>
@@ -121,34 +147,83 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-display mt-3 text-[11vw] leading-[0.9] tracking-[-0.04em] sm:text-[5vw]">
-              Built for people who
+              Built for people who are technical,
               <br />
-              are not technical<span className="text-accent">.</span>
+              and people who are not<span className="text-accent">.</span>
             </h2>
           </Reveal>
 
-          {stages.map((s, i) => (
-            <div key={s.back.slug} className={`stage mt-20 sm:mt-28 ${i % 2 ? "stage--flip" : ""}`}>
-              <Reveal className="stage__back">
-                <Link href={`/work/${s.back.slug}`} className="panel block aspect-[16/10]">
-                  <Image src={s.back.shot} alt={`${s.back.name} running: ${s.back.tagline}.`} width={1440} height={900} />
-                </Link>
-              </Reveal>
-              <Reveal delay={0.12} className="stage__front">
-                <Link href={`/work/${s.front.slug}`} className="panel block aspect-[4/3]">
-                  <Image src={s.front.shot} alt={`${s.front.name} running: ${s.front.tagline}.`} width={1080} height={810} />
-                </Link>
-              </Reveal>
-              <Reveal delay={0.2} className="stage__caption">
-                <p className="eyebrow">{String(i + 1).padStart(2, "0")} — {s.label}</p>
-                <p className="font-display mt-2 text-2xl leading-tight tracking-tight sm:text-3xl">{s.back.name}</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-muted">{s.note}</p>
-                <Link href={`/work/${s.back.slug}`} className="group mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent">
+          {stages.map((st, i) => {
+            const flip = i % 2 === 1;
+            const Frame = ({
+              e,
+              ratio,
+              w,
+              h,
+            }: {
+              e: (typeof stages)[number]["back"];
+              ratio: string;
+              w: number;
+              h: number;
+            }) => (
+              <Link href={`/work/${e.p.slug}`} className={`panel block ${ratio}`}>
+                {e.p.shot ? (
+                  <Image
+                    src={e.p.shot}
+                    alt={`${e.p.name} running: ${e.p.tagline}.`}
+                    width={w}
+                    height={h}
+                  />
+                ) : (
+                  <span className="grid h-full w-full place-items-center bg-accentsoft px-6">
+                    <span className="font-display text-center text-2xl tracking-tight text-accent opacity-60">
+                      {e.p.name}
+                    </span>
+                  </span>
+                )}
+              </Link>
+            );
+            const Caption = ({
+              e,
+              n,
+            }: {
+              e: (typeof stages)[number]["back"];
+              n: number;
+            }) => (
+              <>
+                <p className="eyebrow">
+                  {String(n).padStart(2, "0")} <span className="opacity-40">/</span> {e.who}
+                </p>
+                <p className="font-display mt-2 text-2xl leading-tight tracking-tight sm:text-[28px]">
+                  {e.p.name}
+                </p>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{e.note}</p>
+                <Link
+                  href={`/work/${e.p.slug}`}
+                  className="group mt-3.5 inline-flex items-center gap-2 text-sm font-medium text-accent"
+                >
                   Case study <span className="arrow">↗</span>
                 </Link>
-              </Reveal>
-            </div>
-          ))}
+              </>
+            );
+
+            return (
+              <div key={st.back.p.slug} className={`stage mt-20 sm:mt-32 ${flip ? "stage--flip" : ""}`}>
+                <Reveal className="stage__back">
+                  <Frame e={st.back} ratio="aspect-[16/10]" w={1440} h={900} />
+                </Reveal>
+                <Reveal delay={0.1} className="stage__cap-a">
+                  <Caption e={st.back} n={i * 2 + 1} />
+                </Reveal>
+                <Reveal delay={0.16} className="stage__front">
+                  <Frame e={st.front} ratio="aspect-[4/3]" w={1080} h={810} />
+                </Reveal>
+                <Reveal delay={0.24} className="stage__cap-b">
+                  <Caption e={st.front} n={i * 2 + 2} />
+                </Reveal>
+              </div>
+            );
+          })}
         </div>
       </section>
 
