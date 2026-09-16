@@ -402,7 +402,7 @@ export default function Home() {
 
       {/* ---------------- method ---------------- */}
       <section data-section="Method" className="border-t border-line px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-5xl">
           <Reveal><p className="eyebrow">The method</p></Reveal>
           <Reveal delay={0.06}>
             <p className="font-display mt-5 text-[7vw] leading-[1.04] tracking-[-0.035em] sm:text-[3.2vw]">
@@ -411,15 +411,54 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal delay={0.12}>
-            <p className="mt-8 max-w-2xl text-[15px] leading-relaxed text-ink2">
-              That separation is the decision repeated most across these projects, because it is what
-              makes &ldquo;why did this happen?&rdquo; answerable by a person. Ring membership in
-              Orbweaver comes from a peeling objective with a proved one-half approximation bound, so the
-              answer is checkable arithmetic rather than a model&rsquo;s opinion. AGENTIQ generates test
-              assertions with a language model and then evaluates them with a tool, because a model
-              grading its own output is not evidence.
+            <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-ink2">
+              That separation is the decision repeated most across these projects, because it is
+              what makes &ldquo;why did this happen?&rdquo; answerable by a person.
             </p>
           </Reveal>
+
+          {/* the section argues for a split, so it is set as one: the rule down
+              the middle is the argument, not a decoration */}
+          <div className="method mt-14">
+            <div className="method__head">
+              <span />
+              <span className="eyebrow">Proposes</span>
+              <span className="eyebrow !text-accent">Decides</span>
+            </div>
+            {[
+              {
+                name: "Orbweaver",
+                slug: "orbweaver",
+                propose:
+                  "Scoring and pruning narrow a 35.7M-edge account graph, its edges weighted by entity rarity times measured fraud lift.",
+                decide:
+                  "Greedy densest-subgraph peeling, carrying a proved one-half approximation bound, settles which accounts form a ring.",
+                note: "So the answer is checkable arithmetic rather than a model's opinion.",
+              },
+              {
+                name: "AGENTIQ",
+                slug: "agentiq",
+                propose:
+                  "A language model turns a URL and a plain-English intent into executable test assertions.",
+                decide:
+                  "A tool runs them, and what counts as a finding is fixed in advance against 8 OWASP API Top 10 families.",
+                note: "Because a model grading its own output is not evidence.",
+              },
+            ].map((r, i) => (
+              // Reveal wraps its children in an inner motion div, so the grid
+              // has to live below it or it ends up with a single child
+              <Reveal key={r.slug} delay={0.18 + i * 0.08}>
+                <div className="method__row">
+                  <Link href={`/work/${r.slug}`} className="method__name group">
+                    {r.name} <span className="arrow">↗</span>
+                  </Link>
+                  <p className="method__cell">{r.propose}</p>
+                  <p className="method__cell method__decide">{r.decide}</p>
+                  <p className="method__note">{r.note}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
     </>

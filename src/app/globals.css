@@ -371,6 +371,66 @@ body {
 
 
 
+/* ---------- the method, set as a split ----------
+   The section's whole claim is that proposing and deciding are separate jobs,
+   so it is laid out as two columns with a rule between them rather than as a
+   paragraph. The deciding side is the brighter of the two on purpose. */
+.method { border-top: 1px solid var(--line); }
+.method__head { display: none; }
+.method__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+.method__name {
+  font-family: var(--font-mono-stack), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.method__cell {
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+.method__decide { color: var(--ink); }
+.method__note {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  opacity: .85;
+}
+
+@media (min-width: 860px) {
+  .method__head,
+  .method__row {
+    display: grid;
+    grid-template-columns: 158px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0;
+    align-items: start;
+  }
+  .method__head { padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .method__row { padding: 28px 0; }
+  .method__cell { padding-right: 32px; }
+  /* the rule between the halves is the point of the whole section */
+  .method__decide {
+    border-left: 1px solid var(--line);
+    padding-left: 32px;
+    padding-right: 0;
+  }
+  .method__head > *:last-child { padding-left: 32px; }
+  .method__note {
+    grid-column: 2 / -1;
+    margin-top: 20px;
+    padding-left: 0;
+  }
+}
+
 /* ---------- offset frame composition ----------
    The Obys move: a large panel bled to one edge with a second, smaller panel
    overlapping it off-axis, and the caption set small and far from both. It
