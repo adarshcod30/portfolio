@@ -172,31 +172,6 @@ export function Magnetic({
   );
 }
 
-/** Seamless ticker. Two copies, one translation, no JS per frame. */
-export function Marquee({
-  items,
-  speed = 38,
-  className,
-}: {
-  items: string[];
-  speed?: number;
-  className?: string;
-}) {
-  const run = [...items, ...items];
-  return (
-    <div className={`marquee ${className ?? ""}`} aria-hidden>
-      <div className="marquee__track" style={{ animationDuration: `${speed}s` }}>
-        {run.map((t, i) => (
-          <span key={i} className="marquee__item">
-            {t}
-            <span className="marquee__dot">●</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 /** Thin progress line pinned to the top of the viewport. */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -234,11 +209,12 @@ export function Parallax({
 }
 
 /** Counts up once, when it first comes into view. */
-export function CountUp({ to, suffix = "" }: { to: number; suffix?: string }) {
+export function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   return (
     <span ref={ref} className="tabular-nums">
+      {prefix}
       <motion.span
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : undefined}

@@ -2,23 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import IceDome from "@/components/IceDome";
 import { StatusStrip, Cta } from "@/components/Chrome";
-import { HorizontalWork } from "@/components/Scroller";
-import { Reveal, Stagger, StagItem, SplitLine, Marquee, CountUp } from "@/components/motion";
+import Stack from "@/components/Stack";
+import { Reveal, Stagger, StagItem, SplitLine, CountUp } from "@/components/motion";
 import { IDENTITY, COMPETITIONS } from "@/content/site";
 import { PROJECTS, DOMAINS } from "@/content/projects.generated";
 
-const RAIL = [
-  "kadi", "vayu", "krishimitra", "orbweaver", "agentiq",
-  "cachellm", "medguardx", "floodcast", "openforensics",
-];
-
-const TICKER = [
-  "LangGraph", "PyTorch", "FastAPI", "Next.js", "DuckDB", "CatBoost",
-  "Amazon Bedrock", "MCP", "C++20", "LightGBM", "Postgres", "TypeScript",
-];
-
 export default function Home() {
-  const rail = RAIL.map((s) => PROJECTS.find((p) => p.slug === s)!).filter(Boolean);
   const headline = COMPETITIONS.filter((c) => c.highlight);
   const kadi = PROJECTS.find((p) => p.slug === "kadi");
   const pick = (s: string) => PROJECTS.find((p) => p.slug === s)!;
@@ -48,18 +37,23 @@ export default function Home() {
         {/* the crown sits just under the calls to action: anchored at 56% of the
             hero, the dome rises into frame from below rather than being cut off
             by the top of the window */}
-        <IceDome className="pointer-events-none absolute left-1/2 top-[49%] z-0 h-[190vw] w-[190vw] max-h-[1400px] max-w-[1400px] -translate-x-1/2 opacity-90" />
-        {/* the dome now rises into the bottom of the hero, so the figures are the
-            only type sitting on lit facets and the scrim follows them down */}
+        <IceDome className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[150vw] w-[150vw] max-h-[880px] max-w-[880px] -translate-x-1/2 -translate-y-[49.3%] opacity-90" />
+        {/* Five points lower than it used to sit, and capped at 880px rather than
+            1000, so the base clears the figure row instead of running under it.
+            The dome is brightest exactly where the headline sits, so a soft scrim
+            keeps the type readable without hiding the object. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
             background: [
               // the figure row, which sits directly on the crown
-              "linear-gradient(to top, var(--bg) 4%, color-mix(in oklab, var(--bg) 74%, transparent) 13%, color-mix(in oklab, var(--bg) 28%, transparent) 20%, transparent 26%)",
-              // a soft floor under the whole object so it reads as emerging, not pasted
-              "radial-gradient(74% 40% at 50% 104%, color-mix(in oklab, var(--bg) 55%, transparent), transparent 70%)",
+              // centre: keeps the headline and tagline off the lit facets
+              "radial-gradient(62% 48% at 50% 54%, color-mix(in oklab, var(--bg) 92%, transparent), color-mix(in oklab, var(--bg) 55%, transparent) 55%, transparent 78%)",
+              // top left: the status block sits here and the dome is bright behind it
+              "radial-gradient(44% 34% at 0% 12%, var(--bg), color-mix(in oklab, var(--bg) 80%, transparent) 58%, transparent 84%)",
+              // and the figure row along the bottom, which the dome now reaches
+              "linear-gradient(to top, var(--bg) 6%, color-mix(in oklab, var(--bg) 70%, transparent) 16%, transparent 27%)",
             ].join(", "),
           }}
         />
@@ -94,20 +88,21 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-6xl">
-          <Stagger className="grid grid-cols-2 gap-x-6 border-t border-line sm:grid-cols-5 sm:gap-x-0">
+          <Stagger className="grid grid-cols-3 border-t border-line sm:grid-cols-6">
             {[
               { n: 32, s: "", label: "shipped products" },
               { n: 26, s: "", label: "case studies" },
               { n: 10, s: "+", label: "hackathons" },
               { n: DOMAINS.length, s: "", label: "problem domains" },
               { n: 3, s: "", label: "PyPI packages" },
+              { n: 12, p: "#", s: "", label: "Orchestrate" },
             ].map((x) => (
               <StagItem
                 key={x.label}
-                className="border-line py-5 sm:pl-5 sm:[&:first-child]:pl-0 sm:[&:not(:first-child)]:border-l"
+                className="border-line px-2 py-5 text-center sm:[&:not(:first-child)]:border-l"
               >
                 <p className="font-display text-2xl leading-none text-accent sm:text-4xl">
-                  <CountUp to={x.n} suffix={x.s} />
+                  <CountUp to={x.n} prefix={x.p} suffix={x.s} />
                 </p>
                 <p className="eyebrow mt-1.5">{x.label}</p>
               </StagItem>
@@ -116,10 +111,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Marquee items={TICKER} />
-
-      {/* ---------------- work, moving sideways ---------------- */}
-      <HorizontalWork items={rail} />
+      <Stack />
 
       {/* ---------------- offset frames ---------------- */}
       <section data-section="In the field" className="clear-hud px-5 py-24 sm:px-8 sm:py-32">

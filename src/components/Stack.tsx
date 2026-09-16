@@ -1,0 +1,134 @@
+"use client";
+
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { EASE } from "./motion";
+
+/**
+ * The stack, one group at a time.
+ *
+ * A marquee slid the same twelve names past forever and said nothing about how
+ * they fit together. This holds one layer of the stack, lets you read it, then
+ * swaps the whole set out for the next one. Groups come from the skills block in
+ * profile.json, so nothing here is claimed that the resumes do not also claim.
+ */
+const GROUPS = [
+  {
+    name: "Agents and LLMs",
+    items: ["LangGraph", "LangChain", "MCP", "Amazon Bedrock", "LangSmith", "RAG"],
+  },
+  {
+    name: "Machine learning",
+    items: ["PyTorch", "Scikit-learn", "CatBoost", "LightGBM", "XGBoost", "Optuna"],
+  },
+  {
+    name: "Backend and data",
+    items: ["FastAPI", "Pydantic", "PostgreSQL", "DuckDB", "Redis", "Pandas"],
+  },
+  {
+    name: "Frontend",
+    items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "MapLibre GL", "Recharts"],
+  },
+  {
+    name: "Ship and run",
+    items: ["AWS", "Vercel", "Cloud Run", "GitHub Actions", "Linux", "CI/CD"],
+  },
+] as const;
+
+const HOLD = 4000;
+
+export default function Stack() {
+  const [i, setI] = useState(0);
+  const [live, setLive] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+
+  // only run while it is on screen and the tab is in front, and never for
+  // someone who has asked the system for less motion
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let onScreen = false;
+    const sync = () => setLive(onScreen && !document.hidden);
+    const io = new IntersectionObserver((e) => {
+      onScreen = e[0].isIntersecting;
+      sync();
+    }, { threshold: 0.25 });
+    io.observe(el);
+    document.addEventListener("visibilitychange", sync);
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", sync);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!live) return;
+    const id = setInterval(() => setI((v) => (v + 1) % GROUPS.length), HOLD);
+    return () => clearInterval(id);
+  }, [live]);
+
+  const g = GROUPS[i];
+
+  return (
+    <section
+      ref={ref}
+      data-section="Stack"
+      aria-label="Technology stack"
+      className="border-y border-line px-5 py-11 sm:px-8 sm:py-14"
+    >
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 md:flex-row md:items-baseline md:gap-14">
+        <div className="shrink-0 md:w-52">
+          <p className="eyebrow">
+            Stack <span className="opacity-40">/</span> {String(i + 1).padStart(2, "0")} of{" "}
+            {String(GROUPS.length).padStart(2, "0")}
+          </p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={g.name}
+              initial={{ y: 12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0, transition: { duration: 0.3, ease: EASE } }}
+              transition={{ duration: 0.5, ease: EASE }}
+              className="font-display mt-2 text-xl leading-tight tracking-tight text-accent"
+            >
+              {g.name}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+
+        {/* a floor under the list, so swapping a wrapping group for a short one
+            does not make the page jump */}
+        <div className="min-h-[92px] flex-1 sm:min-h-[52px]">
+          <AnimatePresence mode="wait">
+            <motion.ul key={g.name} className="flex flex-wrap gap-x-8 gap-y-2.5">
+              {g.items.map((t, n) => (
+                <motion.li
+                  key={t}
+                  initial={{ y: 16, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -14, opacity: 0, transition: { delay: n * 0.025, duration: 0.3 } }}
+                  transition={{ delay: n * 0.05, duration: 0.55, ease: EASE }}
+                  className="font-display text-lg leading-none tracking-tight text-ink2 sm:text-xl"
+                >
+                  {t}
+                </motion.li>
+              ))}
+            </motion.ul>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* how long until the set changes */}
+      <div className="mx-auto mt-8 h-px max-w-6xl bg-line">
+        <motion.div
+          key={i}
+          className="h-full bg-accent"
+          initial={{ width: "0%" }}
+          animate={{ width: live ? "100%" : "0%" }}
+          transition={{ duration: HOLD / 1000, ease: "linear" }}
+        />
+      </div>
+    </section>
+  );
+}
