@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { NAV, IDENTITY, CONTACT } from "@/content/site";
+import { NAV, IDENTITY } from "@/content/site";
 import { EASE, Magnetic } from "./motion";
 
 function useTheme() {
@@ -102,12 +102,6 @@ export function Hud() {
   const isActive = (href: string) =>
     href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
   const current = NAV.find((n) => isActive(n.href));
-
-  const RAIL = ["github", "hackerrank", "hackerearth", "kaggle", "pypi", "huggingface"];
-  const socials = RAIL.map((id) => CONTACT.find((c) => c.id === id)).filter(
-    (c): c is (typeof CONTACT)[number] => !!c?.href,
-  );
-
   return (
     <>
       <div
@@ -165,31 +159,6 @@ export function Hud() {
         </button>
       </div>
 
-      {/* social rail: sits in the page under the wordmark and scrolls away with
-          the rest of the top matter, rather than following you down the page */}
-      <ul className="socialrail absolute left-8 top-[92px] z-40 hidden flex-col lg:flex">
-        {socials.map((s) => (
-          <li key={s.id}>
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              className="railchev"
-              aria-label={`${s.label} profile`}
-            >
-              <svg
-                className="railchev__edge"
-                viewBox="0 0 32 96"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <polygon points="0.6,13.4 16,0.6 31.4,13.4 31.4,95.4 16,82.6 0.6,95.4" />
-              </svg>
-              <span className="railchev__label">{s.label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
 
       <AnimatePresence>
         {open && (

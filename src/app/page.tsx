@@ -43,21 +43,23 @@ export default function Home() {
       {/* ---------------- hero: one object, almost nothing else ---------------- */}
       <section
         data-section="Home"
-        className="clear-rail relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-28 sm:px-8 sm:pt-32"
+        className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-28 sm:px-8 sm:pt-32"
       >
-        <IceDome className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[150vw] w-[150vw] max-h-[1000px] max-w-[1000px] -translate-x-1/2 -translate-y-[54%] opacity-90" />
-        {/* the dome is brightest exactly where the headline sits, so a soft scrim
-            keeps the type readable without hiding the object */}
+        {/* the crown sits just under the calls to action: anchored at 56% of the
+            hero, the dome rises into frame from below rather than being cut off
+            by the top of the window */}
+        <IceDome className="pointer-events-none absolute left-1/2 top-[49%] z-0 h-[190vw] w-[190vw] max-h-[1400px] max-w-[1400px] -translate-x-1/2 opacity-90" />
+        {/* the dome now rises into the bottom of the hero, so the figures are the
+            only type sitting on lit facets and the scrim follows them down */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 z-[1]"
           style={{
             background: [
-              // centre: keeps the headline and tagline off the lit facets
-              "radial-gradient(62% 48% at 50% 56%, color-mix(in oklab, var(--bg) 92%, transparent), color-mix(in oklab, var(--bg) 55%, transparent) 55%, transparent 78%)",
-              // top-left corner: the status block sits here and the dome is bright
-              // behind it, which swallowed the text entirely
-              "radial-gradient(44% 34% at 0% 12%, var(--bg), color-mix(in oklab, var(--bg) 80%, transparent) 58%, transparent 84%)",
+              // the figure row, which sits directly on the crown
+              "linear-gradient(to top, var(--bg) 4%, color-mix(in oklab, var(--bg) 74%, transparent) 13%, color-mix(in oklab, var(--bg) 28%, transparent) 20%, transparent 26%)",
+              // a soft floor under the whole object so it reads as emerging, not pasted
+              "radial-gradient(74% 40% at 50% 104%, color-mix(in oklab, var(--bg) 55%, transparent), transparent 70%)",
             ].join(", "),
           }}
         />
@@ -92,14 +94,18 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-6xl">
-          <Stagger className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5 border-t border-line pt-5">
+          <Stagger className="grid grid-cols-2 gap-x-6 border-t border-line sm:grid-cols-5 sm:gap-x-0">
             {[
               { n: 32, s: "", label: "shipped products" },
-              { n: 10, s: "+", label: "hackathons" },
               { n: 26, s: "", label: "case studies" },
+              { n: 10, s: "+", label: "hackathons" },
+              { n: DOMAINS.length, s: "", label: "problem domains" },
               { n: 3, s: "", label: "PyPI packages" },
             ].map((x) => (
-              <StagItem key={x.label}>
+              <StagItem
+                key={x.label}
+                className="border-line py-5 sm:pl-5 sm:[&:first-child]:pl-0 sm:[&:not(:first-child)]:border-l"
+              >
                 <p className="font-display text-2xl leading-none text-accent sm:text-4xl">
                   <CountUp to={x.n} suffix={x.s} />
                 </p>

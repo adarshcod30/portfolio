@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <header data-section="Work" className="clear-rail relative overflow-hidden px-5 pb-14 pt-32 sm:px-8 sm:pt-40 md:pr-48">
+      <header data-section="Work" className="relative overflow-hidden px-5 pb-14 pt-32 sm:px-8 sm:pt-40 md:pr-48">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full opacity-[0.16] blur-3xl"

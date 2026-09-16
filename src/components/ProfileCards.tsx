@@ -1,7 +1,7 @@
 import { Reveal } from "./motion";
 import { CONTACT } from "@/content/site";
 
-/** Short marks and a line of substance, so each profile is worth clicking. */
+/** Short marks, kept because the footer filters its direct lines against them. */
 export const MARK: Record<string, { mark: string; note: string }> = {
   github: { mark: "GH", note: "32 public repositories" },
   linkedin: { mark: "in", note: "Experience and leadership" },
@@ -12,10 +12,16 @@ export const MARK: Record<string, { mark: string; note: string }> = {
   hackerearth: { mark: "HE", note: "Challenges and contests" },
 };
 
+/**
+ * The profile links, as the same upward outline chevron used to run up the left
+ * edge of every page. That rail followed you down the whole site for links you
+ * only ever want at the end of it, so the shape survived and the rail did not:
+ * this is the one place it appears.
+ */
 export default function ProfileCards() {
   const badges = CONTACT.filter((c) => c.href && MARK[c.id]);
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="flex flex-wrap gap-1">
       {badges.map((b, i) => (
         <li key={b.id}>
           <Reveal delay={0.04 + i * 0.03}>
@@ -23,30 +29,19 @@ export default function ProfileCards() {
               href={b.href}
               target="_blank"
               rel="noreferrer"
-              className="chev chev--sm group"
+              className="railchev railchev--lg"
+              aria-label={`${b.label} profile`}
+              title={MARK[b.id].note}
             >
-              <span className="chev__mark">{MARK[b.id].mark}</span>
-              <span className="font-display mt-4 block text-lg leading-tight tracking-tight">
-                {b.label}
-              </span>
-              <span className="chev__blurb mt-1.5 block flex-1 text-[13px] leading-relaxed">
-                {MARK[b.id].note}
-              </span>
               <svg
-                className="chev__arrow mt-4"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden
+                className="railchev__edge"
+                viewBox="0 0 44 132"
+                aria-hidden="true"
+                focusable="false"
               >
-                <path d="M7 17 17 7" />
-                <path d="M9 7h8v8" />
+                <polygon points="0.6,18.6 22,0.6 43.4,18.6 43.4,131.4 22,113.4 0.6,131.4" />
               </svg>
+              <span className="railchev__label">{b.label}</span>
             </a>
           </Reveal>
         </li>
