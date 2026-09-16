@@ -147,40 +147,43 @@ export function Hud() {
         )}
       </div>
 
-      {/* in the page, so it scrolls away: theme control and the full list */}
+      {/* in the page, so it scrolls away: the route bar, centred at the top.
+          Once it has gone, the pinned chip on the right names the current page */}
+      <nav
+        aria-label="Primary"
+        className="navbar absolute left-1/2 top-5 z-40 hidden -translate-x-1/2 lg:flex sm:top-7"
+      >
+        {NAV.map((n, i) => {
+          const on = isActive(n.href);
+          return (
+            <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className="navitem">
+              {on && (
+                <motion.span
+                  layoutId="navitem-active"
+                  className="navitem__bg"
+                  transition={{ duration: 0.5, ease: EASE }}
+                  aria-hidden
+                />
+              )}
+              <span className="navitem__idx hidden xl:inline">{String(i + 1).padStart(2, "0")}</span>
+              <span className="navitem__label">{n.label}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* also scrolls away: the theme switch, and the menu button on small screens */}
       <div className="absolute right-5 top-5 z-40 flex flex-col items-end gap-3 sm:right-8 sm:top-7">
         <ThemeButton />
-
-        <nav aria-label="Primary" className="navpanel hidden md:flex">
-          {NAV.map((n, i) => {
-            const on = isActive(n.href);
-            return (
-              <Link key={n.href} href={n.href} aria-current={on ? "page" : undefined} className="navitem">
-                {on && (
-                  <motion.span
-                    layoutId="navitem-active"
-                    className="navitem__bg"
-                    transition={{ duration: 0.5, ease: EASE }}
-                    aria-hidden
-                  />
-                )}
-                <span className="navitem__idx">{String(i + 1).padStart(2, "0")}</span>
-                <span className="navitem__label">{n.label}</span>
-              </Link>
-            );
-          })}
-        </nav>
-
         <button
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label="Menu"
-          className="eyebrow rounded-full border border-line bg-surface/70 px-3.5 py-2 backdrop-blur md:hidden"
+          className="eyebrow rounded-full border border-line bg-surface/70 px-3.5 py-2 backdrop-blur lg:hidden"
         >
           {open ? "Close" : "Menu"}
         </button>
       </div>
-
 
       <AnimatePresence>
         {open && (
@@ -189,7 +192,7 @@ export function Hud() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.65, ease: EASE }}
-            className="fixed inset-0 z-40 flex flex-col justify-center gap-1 bg-bg px-6 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col justify-center gap-1 bg-bg px-6 lg:hidden"
           >
             {NAV.map((n, i) => (
               <motion.div

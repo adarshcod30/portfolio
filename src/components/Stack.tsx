@@ -78,7 +78,6 @@ export default function Stack() {
     <section
       ref={ref}
       data-section="Stack"
-      data-section-step="off"
       aria-label="Technology stack"
       className="border-y border-line px-5 py-11 sm:px-8 sm:py-14"
     >

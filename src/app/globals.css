@@ -1333,40 +1333,37 @@ body {
 
 
 /* ---------- navigation panel ---------- */
-.navpanel {
-  flex-direction: column;
-  align-items: stretch;
+.navbar {
+  align-items: center;
   gap: 2px;
-  margin-right: -6px;
-  padding: 6px;
-  min-width: 180px;
+  padding: 5px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 999px;
   background: color-mix(in oklab, var(--surface) 72%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--shadow);
+  white-space: nowrap;
 }
 .navitem {
   position: relative;
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 7px 12px;
-  border-radius: 12px;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 999px;
   isolation: isolate;
   color: var(--ink-2);
   transition: color .25s ease;
 }
 .navitem:hover { color: var(--ink); }
-.navitem:hover .navitem__label { transform: translateX(-3px); }
+.navitem:hover .navitem__label { transform: translateY(-1px); }
 .navitem[aria-current="page"] { color: var(--accent); }
 .navitem__bg {
   position: absolute;
   inset: 0;
   z-index: -1;
-  border-radius: 12px;
+  border-radius: 999px;
   background: var(--accent-soft);
   box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
 }
@@ -1463,58 +1460,53 @@ body {
 }
 @media (prefers-reduced-motion: reduce) { .themeswitch__knob { transition: none; } }
 
-/* ---------- step to the next section ---------- */
-.sectstep-holder {
+/* ---------- previous and next page, at the foot of every page ---------- */
+.pager {
   display: flex;
-  justify-content: center;
-  margin-top: 56px;
-  padding-inline: 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 28px 20px 40px;
 }
-header > .sectstep-holder, section.min-h-\[100svh\] > .sectstep-holder { margin-top: 20px; }
-.sectstep {
+@media (min-width: 640px) { .pager { padding-inline: 32px; } }
+.pager__link {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  max-width: 100%;
-  padding: 7px 7px 7px 18px;
+  gap: 9px;
+  min-width: 0;
+  padding: 6px 14px 6px 6px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: color-mix(in oklab, var(--surface) 70%, transparent);
-  backdrop-filter: blur(10px);
-  color: var(--ink);
   font-size: 13.5px;
-  transition: border-color .3s ease, transform .4s cubic-bezier(.16,1,.3,1), background-color .3s ease;
+  transition: border-color .3s ease, background-color .3s ease;
 }
-.sectstep:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--accent-soft); }
-.sectstep__kicker {
+.pager__link--next { padding: 6px 6px 6px 14px; }
+.pager__link:hover { border-color: var(--accent); background: var(--accent-soft); }
+.pager__kicker {
   font-family: var(--font-mono-stack), ui-monospace, monospace;
-  font-size: 10px;
+  font-size: 9.5px;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--accent);
-  white-space: nowrap;
 }
-.sectstep__label {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 34ch;
-  font-weight: 600;
-}
-.sectstep__arrow {
+.pager__label { font-weight: 600; color: var(--ink); white-space: nowrap; }
+.pager__arrow {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 999px;
   background: var(--ink);
   color: var(--bg);
-  font-size: 14px;
+  font-size: 12px;
   transition: transform .4s cubic-bezier(.16,1,.3,1), background-color .3s ease;
 }
-.sectstep:hover .sectstep__arrow { background: var(--accent); color: #05121a; transform: translateY(2px); }
-.sectstep--page:hover .sectstep__arrow { transform: translateX(3px); }
-.sectstep--page { padding-left: 22px; }
-.sectstep--page .sectstep__label { font-family: var(--font-display-stack), ui-sans-serif, system-ui, sans-serif; font-size: 16px; }
+.pager__link:hover .pager__arrow { background: var(--accent); color: #05121a; }
+.pager__link--next:hover .pager__arrow { transform: translateX(3px); }
+.pager__link--prev:hover .pager__arrow { transform: translateX(-3px); }
+@media (max-width: 380px) { .pager__kicker { display: none; } }
+
+/* between lg and xl the bar has to clear the wordmark on the left */
+@media (max-width: 1279px) { .navitem { padding: 8px 12px; } }
