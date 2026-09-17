@@ -29,7 +29,9 @@ export const metadata: Metadata = {
     title: `${IDENTITY.name} · ${IDENTITY.role}`,
     description: IDENTITY.tagline,
     type: "website",
+    url: "/",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 // Dark is the design now, so dark is the default. Light stays as a toggle for
