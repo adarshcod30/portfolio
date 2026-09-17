@@ -29,7 +29,6 @@ export const EXPERIENCE = [
     location: "Gurugram, on-site and hybrid",
     dates: "Jun 2026 to Aug 2026",
     length: "2 months",
-    route: "Earned through Hacksplosion 2026, Deloitte India's national hackathon",
     project: "SAP Agentic, Deloitte's system that automates SAP configuration end to end",
     photo: { src: "/photos/deloitte-office.jpg", alt: "A Deloitte meeting room in Gurugram, long tables facing a wall screen.", caption: "Deloitte, Gurugram" },
     bullets: [
@@ -123,9 +122,9 @@ export const COMPETITIONS: {
     name: "Hacksplosion 2026",
     kind: "Deloitte India",
     when: "2026",
-    result: "Cleared Levels 1 to 3, won the internship",
+    result: "Cleared Levels 1 to 3",
     detail:
-      "Deloitte's national hackathon, entered as a team of three. Clearing all three levels converted into the summer internship at Deloitte's Digital Excellence Centre in Gurugram.",
+      "Deloitte's national hackathon, entered as a team of three, clearing all three levels.",
     links: [],
     highlight: true,
     tier: "top",

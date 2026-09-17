@@ -144,7 +144,6 @@ export default function About() {
                   ["Where", deloitte.location],
                   ["When", `${deloitte.dates}, ${deloitte.length}`],
                   ["Project", deloitte.project],
-                  ["How I got in", deloitte.route],
                 ].map(([k, v]) => (
                   <div key={k}>
                     <dt className="eyebrow">{k}</dt>
