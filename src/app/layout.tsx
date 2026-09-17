@@ -19,7 +19,7 @@ const display = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://adarshdwivedi.vercel.app"),
+  metadataBase: new URL("https://adarshdwivedi.site"),
   title: {
     default: `${IDENTITY.name} · ${IDENTITY.role}`,
     template: `%s · ${IDENTITY.name}`,

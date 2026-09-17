@@ -4,7 +4,7 @@ Personal site for Adarsh Dwivedi: 28 shipped projects across six domains, each w
 case study, the full competition record, the leadership work, and fourteen
 role-specific resumes.
 
-**Live:** https://adarshdwivedi.vercel.app
+**Live:** https://adarshdwivedi.site
 
 `portfolio` `nextjs` `react` `typescript` `tailwindcss` `framer-motion` `static-site`
 
