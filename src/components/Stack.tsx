@@ -15,7 +15,7 @@ import { EASE } from "./motion";
 const GROUPS = [
   {
     name: "Agents and LLMs",
-    items: ["LangGraph", "LangChain", "MCP", "Amazon Bedrock", "LangSmith", "DeepEval", "Ragas", "Langfuse"],
+    items: ["LangGraph", "LangChain", "MCP", "Amazon Bedrock", "Aegra", "Agent Protocol", "Playwright MCP", "Human-in-the-loop"],
   },
   {
     name: "Machine learning",
