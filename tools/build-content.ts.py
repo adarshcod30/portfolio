@@ -21,13 +21,13 @@ DOMAINS = [
      ["agentiq", "orbweaver", "openforensics", "medguardx", "specledger", "artifact"]),
     ("agents", "Agents and AI infrastructure",
      "The plumbing under AI products: routing, caching, tool layers, retrieval and evaluation.",
-     ["cachellm", "inflx", "travel", "orchestrate_sep", "evidence", "smartalloc"]),
+     ["cachellm", "inflx", "travel", "orchestrate_sep", "evidence", "router", "smartalloc"]),
     ("data", "Data and decision systems",
      "Turning a pile of records into a ranked queue somebody can actually work through.",
      ["creditsetu", "aircargo", "talent", "flipkart", "primetrademl", "costintel"]),
     ("systems", "Systems and foundations",
-     "Lower-level work: algorithms, C++20, WebAssembly and on-chain risk.",
-     ["graphsuite", "suiguard"]),
+     "Lower-level and backend work: algorithms, C++20, WebAssembly, on-chain risk and an AWS hiring pipeline.",
+     ["graphsuite", "suiguard", "hireflow"]),
 ]
 
 # richest narrative variant first; the rest are merged in for extra detail

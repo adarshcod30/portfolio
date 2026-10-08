@@ -1,6 +1,6 @@
 # adarshdwivedi
 
-Personal site for Adarsh Dwivedi: 28 shipped projects across six domains, each with a
+Personal site for Adarsh Dwivedi: 30 shipped projects across six domains, each with a
 case study, the full competition record, the leadership work, and fourteen
 role-specific resumes.
 
