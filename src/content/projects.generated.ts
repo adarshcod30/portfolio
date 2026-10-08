@@ -174,12 +174,12 @@ export const PROJECTS: Project[] = [
     shot: `/shots/agentiq.jpg?v=362c9710`,
     stack: [`Docker`, `Express`, `GitHub Actions`, `LLM Agents`, `MCP`, `Node.js`, `OpenAPI 3.1`, `Vitest`, `Zod`],
     highlights: [
-      `Autonomy only sells if it is accountable. Framed an agentic testing platform around one rule: an agent may act, but only through 19 schema-validated tools, each granted per host and audited.`,
+      `Autonomy only sells if it is accountable. Framed an agentic testing platform around one rule: an agent may act, but only through 21 schema-validated tools, each granted per host and audited.`,
       `Scoped it to the gap teams actually have, functional tests in one product and security tests in another, generating both from a URL and plain-English intent.`,
-      `Defined what counts as a finding rather than letting the model decide, comparing 8 OWASP API Top 10 families against a benign baseline. 674 tests gate every change.`,
+      `Defined what counts as a finding rather than letting the model decide, comparing 8 OWASP API Top 10 families against a benign baseline. 719 tests gate every change.`,
       `Built an API testing and security platform on Node.js and MCP that turns a URL and plain-English intent into executable test cases with status, JSONPath, header and body assertions, grounded in an imported OpenAPI 3.1 document.`,
-      `Designed the tool layer as 19 Zod-validated tools across 6 risk classes with per-host grants, a filesystem jail and a process sandbox, and isolated state-mutating endpoints so a test run cannot corrupt the target.`,
-      `Covered the system with 674 tests in CI and tied test-generation confidence to the handler source rather than to the model's own assertion.`,
+      `Designed the tool layer as 21 Zod-validated tools across 6 risk classes with per-host grants, a filesystem jail and a process sandbox, and isolated state-mutating endpoints so a test run cannot corrupt the target.`,
+      `Covered the system with 719 tests in CI and tied test-generation confidence to the handler source rather than to the model's own assertion.`,
     ],
   },
   {
