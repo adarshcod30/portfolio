@@ -47,7 +47,7 @@ export default function Home() {
       front: {
         p: pick("agentiq"),
         who: "For the engineers who ship APIs",
-        note: "Turns a URL and a plain-English intent into executable functional and security tests, with every agent action passing through 19 schema-validated tools that are granted per host and audited.",
+        note: "Turns a URL and a plain-English intent into executable functional and security tests, with every agent action passing through 21 schema-validated tools that are granted per host and audited.",
       },
     },
   ].filter((s) => s.back.p && s.front.p);
