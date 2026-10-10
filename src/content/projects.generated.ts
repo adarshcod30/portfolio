@@ -28,11 +28,11 @@ export const PROJECTS: Project[] = [
     stack: [`DBSCAN`, `Entity Resolution`, `Express`, `Forecasting`, `Graph`, `Graph Analytics`, `Node.js`, `Python`, `React`, `SQL`, `Serverless`, `TypeScript`, `Zoho Catalyst`],
     highlights: [
       `The Karnataka State Crime Records Bureau stated that fragmented station-level data blocked state-wide analysis. Scoped one product where a station sees its own slice and the bureau reads the whole state off the same graph.`,
-      `Shipped end to end over 50 days on Zoho Catalyst: command dashboard, case-linkage graph, offender watchlist, drillable map and a bilingual assistant, reaching Level 2 of the datathon.`,
+      `Shipped end to end over 50 days on Zoho Catalyst: command dashboard, case-linkage graph, offender watchlist, drillable map and a bilingual assistant, reaching Level 2 as a finalist in the datathon.`,
       `Chose to surface shared modus operandi as a ranked hypothesis rather than a name, so the tool could not read as an accusation, and paired every flagged case with a reason and a next action.`,
       `Built for users who cannot debug a model: a station officer gets a ranked case queue with a plain-language reason, while the bureau reads state-wide analysis off the same graph of 59,985 synthetic FIRs.`,
       `Set the responsible-AI boundary explicitly, ranking shared modus operandi as a hypothesis with a glass-box factor breakdown rather than naming a suspect.`,
-      `Shipped the full loop on Zoho Catalyst in 50 days, including an 0.870 AUC forecast, DBSCAN hotspots and evidence OCR, reaching Level 2 of the KSP Datathon.`,
+      `Shipped the full loop on Zoho Catalyst in 50 days, including an 0.870 AUC forecast, DBSCAN hotspots and evidence OCR, reaching Level 2 as a KSP Datathon finalist.`,
     ],
   },
   {
